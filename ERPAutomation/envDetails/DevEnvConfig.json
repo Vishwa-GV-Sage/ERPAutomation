@@ -1,0 +1,12 @@
+{
+	"inbox": {
+		"baseURL": "https://app.dev.lockstep.io/",
+		"user": "rushabh@grr.la",
+		"password": "143@Rushabh"
+	},
+	"intacct": {
+		"companyID": "BHJPP200A",
+		"userID": "yes",
+		"password": "Patel"
+	}
+}

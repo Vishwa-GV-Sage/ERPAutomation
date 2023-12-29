@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SanitySuite">
+    <test name="SanityTest">
+        <classes>
+            <class name="e2e.SanityTest" />
+        </classes>
+    </test>
+</suite>
+
