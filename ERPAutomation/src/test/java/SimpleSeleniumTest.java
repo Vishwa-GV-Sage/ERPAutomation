@@ -6,7 +6,7 @@ public class SimpleSeleniumTest {
 
     public static void main(String[] args) {
         // Set the path to the ChromeDriver executable
-        System.setProperty("webdriver.chrome.driver", "D:\\Users\\rushabh.patel\\eclipse-workspace\\ERPConnector\\driverExe\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\vishwanath.gv\\git\\ERPAutomation\\ERPAutomation\\driverExe\\chromedriver.exe");
 
         // Configure ChromeOptions if needed
         ChromeOptions options = new ChromeOptions();
