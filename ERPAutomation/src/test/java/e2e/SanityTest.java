@@ -49,6 +49,7 @@ public class SanityTest extends Helper {
 			restAPIPkg.InvoiceAPI invoiceApiObj = PageFactory.initElements(driver, restAPIPkg.InvoiceAPI.class);
 			//int expectedInvoiceAmount=500;
 			invoiceApiObj.checkIntacctInvoiceSyncStatus(jwtToken, expectedInvoiceAmount);
+			System.out.println("Invouce Sync");
 
 		} catch (Exception e) {
 			e.printStackTrace();
