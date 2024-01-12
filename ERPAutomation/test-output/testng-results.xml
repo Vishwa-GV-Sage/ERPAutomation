@@ -2,40 +2,40 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-12-28T16:10:20 IST" name="Sanity" finished-at="2023-12-28T16:10:38 IST" duration-ms="18614">
+  <suite started-at="2024-01-12T17:56:23 IST" name="Default suite" finished-at="2024-01-12T17:57:37 IST" duration-ms="74408">
     <groups>
     </groups>
-    <test started-at="2023-12-28T16:10:20 IST" name="Sanity" finished-at="2023-12-28T16:10:38 IST" duration-ms="18614">
-      <class name="SanityTest">
-        <test-method is-config="true" signature="beforeSuite()[pri:0, instance:SanityTest@4f6ee6e4]" started-at="2023-12-28T16:10:20 IST" name="beforeSuite" finished-at="2023-12-28T16:10:20 IST" duration-ms="6" status="PASS">
+    <test started-at="2024-01-12T17:56:23 IST" name="Default test" finished-at="2024-01-12T17:57:37 IST" duration-ms="74408">
+      <class name="e2e.SanityTest">
+        <test-method is-config="true" signature="beforeSuite()[pri:0, instance:e2e.SanityTest@76505305]" started-at="2024-01-12T17:56:23 IST" name="beforeSuite" finished-at="2024-01-12T17:56:23 IST" duration-ms="6" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeSuite -->
-        <test-method is-config="true" signature="beforeClass()[pri:0, instance:SanityTest@4f6ee6e4]" started-at="2023-12-28T16:10:20 IST" name="beforeClass" finished-at="2023-12-28T16:10:20 IST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="beforeClass()[pri:0, instance:e2e.SanityTest@76505305]" started-at="2024-01-12T17:56:23 IST" name="beforeClass" finished-at="2024-01-12T17:56:23 IST" duration-ms="4" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeClass -->
-        <test-method is-config="true" signature="beforeMethodClass()[pri:0, instance:SanityTest@4f6ee6e4]" started-at="2023-12-28T16:10:20 IST" name="beforeMethodClass" finished-at="2023-12-28T16:10:22 IST" duration-ms="2323" status="PASS">
+        <test-method is-config="true" signature="beforeMethodClass()[pri:0, instance:e2e.SanityTest@76505305]" started-at="2024-01-12T17:56:23 IST" name="beforeMethodClass" finished-at="2024-01-12T17:56:27 IST" duration-ms="4190" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethodClass -->
-        <test-method signature="verifyloginInbox()[pri:0, instance:SanityTest@4f6ee6e4]" started-at="2023-12-28T16:10:22 IST" name="verifyloginInbox" finished-at="2023-12-28T16:10:38 IST" duration-ms="16268" status="PASS">
+        <test-method signature="verify_Invoice_Sync_Functionality()[pri:0, instance:e2e.SanityTest@76505305]" started-at="2024-01-12T17:56:27 IST" name="verify_Invoice_Sync_Functionality" finished-at="2024-01-12T17:57:37 IST" duration-ms="70131" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- verifyloginInbox -->
-        <test-method is-config="true" signature="close()[pri:0, instance:SanityTest@4f6ee6e4]" started-at="2023-12-28T16:10:38 IST" name="close" finished-at="2023-12-28T16:10:38 IST" duration-ms="1" status="PASS">
+        </test-method> <!-- verify_Invoice_Sync_Functionality -->
+        <test-method is-config="true" signature="close()[pri:0, instance:e2e.SanityTest@76505305]" started-at="2024-01-12T17:57:37 IST" name="close" finished-at="2024-01-12T17:57:37 IST" duration-ms="55" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- close -->
-        <test-method is-config="true" signature="afterClass()[pri:0, instance:SanityTest@4f6ee6e4]" started-at="2023-12-28T16:10:38 IST" name="afterClass" finished-at="2023-12-28T16:10:38 IST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="afterClass()[pri:0, instance:e2e.SanityTest@76505305]" started-at="2024-01-12T17:57:37 IST" name="afterClass" finished-at="2024-01-12T17:57:37 IST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterClass -->
-        <test-method is-config="true" signature="afterSuite()[pri:0, instance:SanityTest@4f6ee6e4]" started-at="2023-12-28T16:10:38 IST" name="afterSuite" finished-at="2023-12-28T16:10:39 IST" duration-ms="112" status="PASS">
+        <test-method is-config="true" signature="afterSuite()[pri:0, instance:e2e.SanityTest@76505305]" started-at="2024-01-12T17:57:37 IST" name="afterSuite" finished-at="2024-01-12T17:57:38 IST" duration-ms="408" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterSuite -->
-      </class> <!-- SanityTest -->
-    </test> <!-- Sanity -->
-  </suite> <!-- Sanity -->
+      </class> <!-- e2e.SanityTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>

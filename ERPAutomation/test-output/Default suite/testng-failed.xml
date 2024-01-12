@@ -3,17 +3,17 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="SampleTest">
+      <class name="e2e.SanityTest">
         <methods>
           <include name="beforeSuite"/>
+          <include name="verify_Invoice_Sync_Functionality"/>
           <include name="close"/>
           <include name="beforeMethodClass"/>
           <include name="afterClass"/>
           <include name="afterSuite"/>
-          <include name="verifyloginInbox"/>
           <include name="beforeClass"/>
         </methods>
-      </class> <!-- SampleTest -->
+      </class> <!-- e2e.SanityTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -1,12 +1,24 @@
 {
 	"inbox": {
-		"baseURL": "https://app.dev.lockstep.io/",
-		"user": "rushabh@grr.la",
-		"password": "143@Rushabh"
+		"baseURL": "https://app.dev.lockstep.io",
+		"user": "batchsync9@grr.la",
+		"password": "Vishwa@123"
 	},
 	"intacct": {
-		"companyID": "BHJPP200A",
-		"userID": "yes",
-		"password": "Patel"
+		"baseURL": "https://www.intacct.com/ia/acct/login.phtml?.loggingout=1&.sess=PLcO925ksMBPfBjpNg3BL2IVwE58GDy3DvduZsoUT3wY6TYNwQDBtsBP",
+		"companyID": "e2b Teknologies-DEV",
+		"userID": "Admin2",
+		"password": "Lockstep@123"
+	},
+	"lockStepApi": {
+		"baseURL": "https://api.dev.lockstep.io",
+		"swaggerURL": "https://api.dev.lockstep.io/swagger/index.html"
+	},
+	"invoiceApi": {
+		"baseURL": "https://app.dev.lockstep.io/"
+	},
+	"appID": {
+		"intacct": "00000000-0000-0000-0000-000000000004",
+		"sage50": "00000000-0000-0000-0004-000000000001"
 	}
 }
