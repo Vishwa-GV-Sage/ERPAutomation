@@ -89,7 +89,7 @@ public class HomePage {
 		// Define the desired date format
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-		// Get the current date
+		// Get the current date.
 		LocalDate currentDate = LocalDate.now();
 
 		// Format the current date as a string
