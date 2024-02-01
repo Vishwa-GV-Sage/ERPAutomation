@@ -3,17 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="SampleTest">
+      <class name="e2e.VerifyPartialSync2">
         <methods>
-          <include name="beforeSuite"/>
-          <include name="close"/>
-          <include name="beforeMethodClass"/>
-          <include name="afterClass"/>
-          <include name="afterSuite"/>
-          <include name="verifyloginInbox"/>
-          <include name="beforeClass"/>
+          <include name="login"/>
         </methods>
-      </class> <!-- SampleTest -->
+      </class> <!-- e2e.VerifyPartialSync2 -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

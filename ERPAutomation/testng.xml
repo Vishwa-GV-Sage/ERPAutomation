@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="EndtoEndTesting">
+  <test thread-count="5" name="Test">
+    <classes>
+      <class name="e2e.VerfiyCompanySync"/>
+      <class name="e2e.VerifyLoginTest"/>
+      <class name="e2e.VerifyPartialSync2"/>
+      <class name="e2e.VerfiyPaymentSync"/>
+      <class name="e2e.VerifyPartialSync"/>
+      <class name="e2e.VerfiyCreditMemoSync"/>
+      <class name="e2e.VerfiyFullSync"/>
+      <class name="e2e.VerfiyInvoiceSync"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- EndtoEndTesting -->

@@ -26,7 +26,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 1 failed test</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -39,8 +39,8 @@
       <div class="suite">
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
-            <a href="#" panel-name="suite-Sanity" class="navigator-link">
-              <span class="suite-name border-passed">Sanity</span>
+            <a href="#" panel-name="suite-Default_suite" class="navigator-link">
+              <span class="suite-name border-failed">Default suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -50,37 +50,37 @@
             <div class="suite-section-content">
               <ul>
                 <li>
-                  <a href="#" panel-name="test-xml-Sanity" class="navigator-link ">
-                    <span>D:\Users\rushabh.patel\eclipse-workspace\ERPAutomation\src\test\resources\testng.xml</span>
+                  <a href="#" panel-name="test-xml-Default_suite" class="navigator-link ">
+                    <span>C:\Users\vishwanath.gv\AppData\Local\Temp\testng-eclipse-2055945755\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" panel-name="testlist-Sanity" class="navigator-link ">
+                  <a href="#" panel-name="testlist-Default_suite" class="navigator-link ">
                     <span class="test-stats">1 test</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" panel-name="group-Sanity" class="navigator-link ">
+                  <a href="#" panel-name="group-Default_suite" class="navigator-link ">
                     <span>0 groups</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" panel-name="times-Sanity" class="navigator-link ">
+                  <a href="#" panel-name="times-Default_suite" class="navigator-link ">
                     <span>Times</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" panel-name="reporter-Sanity" class="navigator-link ">
+                  <a href="#" panel-name="reporter-Default_suite" class="navigator-link ">
                     <span>Reporter output</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" panel-name="ignored-methods-Sanity" class="navigator-link ">
+                  <a href="#" panel-name="ignored-methods-Default_suite" class="navigator-link ">
                     <span>Ignored methods</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" panel-name="chronological-Sanity" class="navigator-link ">
+                  <a href="#" panel-name="chronological-Default_suite" class="navigator-link ">
                     <span>Chronological view</span>
                   </a> <!-- navigator-link  -->
                 </li>
@@ -93,21 +93,105 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method,   1 passed</span>
+                    <span class="method-stats">16 methods, 1 failed,   15 passed</span>
+                  </li>
+                  <li>
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-Default_suite" class="hide-methods failed suite-Default_suite"> (hide)</a> <!-- hide-methods failed suite-Default_suite -->
+                      <a href="#" panel-name="suite-Default_suite" class="show-methods failed suite-Default_suite"> (show)</a> <!-- show-methods failed suite-Default_suite -->
+                    </span>
+                    <div class="method-list-content failed suite-Default_suite">
+                      <span>
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerifyPartialSync2" class="method navigator-link" hash-for-method="login">login</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content failed suite-Default_suite -->
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
                     <span class="show-or-hide-methods passed">
-                      <a href="#" panel-name="suite-Sanity" class="hide-methods passed suite-Sanity"> (hide)</a> <!-- hide-methods passed suite-Sanity -->
-                      <a href="#" panel-name="suite-Sanity" class="show-methods passed suite-Sanity"> (show)</a> <!-- show-methods passed suite-Sanity -->
+                      <a href="#" panel-name="suite-Default_suite" class="hide-methods passed suite-Default_suite"> (hide)</a> <!-- hide-methods passed suite-Default_suite -->
+                      <a href="#" panel-name="suite-Default_suite" class="show-methods passed suite-Default_suite"> (show)</a> <!-- show-methods passed suite-Default_suite -->
                     </span>
-                    <div class="method-list-content passed suite-Sanity">
+                    <div class="method-list-content passed suite-Default_suite">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Sanity" title="SanityTest" class="method navigator-link" hash-for-method="verifyloginInbox">verifyloginInbox</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerfiyCompanySync" class="method navigator-link" hash-for-method="companySync">companySync</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                    </div> <!-- method-list-content passed suite-Sanity -->
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerfiyCreditMemoSync" class="method navigator-link" hash-for-method="creditMemoSync">creditMemoSync</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerfiyFullSync" class="method navigator-link" hash-for-method="initiateFullSync">initiateFullSync</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerifyPartialSync" class="method navigator-link" hash-for-method="initiateFullSync">initiateFullSync</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerfiyCreditMemoSync" class="method navigator-link" hash-for-method="initiateFullSync">initiateFullSync</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerfiyCompanySync" class="method navigator-link" hash-for-method="initiateFullSync">initiateFullSync</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerfiyInvoiceSync" class="method navigator-link" hash-for-method="initiateFullSync">initiateFullSync</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerfiyPaymentSync" class="method navigator-link" hash-for-method="initiateFullSync">initiateFullSync</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerfiyPaymentSync" class="method navigator-link" hash-for-method="verifyloginInbox">verifyloginInbox</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerifyLoginTest" class="method navigator-link" hash-for-method="verifyloginInbox">verifyloginInbox</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerfiyCreditMemoSync" class="method navigator-link" hash-for-method="verifyloginInbox">verifyloginInbox</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerfiyCompanySync" class="method navigator-link" hash-for-method="verifyloginInbox">verifyloginInbox</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerfiyFullSync" class="method navigator-link" hash-for-method="verifyloginInbox">verifyloginInbox</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerfiyInvoiceSync" class="method navigator-link" hash-for-method="verifyloginInbox">verifyloginInbox</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="e2e.VerifyPartialSync" class="method navigator-link" hash-for-method="verifyloginInbox">verifyloginInbox</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content passed suite-Default_suite -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -118,11 +202,135 @@
     </div> <!-- navigator-root -->
     <div class="wrapper">
       <div class="main-panel-root">
-        <div panel-name="suite-Sanity" class="panel Sanity">
-          <div class="suite-Sanity-class-passed">
+        <div panel-name="suite-Default_suite" class="panel Default_suite">
+          <div class="suite-Default_suite-class-failed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="failed.png"/>
+              <span class="class-name">e2e.VerifyPartialSync2</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="login">
+                  </a> <!-- login -->
+                  <span class="method-name">login</span>
+                  <div class="stack-trace">java.lang.AssertionError: expected [https://app.dev.lockstep.io/] but found [https://login.dev.lockstep.io/login.dev.lockstep.io/B2C_1A_Platformsignup_signin/api/SelfAsserted/confirmed?csrf_token=WWFVZHZKS2RQODM3aDZrU2paSGVQU2FCa3NQRUlacGtvUGluNlRNN3M3ZjNmUGIyZnpnekJwcm5IbDZjRzlyWUlIRHZjeTJhRVRqVEMzU1pwOGNJVHc9PTsyMDI0LTAyLTAxVDA4OjM0OjUxLjA3OTk3Mlo7enJ1c3E5bS9XMHNHb3ZCNmQ4a21wUT09O3siVGFyZ2V0RW50aXR5IjoiU2VsZi1Bc3NlcnREaXNhYmxlZFVzZXJQYWdlIiwiT3JjaGVzdHJhdGlvblN0ZXAiOjd9&amp;tx=StateProperties=eyJUSUQiOiJkMTVlYTVhMS0xYjU1LTQyNTMtODIxNy03YmNmMmY4MDJkZDMifQ&amp;p=B2C_1A_Platformsignup_signin&amp;diags=%7B%22pageViewId%22%3A%223de947c0-6605-4c72-aa70-305b0725a732%22%2C%22pageId%22%3A%22SelfAsserted%22%2C%22trace%22%3A%5B%7B%22ac%22%3A%22T005%22%2C%22acST%22%3A1706776493%2C%22acD%22%3A7%7D%2C%7B%22ac%22%3A%22T021%20-%20URL%3Ahttps%3A%2F%2Flockstepstoragedev.blob.core.windows.net%2Fb2c-auth-page-layouts%2Flayout%2FPlatformSelfAssertedLSAPI.html%22%2C%22acST%22%3A1706776493%2C%22acD%22%3A518%7D%2C%7B%22ac%22%3A%22T019%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A5%7D%2C%7B%22ac%22%3A%22T004%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A4%7D%2C%7B%22ac%22%3A%22T003%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A1%7D%2C%7B%22ac%22%3A%22T035%22%2C%22acST%22%3A1706776495%2C%22acD%22%3A0%7D%2C%7B%22ac%22%3A%22T030Online%22%2C%22acST%22%3A1706776495%2C%22acD%22%3A0%7D%2C%7B%22ac%22%3A%22T017T010%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A1508%7D%2C%7B%22ac%22%3A%22T002%22%2C%22acST%22%3A1706776495%2C%22acD%22%3A0%7D%2C%7B%22ac%22%3A%22T017T010%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A1509%7D%5D%7D]
+	at org.testng.Assert.fail(Assert.java:99)
+	at org.testng.Assert.failNotEquals(Assert.java:1037)
+	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
+	at org.testng.Assert.assertEquals(Assert.java:122)
+	at org.testng.Assert.assertEquals(Assert.java:629)
+	at org.testng.Assert.assertEquals(Assert.java:639)
+	at e2e.VerifyPartialSync2.login(VerifyPartialSync2.java:38)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:794)
+	at org.testng.TestRunner.run(TestRunner.java:596)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
+	at org.testng.TestNG.runSuites(TestNG.java:1063)
+	at org.testng.TestNG.run(TestNG.java:1031)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Default_suite-class-failed -->
+          <div class="suite-Default_suite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
-              <span class="class-name">SanityTest</span>
+              <span class="class-name">e2e.VerfiyInvoiceSync</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="initiateFullSync">
+                  </a> <!-- initiateFullSync -->
+                  <span class="method-name">initiateFullSync</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="verifyloginInbox">
+                  </a> <!-- verifyloginInbox -->
+                  <span class="method-name">verifyloginInbox</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Default_suite-class-passed -->
+          <div class="suite-Default_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">e2e.VerfiyPaymentSync</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="initiateFullSync">
+                  </a> <!-- initiateFullSync -->
+                  <span class="method-name">initiateFullSync</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="verifyloginInbox">
+                  </a> <!-- verifyloginInbox -->
+                  <span class="method-name">verifyloginInbox</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Default_suite-class-passed -->
+          <div class="suite-Default_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">e2e.VerfiyCompanySync</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="companySync">
+                  </a> <!-- companySync -->
+                  <span class="method-name">companySync</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="initiateFullSync">
+                  </a> <!-- initiateFullSync -->
+                  <span class="method-name">initiateFullSync</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="verifyloginInbox">
+                  </a> <!-- verifyloginInbox -->
+                  <span class="method-name">verifyloginInbox</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Default_suite-class-passed -->
+          <div class="suite-Default_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">e2e.VerifyLoginTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
@@ -133,123 +341,586 @@
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-Sanity-class-passed -->
-        </div> <!-- panel Sanity -->
-        <div panel-name="test-xml-Sanity" class="panel">
+          </div> <!-- suite-Default_suite-class-passed -->
+          <div class="suite-Default_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">e2e.VerifyPartialSync</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="initiateFullSync">
+                  </a> <!-- initiateFullSync -->
+                  <span class="method-name">initiateFullSync</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="verifyloginInbox">
+                  </a> <!-- verifyloginInbox -->
+                  <span class="method-name">verifyloginInbox</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Default_suite-class-passed -->
+          <div class="suite-Default_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">e2e.VerfiyFullSync</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="initiateFullSync">
+                  </a> <!-- initiateFullSync -->
+                  <span class="method-name">initiateFullSync</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="verifyloginInbox">
+                  </a> <!-- verifyloginInbox -->
+                  <span class="method-name">verifyloginInbox</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Default_suite-class-passed -->
+          <div class="suite-Default_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">e2e.VerfiyCreditMemoSync</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="creditMemoSync">
+                  </a> <!-- creditMemoSync -->
+                  <span class="method-name">creditMemoSync</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="initiateFullSync">
+                  </a> <!-- initiateFullSync -->
+                  <span class="method-name">initiateFullSync</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="verifyloginInbox">
+                  </a> <!-- verifyloginInbox -->
+                  <span class="method-name">verifyloginInbox</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Default_suite-class-passed -->
+        </div> <!-- panel Default_suite -->
+        <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">D:\Users\rushabh.patel\eclipse-workspace\ERPAutomation\src\test\resources\testng.xml</span>
+            <span class="header-content">C:\Users\vishwanath.gv\AppData\Local\Temp\testng-eclipse-2055945755\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
-&lt;suite name=&quot;Sanity&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
-  &lt;parameter name=&quot;configFile&quot; value=&quot;${configFile}&quot;/&gt;
-  &lt;test thread-count=&quot;5&quot; name=&quot;Sanity&quot;&gt;
+&lt;suite name=&quot;Default suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
+  &lt;test thread-count=&quot;5&quot; name=&quot;Default test&quot; verbose=&quot;2&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;SanityTest&quot;/&gt;
+      &lt;class name=&quot;e2e.VerfiyCreditMemoSync&quot;/&gt;
+      &lt;class name=&quot;frameworkPkg.ChromeDriverUpdater&quot;/&gt;
+      &lt;class name=&quot;SimpleSeleniumTest&quot;/&gt;
+      &lt;class name=&quot;inboxUiPkg.CreditMemoPage&quot;/&gt;
+      &lt;class name=&quot;e2e.VerifyLoginTest&quot;/&gt;
+      &lt;class name=&quot;inboxUiPkg.HomePage&quot;/&gt;
+      &lt;class name=&quot;e2e.VerfiyCompanySync&quot;/&gt;
+      &lt;class name=&quot;e2e.VerifyPartialSync2&quot;/&gt;
+      &lt;class name=&quot;frameworkPkg.Helper&quot;/&gt;
+      &lt;class name=&quot;e2e.VerfiyInvoiceSync&quot;/&gt;
+      &lt;class name=&quot;frameworkPkg.ReadEnvConfigJSON&quot;/&gt;
+      &lt;class name=&quot;inboxUiPkg.CompanyPage&quot;/&gt;
+      &lt;class name=&quot;e2e.VerifyPartialSync&quot;/&gt;
+      &lt;class name=&quot;e2e.VerfiyFullSync&quot;/&gt;
+      &lt;class name=&quot;e2e.VerfiyPaymentSync&quot;/&gt;
+      &lt;class name=&quot;frameworkPkg.BrowserFactory&quot;/&gt;
+      &lt;class name=&quot;inboxUiPkg.LoginPage&quot;/&gt;
     &lt;/classes&gt;
-  &lt;/test&gt; &lt;!-- Sanity --&gt;
-&lt;/suite&gt; &lt;!-- Sanity --&gt;
+  &lt;/test&gt; &lt;!-- Default test --&gt;
+&lt;/suite&gt; &lt;!-- Default suite --&gt;
             </pre>
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="testlist-Sanity" class="panel">
+        <div panel-name="testlist-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">Tests for Sanity</span>
+            <span class="header-content">Tests for Default suite</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">Sanity (1 class)</span>
+                <span class="test-name">Default test (17 classes)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="group-Sanity" class="panel">
+        <div panel-name="group-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">Groups for Sanity</span>
+            <span class="header-content">Groups for Default suite</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="times-Sanity" class="panel">
+        <div panel-name="times-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">Times for Sanity</span>
+            <span class="header-content">Times for Default suite</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="times-div">
               <script type="text/javascript">
-suiteTableInitFunctions.push('tableData_Sanity');
-function tableData_Sanity() {
+suiteTableInitFunctions.push('tableData_Default_suite');
+function tableData_Default_suite() {
 var data = new google.visualization.DataTable();
 data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(1);
+data.addRows(16);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'verifyloginInbox')
-data.setCell(0, 2, 'SanityTest')
-data.setCell(0, 3, 16268);
-window.suiteTableData['Sanity']= { tableData: data, tableDiv: 'times-div-Sanity'}
+data.setCell(0, 2, 'e2e.VerifyLoginTest')
+data.setCell(0, 3, 40083);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'verifyloginInbox')
+data.setCell(1, 2, 'e2e.VerfiyFullSync')
+data.setCell(1, 3, 31069);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'verifyloginInbox')
+data.setCell(2, 2, 'e2e.VerfiyPaymentSync')
+data.setCell(2, 3, 31067);
+data.setCell(3, 0, 3)
+data.setCell(3, 1, 'verifyloginInbox')
+data.setCell(3, 2, 'e2e.VerifyPartialSync')
+data.setCell(3, 3, 31062);
+data.setCell(4, 0, 4)
+data.setCell(4, 1, 'verifyloginInbox')
+data.setCell(4, 2, 'e2e.VerfiyCompanySync')
+data.setCell(4, 3, 31055);
+data.setCell(5, 0, 5)
+data.setCell(5, 1, 'verifyloginInbox')
+data.setCell(5, 2, 'e2e.VerfiyInvoiceSync')
+data.setCell(5, 3, 31054);
+data.setCell(6, 0, 6)
+data.setCell(6, 1, 'verifyloginInbox')
+data.setCell(6, 2, 'e2e.VerfiyCreditMemoSync')
+data.setCell(6, 3, 30213);
+data.setCell(7, 0, 7)
+data.setCell(7, 1, 'creditMemoSync')
+data.setCell(7, 2, 'e2e.VerfiyCreditMemoSync')
+data.setCell(7, 3, 30060);
+data.setCell(8, 0, 8)
+data.setCell(8, 1, 'initiateFullSync')
+data.setCell(8, 2, 'e2e.VerfiyPaymentSync')
+data.setCell(8, 3, 30055);
+data.setCell(9, 0, 9)
+data.setCell(9, 1, 'initiateFullSync')
+data.setCell(9, 2, 'e2e.VerifyPartialSync')
+data.setCell(9, 3, 30048);
+data.setCell(10, 0, 10)
+data.setCell(10, 1, 'initiateFullSync')
+data.setCell(10, 2, 'e2e.VerfiyFullSync')
+data.setCell(10, 3, 30045);
+data.setCell(11, 0, 11)
+data.setCell(11, 1, 'initiateFullSync')
+data.setCell(11, 2, 'e2e.VerfiyInvoiceSync')
+data.setCell(11, 3, 30040);
+data.setCell(12, 0, 12)
+data.setCell(12, 1, 'initiateFullSync')
+data.setCell(12, 2, 'e2e.VerfiyCreditMemoSync')
+data.setCell(12, 3, 30037);
+data.setCell(13, 0, 13)
+data.setCell(13, 1, 'companySync')
+data.setCell(13, 2, 'e2e.VerfiyCompanySync')
+data.setCell(13, 3, 30025);
+data.setCell(14, 0, 14)
+data.setCell(14, 1, 'initiateFullSync')
+data.setCell(14, 2, 'e2e.VerfiyCompanySync')
+data.setCell(14, 3, 30018);
+data.setCell(15, 0, 15)
+data.setCell(15, 1, 'login')
+data.setCell(15, 2, 'e2e.VerifyPartialSync2')
+data.setCell(15, 3, 29984);
+window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 16 seconds</span>
-              <div id="times-div-Sanity">
-              </div> <!-- times-div-Sanity -->
+              <span class="suite-total-time">Total running time: 8 minutes</span>
+              <div id="times-div-Default_suite">
+              </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="reporter-Sanity" class="panel">
+        <div panel-name="reporter-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">Reporter output for Sanity</span>
+            <span class="header-content">Reporter output for Default suite</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="ignored-methods-Sanity" class="panel">
+        <div panel-name="ignored-methods-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">0 ignored methods</span>
+            <span class="header-content">14 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">e2e.VerfiyInvoiceSync</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">beforeSuite</span>
+                <br/>
+                <span class="ignored-method-name">afterSuite</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">frameworkPkg.Helper</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">beforeSuite</span>
+                <br/>
+                <span class="ignored-method-name">afterSuite</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">e2e.VerfiyPaymentSync</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">beforeSuite</span>
+                <br/>
+                <span class="ignored-method-name">afterSuite</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">e2e.VerfiyCompanySync</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">beforeSuite</span>
+                <br/>
+                <span class="ignored-method-name">afterSuite</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">e2e.VerifyPartialSync</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">beforeSuite</span>
+                <br/>
+                <span class="ignored-method-name">afterSuite</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">e2e.VerifyLoginTest</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">beforeSuite</span>
+                <br/>
+                <span class="ignored-method-name">afterSuite</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">e2e.VerfiyFullSync</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">beforeSuite</span>
+                <br/>
+                <span class="ignored-method-name">afterSuite</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="chronological-Sanity" class="panel">
+        <div panel-name="chronological-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
             <span class="header-content">Methods in chronological order</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">SanityTest</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">e2e.VerfiyCreditMemoSync</div> <!-- chronological-class-name -->
               <div class="configuration-suite before">
                 <span class="method-name">beforeSuite</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-suite before -->
               <div class="configuration-class before">
                 <span class="method-name">beforeClass</span>
-                <span class="method-start">18 ms</span>
+                <span class="method-start">40 ms</span>
               </div> <!-- configuration-class before -->
               <div class="configuration-method before">
                 <span class="method-name">beforeMethodClass</span>
-                <span class="method-start">24 ms</span>
+                <span class="method-start">52 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">verifyloginInbox</span>
-                <span class="method-start">2348 ms</span>
+                <span class="method-start">4570 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">close</span>
-                <span class="method-start">18618 ms</span>
+                <span class="method-start">34805 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethodClass</span>
+                <span class="method-start">34811 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">initiateFullSync</span>
+                <span class="method-start">34814 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">close</span>
+                <span class="method-start">64856 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethodClass</span>
+                <span class="method-start">64858 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">creditMemoSync</span>
+                <span class="method-start">64861 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">close</span>
+                <span class="method-start">94921 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-class after">
                 <span class="method-name">afterClass</span>
-                <span class="method-start">18619 ms</span>
+                <span class="method-start">94935 ms</span>
               </div> <!-- configuration-class after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">e2e.VerifyLoginTest</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethodClass</span>
+                <span class="method-start">94937 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-class before">
+                <span class="method-name">beforeClass</span>
+                <span class="method-start">94937 ms</span>
+              </div> <!-- configuration-class before -->
+              <div class="test-method">
+                <span class="method-name">verifyloginInbox</span>
+                <span class="method-start">94937 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">close</span>
+                <span class="method-start">135027 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-class after">
+                <span class="method-name">afterClass</span>
+                <span class="method-start">135029 ms</span>
+              </div> <!-- configuration-class after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">e2e.VerfiyCompanySync</div> <!-- chronological-class-name -->
+              <div class="configuration-class before">
+                <span class="method-name">beforeClass</span>
+                <span class="method-start">135029 ms</span>
+              </div> <!-- configuration-class before -->
+              <div class="test-method">
+                <span class="method-name">verifyloginInbox</span>
+                <span class="method-start">135037 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethodClass</span>
+                <span class="method-start">135037 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method after">
+                <span class="method-name">close</span>
+                <span class="method-start">166097 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethodClass</span>
+                <span class="method-start">166101 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">initiateFullSync</span>
+                <span class="method-start">166103 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">close</span>
+                <span class="method-start">196129 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethodClass</span>
+                <span class="method-start">196133 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">companySync</span>
+                <span class="method-start">196136 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">close</span>
+                <span class="method-start">226166 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-class after">
+                <span class="method-name">afterClass</span>
+                <span class="method-start">226170 ms</span>
+              </div> <!-- configuration-class after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">e2e.VerifyPartialSync2</div> <!-- chronological-class-name -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">login</span>
+                <span class="method-start">226171 ms</span>
+              </div> <!-- test-method -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">e2e.VerfiyInvoiceSync</div> <!-- chronological-class-name -->
+              <div class="configuration-class before">
+                <span class="method-name">beforeClass</span>
+                <span class="method-start">256161 ms</span>
+              </div> <!-- configuration-class before -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethodClass</span>
+                <span class="method-start">256165 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">verifyloginInbox</span>
+                <span class="method-start">256168 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">close</span>
+                <span class="method-start">287225 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethodClass</span>
+                <span class="method-start">287229 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">initiateFullSync</span>
+                <span class="method-start">287233 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">close</span>
+                <span class="method-start">317278 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-class after">
+                <span class="method-name">afterClass</span>
+                <span class="method-start">317280 ms</span>
+              </div> <!-- configuration-class after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">e2e.VerifyPartialSync</div> <!-- chronological-class-name -->
+              <div class="configuration-class before">
+                <span class="method-name">beforeClass</span>
+                <span class="method-start">317281 ms</span>
+              </div> <!-- configuration-class before -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethodClass</span>
+                <span class="method-start">317285 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">verifyloginInbox</span>
+                <span class="method-start">317288 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">close</span>
+                <span class="method-start">348357 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethodClass</span>
+                <span class="method-start">348361 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">initiateFullSync</span>
+                <span class="method-start">348365 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">close</span>
+                <span class="method-start">378422 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-class after">
+                <span class="method-name">afterClass</span>
+                <span class="method-start">378426 ms</span>
+              </div> <!-- configuration-class after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">e2e.VerfiyFullSync</div> <!-- chronological-class-name -->
+              <div class="configuration-class before">
+                <span class="method-name">beforeClass</span>
+                <span class="method-start">378428 ms</span>
+              </div> <!-- configuration-class before -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethodClass</span>
+                <span class="method-start">378437 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">verifyloginInbox</span>
+                <span class="method-start">378444 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">close</span>
+                <span class="method-start">409522 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethodClass</span>
+                <span class="method-start">409526 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">initiateFullSync</span>
+                <span class="method-start">409530 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">close</span>
+                <span class="method-start">439593 ms</span>
+              </div> <!-- configuration-method after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">e2e.VerfiyPaymentSync</div> <!-- chronological-class-name -->
+              <div class="configuration-class before">
+                <span class="method-name">beforeClass</span>
+                <span class="method-start">439596 ms</span>
+              </div> <!-- configuration-class before -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">e2e.VerfiyFullSync</div> <!-- chronological-class-name -->
+              <div class="configuration-class after">
+                <span class="method-name">afterClass</span>
+                <span class="method-start">439596 ms</span>
+              </div> <!-- configuration-class after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">e2e.VerfiyPaymentSync</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethodClass</span>
+                <span class="method-start">439609 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">verifyloginInbox</span>
+                <span class="method-start">439615 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">close</span>
+                <span class="method-start">470690 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethodClass</span>
+                <span class="method-start">470690 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">initiateFullSync</span>
+                <span class="method-start">470699 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">close</span>
+                <span class="method-start">500761 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-class after">
+                <span class="method-name">afterClass</span>
+                <span class="method-start">500761 ms</span>
+              </div> <!-- configuration-class after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">e2e.VerfiyCreditMemoSync</div> <!-- chronological-class-name -->
               <div class="configuration-suite after">
                 <span class="method-name">afterSuite</span>
-                <span class="method-start">18671 ms</span>
+                <span class="method-start">500896 ms</span>
               </div> <!-- configuration-suite after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
