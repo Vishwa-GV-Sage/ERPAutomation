@@ -1,2 +1,6 @@
 /target/
+<<<<<<< HEAD
 /allure-results/
+=======
+/test-output/
+>>>>>>> a97685155d450f2674ea184ebf4c4c6a468b8cd8
