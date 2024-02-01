@@ -158,7 +158,7 @@ public class InvoiceAPI extends Helper {
 
 			boolean isInProgress = false;
 			int attemptCount = 0;
-			int maxAttempts = 1;
+			int maxAttempts = 12;
 
 			do {
 				// Make the GET request using RestAssured
@@ -178,7 +178,7 @@ public class InvoiceAPI extends Helper {
 
 				// Add a delay before the next request
 				try {
-					Thread.sleep(5000); // Sleep for 5 second (adjust as needed)
+					Thread.sleep(10000); // Sleep for 5 second (adjust as needed)
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
