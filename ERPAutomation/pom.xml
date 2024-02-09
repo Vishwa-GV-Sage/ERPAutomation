@@ -41,34 +41,18 @@
 			<version>5.3.0</version>
 			
 		</dependency>
-<<<<<<< HEAD
+
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.4.0</version> <!-- Use the latest version available -->
         </dependency>
-        
-        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
-<dependency>
-    <groupId>io.qameta.allure</groupId>
-    <artifactId>allure-testng</artifactId>
-    <version>2.20.0</version>
-</dependency>
-
-        
-    </dependencies>
-=======
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>7.4.0</version> <!-- Use the latest version available -->
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.17.2</version>
-		</dependency>
+        <dependency>
+        	<groupId>licious</groupId>
+        	<artifactId>websiteautomation</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
+        </dependency>
 	</dependencies>
->>>>>>> a97685155d450f2674ea184ebf4c4c6a468b8cd8
+
+	
 </project>

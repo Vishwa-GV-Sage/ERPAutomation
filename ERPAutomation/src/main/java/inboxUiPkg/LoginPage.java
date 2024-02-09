@@ -12,17 +12,11 @@ import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-<<<<<<< HEAD
-
-public class LoginPage {
-	
-=======
 import frameworkPkg.BrowserFactory;
 import frameworkPkg.Helper;
 
 public class LoginPage extends Helper {
 
->>>>>>> a97685155d450f2674ea184ebf4c4c6a468b8cd8
 	WebDriver driver;
 
 	public LoginPage(WebDriver driver) {

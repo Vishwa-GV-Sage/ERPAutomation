@@ -1,1 +1,0 @@
-{"uuid":"47d4025a-0316-4bee-8a37-08ae385bed64","name":"frameworkPkg.Helper.close","children":["8f22f300-c86e-439a-9c28-c3e1559be058"],"description":"","befores":[],"afters":[{"name":"close","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1704891875205,"stop":1704891875205}],"start":1704891875205,"stop":1704891875205}

@@ -2,12 +2,17 @@
 	"inbox": {
 <<<<<<< HEAD
 		"baseURL": "https://app.dev.lockstep.io/",
+<<<<<<< HEAD
 		"user": "scorpio@grr.la",
 =======
 		"baseURL": "https://app.dev.lockstep.io",
 		"user": "batchsync9@grr.la",
 >>>>>>> a97685155d450f2674ea184ebf4c4c6a468b8cd8
 		"password": "Vishwa@123"
+=======
+		"user": "rushabh@grr.la",
+		"password": "143@Rushabh"
+>>>>>>> parent of 27a226d (End to End tescases and Allure Reporting)
 	},
 	"intacct": {
 		"baseURL": "https://www.intacct.com/ia/acct/login.phtml?.loggingout=1&.sess=PLcO925ksMBPfBjpNg3BL2IVwE58GDy3DvduZsoUT3wY6TYNwQDBtsBP",

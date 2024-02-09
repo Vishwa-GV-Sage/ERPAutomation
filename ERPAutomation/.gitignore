@@ -1,6 +1,9 @@
 /target/
 <<<<<<< HEAD
+<<<<<<< HEAD
 /allure-results/
 =======
 /test-output/
 >>>>>>> a97685155d450f2674ea184ebf4c4c6a468b8cd8
+=======
+>>>>>>> parent of 27a226d (End to End tescases and Allure Reporting)

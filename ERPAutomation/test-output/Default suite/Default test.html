@@ -55,8 +55,9 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Default test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>15/1/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>1/0/0</td>
 </tr><tr>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <td>Started on:</td><td>Thu Feb 01 14:00:42 IST 2024</td>
 </tr>
@@ -66,6 +67,11 @@ function toggleAllBoxes() {
 </tr>
 <tr><td>Total time:</td><td>74 seconds (74408 ms)</td>
 >>>>>>> a97685155d450f2674ea184ebf4c4c6a468b8cd8
+=======
+<td>Started on:</td><td>Thu Dec 28 14:59:25 IST 2023</td>
+</tr>
+<tr><td>Total time:</td><td>36 seconds (36019 ms)</td>
+>>>>>>> parent of 27a226d (End to End tescases and Allure Reporting)
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -73,88 +79,6 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
-<table width='100%' border='1' class='invocation-failed'>
-<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
-<tr><td><b>Test method</b></td>
-<td width="30%"><b>Exception</b></td>
-<td width="10%"><b>Time (seconds)</b></td>
-<td><b>Instance</b></td>
-</tr>
-<tr>
-<td title='e2e.VerifyPartialSync2.login()'><b>login</b><br>Test class: e2e.VerifyPartialSync2</td>
-<td><div><pre>java.lang.AssertionError: expected [https://app.dev.lockstep.io/] but found [https://login.dev.lockstep.io/login.dev.lockstep.io/B2C_1A_Platformsignup_signin/api/SelfAsserted/confirmed?csrf_token=WWFVZHZKS2RQODM3aDZrU2paSGVQU2FCa3NQRUlacGtvUGluNlRNN3M3ZjNmUGIyZnpnekJwcm5IbDZjRzlyWUlIRHZjeTJhRVRqVEMzU1pwOGNJVHc9PTsyMDI0LTAyLTAxVDA4OjM0OjUxLjA3OTk3Mlo7enJ1c3E5bS9XMHNHb3ZCNmQ4a21wUT09O3siVGFyZ2V0RW50aXR5IjoiU2VsZi1Bc3NlcnREaXNhYmxlZFVzZXJQYWdlIiwiT3JjaGVzdHJhdGlvblN0ZXAiOjd9&amp;tx=StateProperties=eyJUSUQiOiJkMTVlYTVhMS0xYjU1LTQyNTMtODIxNy03YmNmMmY4MDJkZDMifQ&amp;p=B2C_1A_Platformsignup_signin&amp;diags=%7B%22pageViewId%22%3A%223de947c0-6605-4c72-aa70-305b0725a732%22%2C%22pageId%22%3A%22SelfAsserted%22%2C%22trace%22%3A%5B%7B%22ac%22%3A%22T005%22%2C%22acST%22%3A1706776493%2C%22acD%22%3A7%7D%2C%7B%22ac%22%3A%22T021%20-%20URL%3Ahttps%3A%2F%2Flockstepstoragedev.blob.core.windows.net%2Fb2c-auth-page-layouts%2Flayout%2FPlatformSelfAssertedLSAPI.html%22%2C%22acST%22%3A1706776493%2C%22acD%22%3A518%7D%2C%7B%22ac%22%3A%22T019%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A5%7D%2C%7B%22ac%22%3A%22T004%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A4%7D%2C%7B%22ac%22%3A%22T003%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A1%7D%2C%7B%22ac%22%3A%22T035%22%2C%22acST%22%3A1706776495%2C%22acD%22%3A0%7D%2C%7B%22ac%22%3A%22T030Online%22%2C%22acST%22%3A1706776495%2C%22acD%22%3A0%7D%2C%7B%22ac%22%3A%22T017T010%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A1508%7D%2C%7B%22ac%22%3A%22T002%22%2C%22acST%22%3A1706776495%2C%22acD%22%3A0%7D%2C%7B%22ac%22%3A%22T017T010%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A1509%7D%5D%7D]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
-	at org.testng.Assert.assertEquals(Assert.java:122)
-	at org.testng.Assert.assertEquals(Assert.java:629)
-	at org.testng.Assert.assertEquals(Assert.java:639)
-	at e2e.VerifyPartialSync2.login(VerifyPartialSync2.java:38)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:276)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
-	at org.testng.TestNG.runSuites(TestNG.java:1063)
-	at org.testng.TestNG.run(TestNG.java:1031)
-	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-</pre></div><a href='#' onClick='toggleBox("stack-trace2057954324", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace2057954324'><pre>java.lang.AssertionError: expected [https://app.dev.lockstep.io/] but found [https://login.dev.lockstep.io/login.dev.lockstep.io/B2C_1A_Platformsignup_signin/api/SelfAsserted/confirmed?csrf_token=WWFVZHZKS2RQODM3aDZrU2paSGVQU2FCa3NQRUlacGtvUGluNlRNN3M3ZjNmUGIyZnpnekJwcm5IbDZjRzlyWUlIRHZjeTJhRVRqVEMzU1pwOGNJVHc9PTsyMDI0LTAyLTAxVDA4OjM0OjUxLjA3OTk3Mlo7enJ1c3E5bS9XMHNHb3ZCNmQ4a21wUT09O3siVGFyZ2V0RW50aXR5IjoiU2VsZi1Bc3NlcnREaXNhYmxlZFVzZXJQYWdlIiwiT3JjaGVzdHJhdGlvblN0ZXAiOjd9&amp;tx=StateProperties=eyJUSUQiOiJkMTVlYTVhMS0xYjU1LTQyNTMtODIxNy03YmNmMmY4MDJkZDMifQ&amp;p=B2C_1A_Platformsignup_signin&amp;diags=%7B%22pageViewId%22%3A%223de947c0-6605-4c72-aa70-305b0725a732%22%2C%22pageId%22%3A%22SelfAsserted%22%2C%22trace%22%3A%5B%7B%22ac%22%3A%22T005%22%2C%22acST%22%3A1706776493%2C%22acD%22%3A7%7D%2C%7B%22ac%22%3A%22T021%20-%20URL%3Ahttps%3A%2F%2Flockstepstoragedev.blob.core.windows.net%2Fb2c-auth-page-layouts%2Flayout%2FPlatformSelfAssertedLSAPI.html%22%2C%22acST%22%3A1706776493%2C%22acD%22%3A518%7D%2C%7B%22ac%22%3A%22T019%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A5%7D%2C%7B%22ac%22%3A%22T004%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A4%7D%2C%7B%22ac%22%3A%22T003%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A1%7D%2C%7B%22ac%22%3A%22T035%22%2C%22acST%22%3A1706776495%2C%22acD%22%3A0%7D%2C%7B%22ac%22%3A%22T030Online%22%2C%22acST%22%3A1706776495%2C%22acD%22%3A0%7D%2C%7B%22ac%22%3A%22T017T010%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A1508%7D%2C%7B%22ac%22%3A%22T002%22%2C%22acST%22%3A1706776495%2C%22acD%22%3A0%7D%2C%7B%22ac%22%3A%22T017T010%22%2C%22acST%22%3A1706776494%2C%22acD%22%3A1509%7D%5D%7D]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:140)
-	at org.testng.Assert.assertEquals(Assert.java:122)
-	at org.testng.Assert.assertEquals(Assert.java:629)
-	at org.testng.Assert.assertEquals(Assert.java:639)
-	at e2e.VerifyPartialSync2.login(VerifyPartialSync2.java:38)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at org.testng.TestRunner.privateRun(TestRunner.java:794)
-	at org.testng.TestRunner.run(TestRunner.java:596)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:276)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
-	at org.testng.TestNG.runSuites(TestNG.java:1063)
-	at org.testng.TestNG.run(TestNG.java:1031)
-	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-</pre></div></td>
-<td>29</td>
-<td>e2e.VerifyPartialSync2@aba625</td></tr>
-</table><p>
 <table width='100%' border='1' class='invocation-passed'>
 <tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
@@ -163,6 +87,7 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <td title='e2e.VerfiyCreditMemoSync.creditMemoSync()'><b>creditMemoSync</b><br>Test class: e2e.VerfiyCreditMemoSync</td>
 <td></td>
@@ -244,6 +169,12 @@ function toggleAllBoxes() {
 <td>70</td>
 <td>e2e.SanityTest@76505305</td></tr>
 >>>>>>> a97685155d450f2674ea184ebf4c4c6a468b8cd8
+=======
+<td title='SampleTest.verifyloginInbox()'><b>verifyloginInbox</b><br>Test class: SampleTest</td>
+<td></td>
+<td>33</td>
+<td>SampleTest@44ebcd03</td></tr>
+>>>>>>> parent of 27a226d (End to End tescases and Allure Reporting)
 </table><p>
 </body>
 </html>

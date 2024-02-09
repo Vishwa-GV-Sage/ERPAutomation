@@ -4,10 +4,21 @@
   <test thread-count="5" name="Default test(failed)">
     <classes>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <class name="e2e.VerifyPartialSync2">
+=======
+      <class name="SampleTest">
+>>>>>>> parent of 27a226d (End to End tescases and Allure Reporting)
         <methods>
-          <include name="login"/>
+          <include name="beforeSuite"/>
+          <include name="close"/>
+          <include name="beforeMethodClass"/>
+          <include name="afterClass"/>
+          <include name="afterSuite"/>
+          <include name="verifyloginInbox"/>
+          <include name="beforeClass"/>
         </methods>
+<<<<<<< HEAD
       </class> <!-- e2e.VerifyPartialSync2 -->
 =======
       <class name="e2e.SanityTest">
@@ -22,6 +33,9 @@
         </methods>
       </class> <!-- e2e.SanityTest -->
 >>>>>>> a97685155d450f2674ea184ebf4c4c6a468b8cd8
+=======
+      </class> <!-- SampleTest -->
+>>>>>>> parent of 27a226d (End to End tescases and Allure Reporting)
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
