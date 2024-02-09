@@ -21,7 +21,7 @@ public class VerifyLoginTest extends Helper {
 		loginPage.logintoInbox(inboxUser, inboxPassword);
 		Thread.sleep(10000);
 		
-		System.out.println("Login to Inbox is Successful and verified");
+		System.out.println("Login to Inbox is Successful");
 	}
 	catch (Exception e) {e.printStackTrace();}
 	}
