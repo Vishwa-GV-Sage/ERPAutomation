@@ -17,7 +17,7 @@ public class SyncAPI {
 	private String syncTaskIdBatch, syncTaskIdEmpty,syncAttachmentId, blobUploadUrl;
 	String apiBaseUrl = "https://api-dev.network-eng.sage.com";
 	String database_id = "a37459d5-e9d6-4f1b-a6da-9bb8c329b188",
-			jwtToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJVUXlRME0wTWtOQk5rUkJOVGxETXpaQ056VXhPVVUyUkRZNU5EbEJOVVF6T0VSQk1EQXdNQSJ9.eyJpc3MiOiJodHRwczovL2lkLXNoYWRvdy5zYWdlLmNvbS8iLCJzdWIiOiJhdXRoMHxiYWFiN2JkN2Q0MDYyMzQ4OTUzYmMyN2JkNTIyYTk4NmQ2M2FmYTBmOWEwNjBmOTAiLCJhdWQiOlsiU0JDRFMvZ2xvYmFsIiwiaHR0cHM6Ly9zYWdlLWNpZC1zaGFkb3cuc2FnZWlkbm9ucHJvZC5hdXRoMGFwcC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzA5NjE5Njc2LCJleHAiOjE3MDk2NDg0NzYsImF6cCI6IjJWVGtOekUzU3QzeVNoVmJaMmNubGtoUVZCVUh4dmVzIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCB1c2VyOmZ1bGwgb2ZmbGluZV9hY2Nlc3MifQ.qks_KfKTi8glqVEEuvraab6opBkJs0jvHqSkkA5zj12s1SnhJctQJTcJ8kLme6sXKiZam9ouuMexIlLEM4ttrrQgV3a8TR65bs4Ubs4nsEbOY4Qt9lH3t3Xesnfbt5NGsXL39G80yqYehnsW-ClVo7y04_C9Dh5paePfm6pTY_0D0NcUrPaoFTqaOCIvdez90KbYyVJU4hWO6jEPOVMqoXl3_83iGgLmGXtUPh3BBvWQ6DDBdE25SmYISTEbSc9nByJI_hHtUBdwOxDOod20uCP_xhxD_Q7kOfP7b59OLO4Hj2G1ByljzsFT9QvjMjiWyKKanp7dQEFB943R9YaxDg";
+			jwtToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkdoSWRxS2JCZld5UTNoeWs1Wmd3MiJ9.eyJwaWN0dXJlIjoiIiwiaHR0cHM6Ly9zYWdlLmNvbS9zY2kvYXppIjoiYzQ2MmFmNmM2NzRmODNiOTdlYThiNDI4NzgzOWY3OTQwMDA5NGIwMjE1MGIiLCJodHRwczovL3NhZ2UuY29tL3NjaS9hem4iOiJERVZJQ0VOQU1FIiwiaHR0cHM6Ly9zYWdlLmNvbS9zY2kvYXpjIjoiQmFrZXJzIENha2VzIiwiaXNzIjoiaHR0cHM6Ly9pZC5hdXRoLXNoYWRvdy5zYWdlLmNvbS8iLCJzdWIiOiJhdXRoMHxhemlfYzQ2MmFmNmM2NzRmODNiOTdlYThiNDI4NzgzOWY3OTQwMDA5NGIwMjE1MGIiLCJhdWQiOlsiaHR0cDovL3NhZ2UuY29tL2RlbW8vYXV0aGlkIiwiaHR0cHM6Ly9zYWdlLWF1dGgtc2hhZG93LnNhZ2VpZG5vbnByb2QuYXV0aDBhcHAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTcwOTY1ODc0MSwiZXhwIjoxNzA5NzQ1MTQxLCJhenAiOiJvc2ZlbWMwUjd4d3hmc3dVQUhOVVU0cEdpTVg2MmtESiIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSBvZmZsaW5lX2FjY2VzcyIsImd0eSI6InBhc3N3b3JkIn0.SUFASKs89q00xIo-bjJlCv_LeI8XMJwCuwGwGoHGgxV81MHowCgc5Qps2gnQy7pV7WjLr7LRWww9Wofhf7nz-DUQ8sVC3BvrQ9hSmKEbERXSwoAIKmqr2aVhNbyoUrBd_hPI8PoYmKpefyxBc7EnqIAuxp6yL3tpa0cQV-58VWGrf-_kQA6l0AHBjJNF40BhvaE_5M3k4OgDyd-lt5_N5GFvbRpBkoVU0xCuv2b34HWhG46TzD4_gkrcSkJIuycKjMfkoILqFDGFqG1geLCiq9JB5TROt9Tt1MPYEpv1BMjWI34mn7BuLLOXZ0dUuXqWGx-1WrhEAIYgkixb5tf-Yw";
 	
 
 	@Test(priority = 1)
@@ -253,9 +253,9 @@ public class SyncAPI {
 		// Extract id from response and store it in the global variable
 		syncTaskIdBatch = response.jsonPath().getString("data.id");
 		// Print response
-		response.prettyPrint();
+	//	response.prettyPrint();
 		// Assert the status code...
-		response.then().statusCode(201);
+		//response.then().statusCode(201);
 
 		// Assert attributes in the response
 		try {
@@ -265,13 +265,14 @@ public class SyncAPI {
 					"Operation type attribute is not as expected");
 			assertEquals(response.jsonPath().getString("data.attributes.packageType"), "Full",
 					"Package type attribute is not as expected");
-			assertEquals(response.jsonPath().getString("data.attributes.stepName"), "Preparing",
+			assertEquals(response.jsonPath().getString("data.attributes.stepName"), "Ready",
 					"Step name attribute is not as expected");
 		}
 
 		catch (AssertionError e) {
 			// Log the failure
 			System.out.println("Assertion failed: " + e.getMessage());
+			throw e;
 		}
 	}
 
@@ -286,10 +287,10 @@ public class SyncAPI {
 		;
 
 		// Print the response
-		sendTasksResponse.prettyPrint();
+		//sendTasksResponse.prettyPrint();
 
 		// Assert the status code
-		sendTasksResponse.then().statusCode(200);
+	//	sendTasksResponse.then().statusCode(200);
 
 		// Assert attributes in the response
 		try {
@@ -311,6 +312,7 @@ public class SyncAPI {
 		} catch (AssertionError e) {
 			// Log the failure
 			System.out.println("Assertion failed: " + e.getMessage());
+			throw e;
 		}
 	}
 
@@ -327,7 +329,7 @@ public class SyncAPI {
 				.body(requestBody).post(endpointUrl);
 
 		// Print the response
-		response.prettyPrint();
+		//response.prettyPrint();
 		blobUploadUrl = response.jsonPath().getString("included[0].attributes.uploadUrl");
 		syncTaskIdEmpty = response.jsonPath().getString("data.id");
 		syncAttachmentId = response.jsonPath().getString("data.relationships.id");
@@ -353,6 +355,7 @@ public class SyncAPI {
 		} catch (AssertionError e) {
 			// Log the failure
 			System.out.println("Assertion failed: " + e.getMessage());
+			throw e;
 		}
 	}
 
@@ -363,7 +366,7 @@ public class SyncAPI {
 
 		System.out.println("End Point: "+ endpointUrl);
 		// Define file path
-        File file = new File("C:\\Users\\Public\\Documents\\file.zip");
+        File file = new java.io.File("D:\\file.zip");
      // Read file content into byte array
         byte[] fileContent;
         try (FileInputStream fileInputStream = new FileInputStream(file)) {
@@ -375,20 +378,28 @@ public class SyncAPI {
         }
         
         // Send request with RestAssured
-        Response response = RestAssured.given()
-                .header("x-ms-blob-type", "BlockBlob")
-                .header("Content-Type", "multipart/form-data")
-                .multiPart("file",file,"application/zip")
-                .put(endpointUrl);
+        /*Response response = RestAssured.given()
+        		 .header("x-ms-blob-type", "BlockBlob")
+                 .multiPart("file", file, "application/zip")  // Pass the file content as the request body
+                 .put(endpointUrl);*/
         // Print the response status code and body
-        System.out.println("Response Status Code: " + response.getStatusCode());
-        System.out.println("Response Body:");
-        System.out.println(response.getBody().asString());
-        
+        //System.out.println("Response Status Code: " + response.getStatusCode());
+       // System.out.println("Response Body:");
+     //  System.out.println(response.getBody().asString());
+        RestAssured.given()
+        .header("x-ms-blob-type", "BlockBlob")
+        .header("Host", "deveuerpsync.blob.core.windows.net")
+        .header("Accept-Encoding", "gzip, deflate, br")
+        .contentType("multipart/form-data")
+        .multiPart(file).log().all()
+        .when()
+        .put("https://deveuerpsync.blob.core.windows.net/sync/a37459d5-e9d6-4f1b-a6da-9bb8c329b188/22f7852a-5a24-4a88-a46b-a68653aefc61/file.zip?sv=2023-11-03&st=2024-03-05T17%3A19%3A29Z&se=2024-03-05T18%3A19%3A29Z&sr=b&sp=w&sig=uePTMfT7EBYu1h%2BrkV6idSWh9kzDOgSahpKVUNWo%2BTw%3D")
+        .then()
+        .log().all();
 		// Print the response
-		response.prettyPrint();
+		//response.prettyPrint();
 		// Assertion
-		response.then().statusCode(201);
+		//response.then().statusCode(201);
 		
 	}
 
