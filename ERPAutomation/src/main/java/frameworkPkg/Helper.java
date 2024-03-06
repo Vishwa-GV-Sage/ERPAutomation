@@ -20,6 +20,11 @@ public class Helper {
 	public static WebDriver driver;
 	BrowserFactory obj1;
 
+	// Variables for "syncAPI" object with default values
+	public static String syncAPIBaseURL;
+	public static String syncAPIDataset_ID;
+	public static String syncAPIJwtToken;
+
 	// Variables for "inbox" object with default values
 	public static String inboxBaseURL;
 	public static String inboxUser;
@@ -75,6 +80,11 @@ public class Helper {
 			// Read JSON file and set global variables
 			ReadEnvConfigJSON jsonReader = new ReadEnvConfigJSON(configFilePath);
 
+			// Read and set variables for "syncAPI" object
+			syncAPIBaseURL = jsonReader.getJsonValue("syncAPI.baseURL");
+			syncAPIDataset_ID = jsonReader.getJsonValue("syncAPI.dataset_id");
+			syncAPIJwtToken = jsonReader.getJsonValue("syncAPI.jwtToken");
+
 			// Read and set variables for "inbox" object
 			inboxBaseURL = jsonReader.getJsonValue("inbox.baseURL");
 			inboxUser = jsonReader.getJsonValue("inbox.user");
@@ -123,23 +133,22 @@ public class Helper {
 
 	@BeforeMethod
 	public void beforeMethodClass() {
-		LOGGER.info("in @BeforeMethod");
-		Helper.driver = BrowserFactory.getDriver();
-
-		// Check if driver is null
-		if (driver == null) {
-			throw new IllegalStateException(
-					"WebDriver instance is null. Check BrowserFactory.getDriver() implementation.");
-		}
-
-		// Set default values in case they are not set yet
-		setDefaultValues();
+		/*
+		 * LOGGER.info("in @BeforeMethod"); Helper.driver = BrowserFactory.getDriver();
+		 * 
+		 * // Check if driver is null if (driver == null) { throw new
+		 * IllegalStateException(
+		 * "WebDriver instance is null. Check BrowserFactory.getDriver() implementation."
+		 * ); }
+		 * 
+		 * // Set default values in case they are not set yet setDefaultValues();
+		 */
 	}
 
 	@AfterMethod
 	public void close() {
 		// Close any resources or perform cleanup after each test method
-		Helper.driver.close();
+		/* Helper.driver.close(); */
 	}
 
 	@AfterClass
@@ -149,16 +158,20 @@ public class Helper {
 
 	@AfterSuite
 	public void afterSuite() {
-		try {
-			// Perform cleanup after the entire test suite
-			driver.quit();
-		} catch (Exception e) {
-			handleException("Error during suite cleanup.", e);
-		}
+		/*
+		 * try { // Perform cleanup after the entire test suite driver.quit(); } catch
+		 * (Exception e) { handleException("Error during suite cleanup.", e); }
+		 */
 	}
 
 	// Method to set default values for variables
 	private void setDefaultValues() {
+		
+		syncAPIBaseURL = syncAPIBaseURL != null ? syncAPIBaseURL : "defaultBaseURL";
+		syncAPIDataset_ID = syncAPIDataset_ID != null ? syncAPIDataset_ID : "defaultUser";
+		syncAPIJwtToken = syncAPIJwtToken != null ? syncAPIJwtToken : "defaultPassword";
+		
+		
 		inboxBaseURL = inboxBaseURL != null ? inboxBaseURL : "defaultBaseURL";
 		inboxUser = inboxUser != null ? inboxUser : "defaultUser";
 		inboxPassword = inboxPassword != null ? inboxPassword : "defaultPassword";

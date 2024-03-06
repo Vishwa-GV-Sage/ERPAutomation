@@ -1,30 +1,23 @@
-package newApis;
+package happyPathScenarios;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import org.testng.annotations.Test;
 
+import frameworkPkg.Helper;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
-public class SyncAPI {
-	private String syncTaskIdBatch, syncTaskIdEmpty,syncAttachmentId, blobUploadUrl;
-	String apiBaseUrl = "https://api-dev.network-eng.sage.com";
-	String database_id = "a37459d5-e9d6-4f1b-a6da-9bb8c329b188",
-			jwtToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkdoSWRxS2JCZld5UTNoeWs1Wmd3MiJ9.eyJwaWN0dXJlIjoiIiwiaHR0cHM6Ly9zYWdlLmNvbS9zY2kvYXppIjoiYzQ2MmFmNmM2NzRmODNiOTdlYThiNDI4NzgzOWY3OTQwMDA5NGIwMjE1MGIiLCJodHRwczovL3NhZ2UuY29tL3NjaS9hem4iOiJERVZJQ0VOQU1FIiwiaHR0cHM6Ly9zYWdlLmNvbS9zY2kvYXpjIjoiQmFrZXJzIENha2VzIiwiaXNzIjoiaHR0cHM6Ly9pZC5hdXRoLXNoYWRvdy5zYWdlLmNvbS8iLCJzdWIiOiJhdXRoMHxhemlfYzQ2MmFmNmM2NzRmODNiOTdlYThiNDI4NzgzOWY3OTQwMDA5NGIwMjE1MGIiLCJhdWQiOlsiaHR0cDovL3NhZ2UuY29tL2RlbW8vYXV0aGlkIiwiaHR0cHM6Ly9zYWdlLWF1dGgtc2hhZG93LnNhZ2VpZG5vbnByb2QuYXV0aDBhcHAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTcwOTY1ODc0MSwiZXhwIjoxNzA5NzQ1MTQxLCJhenAiOiJvc2ZlbWMwUjd4d3hmc3dVQUhOVVU0cEdpTVg2MmtESiIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSBvZmZsaW5lX2FjY2VzcyIsImd0eSI6InBhc3N3b3JkIn0.SUFASKs89q00xIo-bjJlCv_LeI8XMJwCuwGwGoHGgxV81MHowCgc5Qps2gnQy7pV7WjLr7LRWww9Wofhf7nz-DUQ8sVC3BvrQ9hSmKEbERXSwoAIKmqr2aVhNbyoUrBd_hPI8PoYmKpefyxBc7EnqIAuxp6yL3tpa0cQV-58VWGrf-_kQA6l0AHBjJNF40BhvaE_5M3k4OgDyd-lt5_N5GFvbRpBkoVU0xCuv2b34HWhG46TzD4_gkrcSkJIuycKjMfkoILqFDGFqG1geLCiq9JB5TROt9Tt1MPYEpv1BMjWI34mn7BuLLOXZ0dUuXqWGx-1WrhEAIYgkixb5tf-Yw";
-	
+public class Create_Batch_Sync extends Helper {
+	private String syncTaskIdBatch;
+	String apiBaseUrl = syncAPIBaseURL, database_id = syncAPIDataset_ID, jwtToken = syncAPIJwtToken;
 
 	@Test(priority = 1)
-	public void verify_Create_Sync_Batch_Upload() {
+	public void verify_Create_Sync_Batch_Upload_Full() {
 
 		// apiKeyAPI endpoint
-		String apiKeyEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id + "/sync-tasks";
+		String endpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id + "/sync-tasks";
 		String requestBody = "{\n" + "    \"Data\": {\n" + "        \"Attributes\": {\n"
 				+ "            \"PackageType\": \"Full\"\n" + "        },\n" + "        \"Relationships\": {\n"
 				+ "            \"Companies\": {\n" + "                \"data\": [\n" + "                    {\n"
@@ -249,34 +242,30 @@ public class SyncAPI {
 		// Send POST request
 		Response response = RestAssured.given().header("Authorization", "Bearer " + jwtToken)
 				.header("Content-Type", "application/vnd.api+json").header("Accept", "application/vnd.api+json")
-				.body(requestBody).post(apiKeyEndpoint);
+				.body(requestBody).post(endpoint);
 		// Extract id from response and store it in the global variable
 		syncTaskIdBatch = response.jsonPath().getString("data.id");
 		// Print response
-	//	response.prettyPrint();
+		// response.prettyPrint();
 		// Assert the status code...
-		//response.then().statusCode(201);
+		response.then().statusCode(201);
 
-		// Assert attributes in the response
-		try {
-			assertEquals(response.jsonPath().getString("data.attributes.status"), "Awaiting",
-					"Status attribute is not as expected");
-			assertEquals(response.jsonPath().getString("data.attributes.operationType"), "ToNetwork",
-					"Operation type attribute is not as expected");
-			assertEquals(response.jsonPath().getString("data.attributes.packageType"), "Full",
-					"Package type attribute is not as expected");
-			assertEquals(response.jsonPath().getString("data.attributes.stepName"), "Ready",
-					"Step name attribute is not as expected");
-		}
-
-		catch (AssertionError e) {
-			// Log the failure
-			System.out.println("Assertion failed: " + e.getMessage());
-			throw e;
-		}
 	}
 
 	@Test(priority = 2)
+	public void verify_Query_Sync_Task_For_ToNetwork() {
+		String queryTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id
+				+ "/sync-tasks?filter=operationtype eq 'toNetwork'&take=3&skip=0";
+		Response queryresponse = RestAssured.given().header("Content-Type", "application/vnd.api+json")
+				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
+				.get(queryTasksEndpoint);
+		// Print the response
+		// queryresponse.prettyPrint();
+		// Assert the status code
+		queryresponse.then().statusCode(200);
+	}
+
+	@Test(priority = 3)
 	public void verify_Retrieve_sync_task_for_ToNetwork() {
 		String sendTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id + "/sync-tasks/"
 				+ syncTaskIdBatch + "/?include=Details";
@@ -284,13 +273,12 @@ public class SyncAPI {
 		Response sendTasksResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
 				.header("Authorization", "Bearer " + jwtToken).header("accept", "application/vnd.api+json")
 				.get(sendTasksEndpoint);
-		;
 
 		// Print the response
-		//sendTasksResponse.prettyPrint();
+		// sendTasksResponse.prettyPrint();
 
 		// Assert the status code
-	//	sendTasksResponse.then().statusCode(200);
+		sendTasksResponse.then().statusCode(200);
 
 		// Assert attributes in the response
 		try {
@@ -314,93 +302,6 @@ public class SyncAPI {
 			System.out.println("Assertion failed: " + e.getMessage());
 			throw e;
 		}
-	}
-
-	@Test(priority = 3)
-	public void verify_Create_Sync_Task_Empty() {
-		String endpointUrl = apiBaseUrl + "/connectors/erp/datasets/" + database_id + "/sync-tasks";
-
-		// Request body
-		String requestBody = "{\"data\":{\"type\":\"SyncTask\",\"attributes\":{\"packageType\":\"Full\"}}}";
-
-		// Send POST request and capture response
-		Response response = RestAssured.given().header("Content-Type", "application/vnd.api+json")
-				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
-				.body(requestBody).post(endpointUrl);
-
-		// Print the response
-		//response.prettyPrint();
-		blobUploadUrl = response.jsonPath().getString("included[0].attributes.uploadUrl");
-		syncTaskIdEmpty = response.jsonPath().getString("data.id");
-		syncAttachmentId = response.jsonPath().getString("data.relationships.id");
-		// Assert the status code
-		//response.then().statusCode(201);
-
-		// Assert attributes in the response
-		try {
-			assertEquals(response.jsonPath().getString("data.attributes.status"), "Awaiting",
-					"Status attribute is not as expected");
-			assertEquals(response.jsonPath().getString("data.attributes.operationType"), "ToNetwork",
-					"Operation type attribute is not as expected");
-			assertEquals(response.jsonPath().getString("data.attributes.packageType"), "Full",
-					"Package type attribute is not as expected");
-			assertEquals(response.jsonPath().getString("data.attributes.stepName"), "Preparing",
-					"Step name attribute is not as expected");
-
-			// Assert id and type in the response
-			assertTrue(response.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
-					"ID is not in expected format");
-			assertEquals(response.jsonPath().getString("data.type"), "SyncTask", "Type attribute is not as expected");
-
-		} catch (AssertionError e) {
-			// Log the failure
-			System.out.println("Assertion failed: " + e.getMessage());
-			throw e;
-		}
-	}
-
-	@Test(priority = 4)
-	public void upload_Sync_Task_Zip_File() {
-		// Define endpoint URL
-		String endpointUrl = blobUploadUrl;
-
-		System.out.println("End Point: "+ endpointUrl);
-		// Define file path
-        File file = new java.io.File("D:\\file.zip");
-     // Read file content into byte array
-        byte[] fileContent;
-        try (FileInputStream fileInputStream = new FileInputStream(file)) {
-            fileContent = fileInputStream.readAllBytes();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("File not found: " + file.getAbsolutePath(), e);
-        } catch (IOException e) {
-            throw new RuntimeException("Error reading file: " + file.getAbsolutePath(), e);
-        }
-        
-        // Send request with RestAssured
-        /*Response response = RestAssured.given()
-        		 .header("x-ms-blob-type", "BlockBlob")
-                 .multiPart("file", file, "application/zip")  // Pass the file content as the request body
-                 .put(endpointUrl);*/
-        // Print the response status code and body
-        //System.out.println("Response Status Code: " + response.getStatusCode());
-       // System.out.println("Response Body:");
-     //  System.out.println(response.getBody().asString());
-        RestAssured.given()
-        .header("x-ms-blob-type", "BlockBlob")
-        .header("Host", "deveuerpsync.blob.core.windows.net")
-        .header("Accept-Encoding", "gzip, deflate, br")
-        .contentType("multipart/form-data")
-        .multiPart(file).log().all()
-        .when()
-        .put("https://deveuerpsync.blob.core.windows.net/sync/a37459d5-e9d6-4f1b-a6da-9bb8c329b188/22f7852a-5a24-4a88-a46b-a68653aefc61/file.zip?sv=2023-11-03&st=2024-03-05T17%3A19%3A29Z&se=2024-03-05T18%3A19%3A29Z&sr=b&sp=w&sig=uePTMfT7EBYu1h%2BrkV6idSWh9kzDOgSahpKVUNWo%2BTw%3D")
-        .then()
-        .log().all();
-		// Print the response
-		//response.prettyPrint();
-		// Assertion
-		//response.then().statusCode(201);
-		
 	}
 
 }

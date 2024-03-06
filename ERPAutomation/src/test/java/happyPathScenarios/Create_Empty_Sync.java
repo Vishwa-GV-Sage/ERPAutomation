@@ -5,7 +5,6 @@ import static org.testng.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -13,14 +12,13 @@ import java.net.URL;
 
 import org.testng.annotations.Test;
 
+import frameworkPkg.Helper;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
-public class Create_Empty_Sync {
-	private String syncTaskIdBatch, syncTaskIdEmpty, syncAttachmentId, blobUploadUrl;
-	String apiBaseUrl = "https://api-dev.network-eng.sage.com";
-	String database_id = "a37459d5-e9d6-4f1b-a6da-9bb8c329b188",
-			jwtToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkdoSWRxS2JCZld5UTNoeWs1Wmd3MiJ9.eyJwaWN0dXJlIjoiIiwiaHR0cHM6Ly9zYWdlLmNvbS9zY2kvYXppIjoiNWE3ZWYxYmYwNGU5MDRlMjZlN2NlMDg5N2U3ZWYyYTI0NTQ4ZDFlZGEyMTEiLCJodHRwczovL3NhZ2UuY29tL3NjaS9hem4iOiJERVZJQ0VOQU1FIiwiaHR0cHM6Ly9zYWdlLmNvbS9zY2kvYXpjIjoiQmFrZXJzIENha2VzIiwiaXNzIjoiaHR0cHM6Ly9pZC5hdXRoLXNoYWRvdy5zYWdlLmNvbS8iLCJzdWIiOiJhdXRoMHxhemlfNWE3ZWYxYmYwNGU5MDRlMjZlN2NlMDg5N2U3ZWYyYTI0NTQ4ZDFlZGEyMTEiLCJhdWQiOlsiaHR0cDovL3NhZ2UuY29tL2RlbW8vYXV0aGlkIiwiaHR0cHM6Ly9zYWdlLWF1dGgtc2hhZG93LnNhZ2VpZG5vbnByb2QuYXV0aDBhcHAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTcwOTcwMDIxNCwiZXhwIjoxNzA5Nzg2NjE0LCJhenAiOiJvc2ZlbWMwUjd4d3hmc3dVQUhOVVU0cEdpTVg2MmtESiIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSBvZmZsaW5lX2FjY2VzcyIsImd0eSI6InBhc3N3b3JkIn0.u1JRh8E-we3KBjEod3ohjgCHYDgfWL0wfTHDeD6jg7RRzZMrrPOZzAx9Q9yBqVCcYudqMO9OQTyApTITRPBplCmnHK6GCmsTIBgjeVgWIIAJzo57cNcuXc9y2I1x2BtTIJYrNAsbOwp2N2fnHA-DXw5kzPIkBznbgVEviYjfwrNdPmds9Mr2XVcmBBFfXWTFLlWIw0_6DicWN-4uXcvYQrXuOzULft6IgR42FGra-Ob0Pi9FwXaXcxEXCGb3Xril-ky4QWNTIJRJVdy7OCUhavYhW6M8PKUCI3a4VeH950Kxj5yyjpKK0_GvzhKTzLhnCnTHOnQJZHZSWSyz5mmisQ";
+public class Create_Empty_Sync extends Helper {
+	private String syncTaskIdBatch, syncAttachmentId, blobUploadUrl;
+	String apiBaseUrl = syncAPIBaseURL, database_id = syncAPIDataset_ID, jwtToken = syncAPIJwtToken;
 
 	@Test(priority = 1)
 	public void verify_Create_Sync_Task_Empty() {
@@ -37,7 +35,7 @@ public class Create_Empty_Sync {
 		// Print the response
 		// response.prettyPrint();
 		blobUploadUrl = response.jsonPath().getString("included[0].attributes.uploadUrl");
-	
+
 		syncAttachmentId = response.jsonPath().getString("data.relationships.attachment.data.id");
 		// Extract id from response and store it in the global variable
 		syncTaskIdBatch = response.jsonPath().getString("data.id");
@@ -91,40 +89,23 @@ public class Create_Empty_Sync {
 
 		connection.disconnect();
 	}
-	
+
 	@Test(priority = 3)
 	public void verify_Update_Synck() {
-		String updateEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id + "/sync-tasks?filter=operation_type%20eq%20%27toNetwork%27&take=3&skip=0";
-		String requestBody = "{" +
-			    "\"data\": {" +
-			        "\"type\": \"synctask\"," +
-			        "\"id\": \"" + syncTaskIdBatch + "\"," +
-			        "\"attributes\": {" +
-			            "\"summary\": {" +
-			                "\"totalInvoices\": 1," +
-			                "\"totalPayments\": 2," +
-			                "\"totalCompanies\": 3," +
-			                "\"totalContacts\": 4," +
-			                "\"totalGlAccounts\": 5," +
-			                "\"totalGlAccountEntries\": 6," +
-			                "\"totalCustomFields\": 7" +
-			            "}" +
-			        "}," +
-			        "\"relationships\": {" +
-			            "\"attachment\": {" +
-			                "\"data\": {" +
-			                    "\"id\": \"" + syncAttachmentId + "\"," +
-			                    "\"type\": \"attachment\"" +
-			                "}" +
-			            "}" +
-			        "}" +
-			    "}}";
+		String updateEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id
+				+ "/sync-tasks?filter=operation_type%20eq%20%27toNetwork%27&take=3&skip=0";
+		String requestBody = "{" + "\"data\": {" + "\"type\": \"synctask\"," + "\"id\": \"" + syncTaskIdBatch + "\","
+				+ "\"attributes\": {" + "\"summary\": {" + "\"totalInvoices\": 1," + "\"totalPayments\": 2,"
+				+ "\"totalCompanies\": 3," + "\"totalContacts\": 4," + "\"totalGlAccounts\": 5,"
+				+ "\"totalGlAccountEntries\": 6," + "\"totalCustomFields\": 7" + "}" + "}," + "\"relationships\": {"
+				+ "\"attachment\": {" + "\"data\": {" + "\"id\": \"" + syncAttachmentId + "\","
+				+ "\"type\": \"attachment\"" + "}" + "}" + "}" + "}}";
 		Response updateResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
-				.header("Content-Type", "application/vnd.api+json")
-				.header("Authorization", "Bearer " + jwtToken).body(requestBody).patch(updateEndpoint);
-		
+				.header("Content-Type", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
+				.body(requestBody).patch(updateEndpoint);
+
 		// Print the response
-		//updateResponse.prettyPrint();
+		// updateResponse.prettyPrint();
 
 		// Assert the status code
 		updateResponse.then().statusCode(202);
@@ -159,12 +140,10 @@ public class Create_Empty_Sync {
 				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
 				.get(queryTasksEndpoint);
 		// Print the response
-		//queryresponse.prettyPrint();
+		// queryresponse.prettyPrint();
 		// Assert the status code
 		queryresponse.then().statusCode(200);
 	}
-	
-
 
 	@Test(priority = 5)
 	public void verify_Retrieve_sync_task_for_ToNetwork() {
