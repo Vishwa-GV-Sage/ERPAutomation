@@ -11,13 +11,13 @@ import io.restassured.response.Response;
 
 public class Create_Batch_Sync extends Helper {
 	private String syncTaskIdBatch;
-	String apiBaseUrl = syncAPIBaseURL, database_id = syncAPIDataset_ID, jwtToken = syncAPIJwtToken;
+	String apiBaseUrl = syncAPIBaseURL, dataset_id = syncAPIDataset_ID, jwtToken = syncAPIJwtToken;
 
 	@Test(priority = 1)
 	public void verify_Create_Sync_Batch_Upload_Full() {
 
 		// apiKeyAPI endpoint
-		String endpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id + "/sync-tasks";
+		String endpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks";
 		String requestBody = "{\n" + "    \"Data\": {\n" + "        \"Attributes\": {\n"
 				+ "            \"PackageType\": \"Full\"\n" + "        },\n" + "        \"Relationships\": {\n"
 				+ "            \"Companies\": {\n" + "                \"data\": [\n" + "                    {\n"
@@ -248,60 +248,46 @@ public class Create_Batch_Sync extends Helper {
 		// Print response
 		// response.prettyPrint();
 		// Assert the status code...
-		response.then().statusCode(201);
+		
+	    int expectedStatusCode = 201;
+	    int actualStatusCode = response.getStatusCode();
+	    assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
 
 	}
 
 	@Test(priority = 2)
 	public void verify_Query_Sync_Task_For_ToNetwork() {
-		String queryTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id
+		String queryEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id
 				+ "/sync-tasks?filter=operationtype eq 'toNetwork'&take=3&skip=0";
-		Response queryresponse = RestAssured.given().header("Content-Type", "application/vnd.api+json")
+		Response queryResponse = RestAssured.given().header("Content-Type", "application/vnd.api+json")
 				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
-				.get(queryTasksEndpoint);
+				.get(queryEndpoint);
 		// Print the response
 		// queryresponse.prettyPrint();
 		// Assert the status code
-		queryresponse.then().statusCode(200);
+	    int expectedStatusCode = 200;
+	    int actualStatusCode = queryResponse.getStatusCode();
+	    assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
 	}
 
 	@Test(priority = 3)
 	public void verify_Retrieve_sync_task_for_ToNetwork() {
-		String sendTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id + "/sync-tasks/"
+		String retrieveEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
 				+ syncTaskIdBatch + "/?include=Details";
 
-		Response sendTasksResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
+		Response retrieveResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
 				.header("Authorization", "Bearer " + jwtToken).header("accept", "application/vnd.api+json")
-				.get(sendTasksEndpoint);
+				.get(retrieveEndpoint);
 
 		// Print the response
 		// sendTasksResponse.prettyPrint();
 
 		// Assert the status code
-		sendTasksResponse.then().statusCode(200);
+	    int expectedStatusCode = 200;
+	    int actualStatusCode = retrieveResponse.getStatusCode();
+	    assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
 
-		// Assert attributes in the response
-		try {
-			assertEquals(sendTasksResponse.jsonPath().getString("data.attributes.status"), "Awaiting",
-					"Status attribute is not as expected");
-			assertEquals(sendTasksResponse.jsonPath().getString("data.attributes.operationType"), "ToNetwork",
-					"Operation type attribute is not as expected");
-			assertEquals(sendTasksResponse.jsonPath().getString("data.attributes.packageType"), "Full",
-					"Package type attribute is not as expected");
-			assertEquals(sendTasksResponse.jsonPath().getString("data.attributes.stepName"), "Ready",
-					"Step name attribute is not as expected");
-
-			// Assert id and type in the response
-			assertTrue(sendTasksResponse.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
-					"ID is not in expected format");
-			assertEquals(sendTasksResponse.jsonPath().getString("data.type"), "SyncTask",
-					"Type attribute is not as expected");
-
-		} catch (AssertionError e) {
-			// Log the failure
-			System.out.println("Assertion failed: " + e.getMessage());
-			throw e;
-		}
+		
 	}
 
 }

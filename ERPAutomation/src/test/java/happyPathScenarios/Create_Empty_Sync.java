@@ -18,11 +18,11 @@ import io.restassured.response.Response;
 
 public class Create_Empty_Sync extends Helper {
 	private String syncTaskIdBatch, syncAttachmentId, blobUploadUrl;
-	String apiBaseUrl = syncAPIBaseURL, database_id = syncAPIDataset_ID, jwtToken = syncAPIJwtToken;
+	String apiBaseUrl = syncAPIBaseURL, dataset_id = syncAPIDataset_ID, jwtToken = syncAPIJwtToken;
 
 	@Test(priority = 1)
 	public void verify_Create_Sync_Task_Empty() {
-		String endpointUrl = apiBaseUrl + "/connectors/erp/datasets/" + database_id + "/sync-tasks";
+		String endpointUrl = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks";
 
 		// Request body
 		String requestBody = "{\"data\":{\"type\":\"SyncTask\",\"attributes\":{\"packageType\":\"Full\"}}}";
@@ -40,35 +40,16 @@ public class Create_Empty_Sync extends Helper {
 		// Extract id from response and store it in the global variable
 		syncTaskIdBatch = response.jsonPath().getString("data.id");
 		// Assert the status code
-		response.then().statusCode(201);
-
-		// Assert attributes in the response
-		try {
-			assertEquals(response.jsonPath().getString("data.attributes.status"), "Awaiting",
-					"Status attribute is not as expected");
-			assertEquals(response.jsonPath().getString("data.attributes.operationType"), "ToNetwork",
-					"Operation type attribute is not as expected");
-			assertEquals(response.jsonPath().getString("data.attributes.packageType"), "Full",
-					"Package type attribute is not as expected");
-			assertEquals(response.jsonPath().getString("data.attributes.stepName"), "Preparing",
-					"Step name attribute is not as expected");
-
-			// Assert id and type in the response
-			assertTrue(response.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
-					"ID is not in expected format");
-			assertEquals(response.jsonPath().getString("data.type"), "SyncTask", "Type attribute is not as expected");
-
-		} catch (AssertionError e) {
-			// Log the failure
-			System.out.println("Assertion failed: " + e.getMessage());
-			throw e;
-		}
+		int expectedStatusCode = 201;
+	    int actualStatusCode = response.getStatusCode();
+	    assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
+		
 	}
 
 	@Test(priority = 2)
 	public void upload_Sync_Task_Zip_File() throws IOException {
 		String url = blobUploadUrl;
-		String file = "C:/Users/rushabh.patel/Downloads/Sage 50 Zip file with Debit Memo.zip";
+		String file = zipFile;
 
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		connection.setRequestMethod("PUT");
@@ -92,7 +73,7 @@ public class Create_Empty_Sync extends Helper {
 
 	@Test(priority = 3)
 	public void verify_Update_Synck() {
-		String updateEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id
+		String updateEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id
 				+ "/sync-tasks?filter=operation_type%20eq%20%27toNetwork%27&take=3&skip=0";
 		String requestBody = "{" + "\"data\": {" + "\"type\": \"synctask\"," + "\"id\": \"" + syncTaskIdBatch + "\","
 				+ "\"attributes\": {" + "\"summary\": {" + "\"totalInvoices\": 1," + "\"totalPayments\": 2,"
@@ -107,8 +88,9 @@ public class Create_Empty_Sync extends Helper {
 		// Print the response
 		// updateResponse.prettyPrint();
 
-		// Assert the status code
-		updateResponse.then().statusCode(202);
+		int expectedStatusCode = 202;
+	    int actualStatusCode = updateResponse.getStatusCode();
+	    assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
 
 		// Assert attributes in the response
 		try {
@@ -134,7 +116,7 @@ public class Create_Empty_Sync extends Helper {
 
 	@Test(priority = 4)
 	public void verify_Query_Sync_Task_For_ToNetwork() {
-		String queryTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id
+		String queryTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id
 				+ "/sync-tasks?filter=operationtype eq 'toNetwork'&take=3&skip=0";
 		Response queryresponse = RestAssured.given().header("Content-Type", "application/vnd.api+json")
 				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
@@ -142,12 +124,14 @@ public class Create_Empty_Sync extends Helper {
 		// Print the response
 		// queryresponse.prettyPrint();
 		// Assert the status code
-		queryresponse.then().statusCode(200);
+	    int expectedStatusCode = 200;
+	    int actualStatusCode = queryresponse.getStatusCode();
+	    assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
 	}
 
 	@Test(priority = 5)
 	public void verify_Retrieve_sync_task_for_ToNetwork() {
-		String retriveTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id + "/sync-tasks/"
+		String retriveTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
 				+ syncTaskIdBatch + "/?include=Details";
 
 		Response retriveTasksResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
@@ -157,28 +141,9 @@ public class Create_Empty_Sync extends Helper {
 		// sendTasksResponse.prettyPrint();
 
 		// Assert the status code
-		retriveTasksResponse.then().statusCode(200);
-
-		// Assert attributes in the response
-		try {
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.status"), "Awaiting",
-					"Status attribute is not as expected");
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.operationType"), "ToNetwork",
-					"Operation type attribute is not as expected");
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.packageType"), "Full",
-					"Package type attribute is not as expected");
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.stepName"), "Ready",
-					"Step name attribute is not as expected");
-			assertTrue(retriveTasksResponse.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
-					"ID is not in expected format");
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.type"), "SyncTask",
-					"Type attribute is not as expected");
-
-		} catch (AssertionError e) {
-			// Log the failure
-			System.out.println("Assertion failed: " + e.getMessage());
-			throw e;
-		}
+	    int expectedStatusCode = 200;
+	    int actualStatusCode = retriveTasksResponse.getStatusCode();
+	    assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
 	}
 
 }

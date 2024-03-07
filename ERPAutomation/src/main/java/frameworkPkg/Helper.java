@@ -24,7 +24,8 @@ public class Helper {
 	public static String syncAPIBaseURL;
 	public static String syncAPIDataset_ID;
 	public static String syncAPIJwtToken;
-
+	public static String zipFile;
+	
 	// Variables for "inbox" object with default values
 	public static String inboxBaseURL;
 	public static String inboxUser;
@@ -84,7 +85,8 @@ public class Helper {
 			syncAPIBaseURL = jsonReader.getJsonValue("syncAPI.baseURL");
 			syncAPIDataset_ID = jsonReader.getJsonValue("syncAPI.dataset_id");
 			syncAPIJwtToken = jsonReader.getJsonValue("syncAPI.jwtToken");
-
+			zipFile = jsonReader.getJsonValue("syncAPI.zipFile");
+			
 			// Read and set variables for "inbox" object
 			inboxBaseURL = jsonReader.getJsonValue("inbox.baseURL");
 			inboxUser = jsonReader.getJsonValue("inbox.user");
@@ -170,7 +172,7 @@ public class Helper {
 		syncAPIBaseURL = syncAPIBaseURL != null ? syncAPIBaseURL : "defaultBaseURL";
 		syncAPIDataset_ID = syncAPIDataset_ID != null ? syncAPIDataset_ID : "defaultUser";
 		syncAPIJwtToken = syncAPIJwtToken != null ? syncAPIJwtToken : "defaultPassword";
-		
+		zipFile = zipFile != null ? zipFile : "zipFile";
 		
 		inboxBaseURL = inboxBaseURL != null ? inboxBaseURL : "defaultBaseURL";
 		inboxUser = inboxUser != null ? inboxUser : "defaultUser";

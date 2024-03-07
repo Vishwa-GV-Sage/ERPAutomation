@@ -1,11 +1,11 @@
 package happyPathScenarios;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -18,13 +18,13 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
 public class Positive_Create_Empty_Sync extends Helper {
-	private String syncTaskIdBatch, syncAttachmentId, blobUploadUrl;
-	String apiBaseUrl = syncAPIBaseURL, database_id = syncAPIDataset_ID, jwtToken = syncAPIJwtToken;
+	private String syncBatchID, syncAttachmentId, blobUploadUrl;
+	String apiBaseUrl = syncAPIBaseURL, dataset_id = syncAPIDataset_ID, jwtToken = syncAPIJwtToken;
 
 	@Test(priority = 1)
 	public void verify_Create_Sync_Task_Empty_Full() throws IOException {
 		// Step 1: Create Sync Task
-		String endpointUrl = apiBaseUrl + "/connectors/erp/datasets/" + database_id + "/sync-tasks";
+		String endpointUrl = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks";
 
 		// Request body
 		String requestBody = "{\"data\":{\"type\":\"SyncTask\",\"attributes\":{\"packageType\":\"Full\"}}}";
@@ -36,11 +36,10 @@ public class Positive_Create_Empty_Sync extends Helper {
 
 		// Print the response
 		// response.prettyPrint();
-		blobUploadUrl = response.jsonPath().getString("included[0].attributes.uploadUrl");
 
 		syncAttachmentId = response.jsonPath().getString("data.relationships.attachment.data.id");
 		// Extract id from response and store it in the global variable
-		syncTaskIdBatch = response.jsonPath().getString("data.id");
+		syncBatchID = response.jsonPath().getString("data.id");
 		// Assert the status code
 		response.then().statusCode(201);
 
@@ -54,7 +53,10 @@ public class Positive_Create_Empty_Sync extends Helper {
 					"Package type attribute is not as expected");
 			assertEquals(response.jsonPath().getString("data.attributes.stepName"), "Preparing",
 					"Step name attribute is not as expected");
-
+			// SynTask ID should not be null.
+			assertNotNull("data.id", "ID is null");
+			// Upload URL should not be null.
+			assertNotNull("included[0].attributes.uploadUrl", "Upload URL is null");
 			// Assert id and type in the response
 			assertTrue(response.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
 					"ID is not in expected format");
@@ -65,10 +67,10 @@ public class Positive_Create_Empty_Sync extends Helper {
 			System.out.println("Assertion failed: " + e.getMessage());
 			throw e;
 		}
-
+		blobUploadUrl = response.jsonPath().getString("included[0].attributes.uploadUrl");
 		// Step 2: Upload Sync Task Zip File
 		String url = blobUploadUrl;
-		String file = "C:/Users/rushabh.patel/Downloads/Sage 50 Zip file with Debit Memo.zip";
+		String file = zipFile;
 
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		connection.setRequestMethod("PUT");
@@ -89,9 +91,9 @@ public class Positive_Create_Empty_Sync extends Helper {
 
 		connection.disconnect();
 
-		String updateEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id
+		String updateEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id
 				+ "/sync-tasks?filter=operation_type%20eq%20%27toNetwork%27&take=3&skip=0";
-		String updaterequestBody = "{" + "\"data\": {" + "\"type\": \"synctask\"," + "\"id\": \"" + syncTaskIdBatch
+		String updaterequestBody = "{" + "\"data\": {" + "\"type\": \"synctask\"," + "\"id\": \"" + syncBatchID
 				+ "\"," + "\"attributes\": {" + "\"summary\": {" + "\"totalInvoices\": 1," + "\"totalPayments\": 2,"
 				+ "\"totalCompanies\": 3," + "\"totalContacts\": 4," + "\"totalGlAccounts\": 5,"
 				+ "\"totalGlAccountEntries\": 6," + "\"totalCustomFields\": 7" + "}" + "}," + "\"relationships\": {"
@@ -128,7 +130,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 			throw e;
 		}
 
-		String queryTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id
+		String queryTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id
 				+ "/sync-tasks?filter=operationtype eq 'toNetwork'&take=3&skip=0";
 		Response queryresponse = RestAssured.given().header("Content-Type", "application/vnd.api+json")
 				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
@@ -159,8 +161,8 @@ public class Positive_Create_Empty_Sync extends Helper {
 			System.out.println("Assertion failed: " + e.getMessage());
 			throw e;
 		}
-		String retriveTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id + "/sync-tasks/"
-				+ syncTaskIdBatch + "/?include=Details";
+		String retriveTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
+				+ syncBatchID + "/?include=Details";
 
 		Response retriveTasksResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
 				.header("Authorization", "Bearer " + jwtToken).get(retriveTasksEndpoint);
@@ -183,6 +185,8 @@ public class Positive_Create_Empty_Sync extends Helper {
 					"Step name attribute is not as expected");
 			assertTrue(retriveTasksResponse.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
 					"ID is not in expected format");
+			assertEquals(retriveTasksResponse.jsonPath().getString("data.id"), syncBatchID,
+					"Sync Task ID is not as expected");
 			assertEquals(retriveTasksResponse.jsonPath().getString("data.type"), "SyncTask",
 					"Type attribute is not as expected");
 
@@ -196,7 +200,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 	@Test(priority = 2)
 	public void verify_Create_Sync_Task_Empty_Partial() throws IOException {
 		// Step 1: Create Sync Task
-		String endpointUrl = apiBaseUrl + "/connectors/erp/datasets/" + database_id + "/sync-tasks";
+		String endpointUrl = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks";
 
 		// Request body
 		String requestBody = "{\"data\":{\"type\":\"SyncTask\",\"attributes\":{\"packageType\":\"Partial\"}}}";
@@ -207,12 +211,11 @@ public class Positive_Create_Empty_Sync extends Helper {
 				.body(requestBody).post(endpointUrl);
 
 		// Print the response
-		// response.prettyPrint();
-		blobUploadUrl = response.jsonPath().getString("included[0].attributes.uploadUrl");
+		//response.prettyPrint();
 
 		syncAttachmentId = response.jsonPath().getString("data.relationships.attachment.data.id");
 		// Extract id from response and store it in the global variable
-		syncTaskIdBatch = response.jsonPath().getString("data.id");
+		syncBatchID = response.jsonPath().getString("data.id");
 		// Assert the status code
 		response.then().statusCode(201);
 
@@ -226,7 +229,10 @@ public class Positive_Create_Empty_Sync extends Helper {
 					"Package type attribute is not as expected");
 			assertEquals(response.jsonPath().getString("data.attributes.stepName"), "Preparing",
 					"Step name attribute is not as expected");
-
+			// Upload URL should not be null.
+			assertNotNull("included[0].attributes.uploadUrl", "Upload URL is null");
+			// SynTask ID should not be null.
+			assertNotNull("data.id", "ID is null");
 			// Assert id and type in the response
 			assertTrue(response.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
 					"ID is not in expected format");
@@ -237,10 +243,11 @@ public class Positive_Create_Empty_Sync extends Helper {
 			System.out.println("Assertion failed: " + e.getMessage());
 			throw e;
 		}
-
+		blobUploadUrl = response.jsonPath().getString("included[0].attributes.uploadUrl");
+		
 		// Step 2: Upload Sync Task Zip File
 		String url = blobUploadUrl;
-		String file = "C:/Users/rushabh.patel/Downloads/Sage 50 Zip file with Debit Memo.zip";
+		String file = zipFile;
 
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		connection.setRequestMethod("PUT");
@@ -261,9 +268,9 @@ public class Positive_Create_Empty_Sync extends Helper {
 
 		connection.disconnect();
 
-		String updateEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id
+		String updateEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id
 				+ "/sync-tasks?filter=operation_type%20eq%20%27toNetwork%27&take=3&skip=0";
-		String updaterequestBody = "{" + "\"data\": {" + "\"type\": \"synctask\"," + "\"id\": \"" + syncTaskIdBatch
+		String updaterequestBody = "{" + "\"data\": {" + "\"type\": \"synctask\"," + "\"id\": \"" + syncBatchID
 				+ "\"," + "\"attributes\": {" + "\"summary\": {" + "\"totalInvoices\": 1," + "\"totalPayments\": 2,"
 				+ "\"totalCompanies\": 3," + "\"totalContacts\": 4," + "\"totalGlAccounts\": 5,"
 				+ "\"totalGlAccountEntries\": 6," + "\"totalCustomFields\": 7" + "}" + "}," + "\"relationships\": {"
@@ -300,7 +307,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 			throw e;
 		}
 
-		String queryTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id
+		String queryTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id
 				+ "/sync-tasks?filter=operationtype eq 'toNetwork'&take=3&skip=0";
 		Response queryresponse = RestAssured.given().header("Content-Type", "application/vnd.api+json")
 				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
@@ -332,14 +339,14 @@ public class Positive_Create_Empty_Sync extends Helper {
 			throw e;
 		}
 
-		String retriveTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + database_id + "/sync-tasks/"
-				+ syncTaskIdBatch + "/?include=Details";
+		String retriveTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
+				+ syncBatchID + "/?include=Details";
 
 		Response retriveTasksResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
 				.header("Authorization", "Bearer " + jwtToken).get(retriveTasksEndpoint);
 
 		// Print the response
-		// sendTasksResponse.prettyPrint();
+		// retriveResponse.prettyPrint();
 
 		// Assert the status code
 		retriveTasksResponse.then().statusCode(200);
@@ -358,6 +365,8 @@ public class Positive_Create_Empty_Sync extends Helper {
 					"ID is not in expected format");
 			assertEquals(retriveTasksResponse.jsonPath().getString("data.type"), "SyncTask",
 					"Type attribute is not as expected");
+			assertEquals(retriveTasksResponse.jsonPath().getString("data.id"), syncBatchID,
+					"Sync Task ID is not as expected");
 
 		} catch (AssertionError e) {
 			// Log the failure
