@@ -3,8 +3,8 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
-      <class name="happyPathScenarios.Create_Batch_Sync"/>
-      <class name="happyPathScenarios.Create_Empty_Sync"/>
+      <class name="happyPathScenarios.Sanity_Create_Batch_Sync"/>
+      <class name="happyPathScenarios.Sanity_Create_Empty_Sync"/>
       <class name="happyPathScenarios.Positive_Create_Batch_Sync"/>
       <class name="happyPathScenarios.Positive_Create_Empty_Sync"/>
     </classes>

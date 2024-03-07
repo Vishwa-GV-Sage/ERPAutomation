@@ -54,7 +54,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 			assertEquals(response.jsonPath().getString("data.attributes.stepName"), "Preparing",
 					"Step name attribute is not as expected");
 			// SynTask ID should not be null.
-			assertNotNull("data.id", "ID is null");
+			assertNotNull(response.jsonPath().getString("data.id"), "ID is null");
 			// Upload URL should not be null.
 			assertNotNull("included[0].attributes.uploadUrl", "Upload URL is null");
 			// Assert id and type in the response
@@ -149,7 +149,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 					"Package type attribute is not as expected");
 			assertEquals(queryresponse.jsonPath().getString("data[0].data.attributes.stepName"), "Ready",
 					"Step name attribute is not as expected");
-			assertEquals(queryresponse.jsonPath().getString("data.id"), syncBatchID,
+			assertEquals(queryresponse.jsonPath().getString("data[0].data.id"), syncBatchID,
 					"Sync Task ID is not as expected");
 			// Assert id and type in the response
 			assertTrue(queryresponse.jsonPath().getString("data[0].data.id").matches("[a-f0-9-]{36}"),
@@ -233,7 +233,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 			// Upload URL should not be null.
 			assertNotNull("included[0].attributes.uploadUrl", "Upload URL is null");
 			// SynTask ID should not be null.
-			assertNotNull("data.id", "ID is null");
+			assertNotNull(response.jsonPath().getString("data.id"), "ID is null");
 			// Assert id and type in the response
 			assertTrue(response.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
 					"ID is not in expected format");
