@@ -9,12 +9,12 @@ import frameworkPkg.Helper;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
-public class Create_Batch_Sync extends Helper {
+public class Sanity_Create_Batch_Sync extends Helper {
 	private String syncTaskIdBatch;
 	String apiBaseUrl = syncAPIBaseURL, dataset_id = syncAPIDataset_ID, jwtToken = syncAPIJwtToken;
 
 	@Test(priority = 1)
-	public void verify_Create_Sync_Batch_Upload_Full() {
+	public void verify_Create_Sync_Batch_Upload_Full_Response_Status() {
 
 		// apiKeyAPI endpoint
 		String endpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks";
@@ -256,7 +256,7 @@ public class Create_Batch_Sync extends Helper {
 	}
 
 	@Test(priority = 2)
-	public void verify_Query_Sync_Task_For_ToNetwork() {
+	public void verify_Query_Sync_Response_Status() {
 		String queryEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id
 				+ "/sync-tasks?filter=operationtype eq 'toNetwork'&take=3&skip=0";
 		Response queryResponse = RestAssured.given().header("Content-Type", "application/vnd.api+json")
@@ -271,7 +271,7 @@ public class Create_Batch_Sync extends Helper {
 	}
 
 	@Test(priority = 3)
-	public void verify_Retrieve_sync_task_for_ToNetwork() {
+	public void verify_Retrieve_Sync_Response_Status() {
 		String retrieveEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
 				+ syncTaskIdBatch + "/?include=Details";
 

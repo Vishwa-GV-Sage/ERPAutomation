@@ -149,7 +149,8 @@ public class Positive_Create_Empty_Sync extends Helper {
 					"Package type attribute is not as expected");
 			assertEquals(queryresponse.jsonPath().getString("data[0].data.attributes.stepName"), "Ready",
 					"Step name attribute is not as expected");
-
+			assertEquals(queryresponse.jsonPath().getString("data.id"), syncBatchID,
+					"Sync Task ID is not as expected");
 			// Assert id and type in the response
 			assertTrue(queryresponse.jsonPath().getString("data[0].data.id").matches("[a-f0-9-]{36}"),
 					"ID is not in expected format");

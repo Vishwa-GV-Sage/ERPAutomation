@@ -16,12 +16,12 @@ import frameworkPkg.Helper;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
-public class Create_Empty_Sync extends Helper {
+public class Sanity_Create_Empty_Sync extends Helper {
 	private String syncTaskIdBatch, syncAttachmentId, blobUploadUrl;
 	String apiBaseUrl = syncAPIBaseURL, dataset_id = syncAPIDataset_ID, jwtToken = syncAPIJwtToken;
 
 	@Test(priority = 1)
-	public void verify_Create_Sync_Task_Empty() {
+	public void verify_Create_Sync_Task_Empty_Response_Status() {
 		String endpointUrl = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks";
 
 		// Request body
@@ -47,7 +47,7 @@ public class Create_Empty_Sync extends Helper {
 	}
 
 	@Test(priority = 2)
-	public void upload_Sync_Task_Zip_File() throws IOException {
+	public void verify_upload_Sync_Zip_File_Response_Status() throws IOException {
 		String url = blobUploadUrl;
 		String file = zipFile;
 
@@ -72,7 +72,7 @@ public class Create_Empty_Sync extends Helper {
 	}
 
 	@Test(priority = 3)
-	public void verify_Update_Synck() {
+	public void verify_Update_Sync_Response_Status() {
 		String updateEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id
 				+ "/sync-tasks?filter=operation_type%20eq%20%27toNetwork%27&take=3&skip=0";
 		String requestBody = "{" + "\"data\": {" + "\"type\": \"synctask\"," + "\"id\": \"" + syncTaskIdBatch + "\","
@@ -91,31 +91,10 @@ public class Create_Empty_Sync extends Helper {
 		int expectedStatusCode = 202;
 	    int actualStatusCode = updateResponse.getStatusCode();
 	    assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
-
-		// Assert attributes in the response
-		try {
-			assertEquals(updateResponse.jsonPath().getString("data.attributes.status"), "Awaiting",
-					"Status attribute is not as expected");
-			assertEquals(updateResponse.jsonPath().getString("data.attributes.operationType"), "ToNetwork",
-					"Operation type attribute is not as expected");
-			assertEquals(updateResponse.jsonPath().getString("data.attributes.packageType"), "Full",
-					"Package type attribute is not as expected");
-			assertEquals(updateResponse.jsonPath().getString("data.attributes.stepName"), "Ready",
-					"Step name attribute is not as expected");
-			assertTrue(updateResponse.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
-					"ID is not in expected format");
-			assertEquals(updateResponse.jsonPath().getString("data.type"), "SyncTask",
-					"Type attribute is not as expected");
-
-		} catch (AssertionError e) {
-			// Log the failure
-			System.out.println("Assertion failed: " + e.getMessage());
-			throw e;
-		}
 	}
 
 	@Test(priority = 4)
-	public void verify_Query_Sync_Task_For_ToNetwork() {
+	public void verify_Query_Sync_Response_Status() {
 		String queryTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id
 				+ "/sync-tasks?filter=operationtype eq 'toNetwork'&take=3&skip=0";
 		Response queryresponse = RestAssured.given().header("Content-Type", "application/vnd.api+json")
@@ -130,7 +109,7 @@ public class Create_Empty_Sync extends Helper {
 	}
 
 	@Test(priority = 5)
-	public void verify_Retrieve_sync_task_for_ToNetwork() {
+	public void verify_Retrieve_Sync_Response_Status() {
 		String retriveTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
 				+ syncTaskIdBatch + "/?include=Details";
 
