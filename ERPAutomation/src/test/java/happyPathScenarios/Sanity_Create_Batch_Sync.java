@@ -1,7 +1,6 @@
 package happyPathScenarios;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
@@ -242,16 +241,16 @@ public class Sanity_Create_Batch_Sync extends Helper {
 		// Send POST request
 		Response response = RestAssured.given().header("Authorization", "Bearer " + jwtToken)
 				.header("Content-Type", "application/vnd.api+json").header("Accept", "application/vnd.api+json")
-				.body(requestBody).post(endpoint);
+				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(requestBody).post(endpoint);
 		// Extract id from response and store it in the global variable
 		syncTaskIdBatch = response.jsonPath().getString("data.id");
 		// Print response
 		// response.prettyPrint();
 		// Assert the status code...
-		
-	    int expectedStatusCode = 201;
-	    int actualStatusCode = response.getStatusCode();
-	    assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
+
+		int expectedStatusCode = 201;
+		int actualStatusCode = response.getStatusCode();
+		assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
 
 	}
 
@@ -265,9 +264,9 @@ public class Sanity_Create_Batch_Sync extends Helper {
 		// Print the response
 		// queryresponse.prettyPrint();
 		// Assert the status code
-	    int expectedStatusCode = 200;
-	    int actualStatusCode = queryResponse.getStatusCode();
-	    assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
+		int expectedStatusCode = 200;
+		int actualStatusCode = queryResponse.getStatusCode();
+		assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
 	}
 
 	@Test(priority = 3)
@@ -281,13 +280,11 @@ public class Sanity_Create_Batch_Sync extends Helper {
 
 		// Print the response
 		// sendTasksResponse.prettyPrint();
-
 		// Assert the status code
-	    int expectedStatusCode = 200;
-	    int actualStatusCode = retrieveResponse.getStatusCode();
-	    assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
+		int expectedStatusCode = 200;
+		int actualStatusCode = retrieveResponse.getStatusCode();
+		assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
 
-		
 	}
 
 }

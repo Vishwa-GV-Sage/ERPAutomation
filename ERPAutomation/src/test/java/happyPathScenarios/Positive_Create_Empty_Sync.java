@@ -22,7 +22,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 	String apiBaseUrl = syncAPIBaseURL, dataset_id = syncAPIDataset_ID, jwtToken = syncAPIJwtToken;
 
 	@Test(priority = 1)
-	public void verify_Create_Sync_Task_Empty_Full() throws IOException {
+	public void verify_Create_Sync_Task_Empty_Full() throws IOException, InterruptedException {
 		// Step 1: Create Sync Task
 		String endpointUrl = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks";
 
@@ -32,7 +32,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 		// Send POST request and capture response
 		Response response = RestAssured.given().header("Content-Type", "application/vnd.api+json")
 				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
-				.body(requestBody).post(endpointUrl);
+				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(requestBody).post(endpointUrl);
 
 		// Print the response
 		// response.prettyPrint();
@@ -93,15 +93,16 @@ public class Positive_Create_Empty_Sync extends Helper {
 
 		String updateEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id
 				+ "/sync-tasks?filter=operation_type%20eq%20%27toNetwork%27&take=3&skip=0";
-		String updaterequestBody = "{" + "\"data\": {" + "\"type\": \"synctask\"," + "\"id\": \"" + syncBatchID
-				+ "\"," + "\"attributes\": {" + "\"summary\": {" + "\"totalInvoices\": 1," + "\"totalPayments\": 2,"
+		String updaterequestBody = "{" + "\"data\": {" + "\"type\": \"synctask\"," + "\"id\": \"" + syncBatchID + "\","
+				+ "\"attributes\": {" + "\"summary\": {" + "\"totalInvoices\": 1," + "\"totalPayments\": 2,"
 				+ "\"totalCompanies\": 3," + "\"totalContacts\": 4," + "\"totalGlAccounts\": 5,"
 				+ "\"totalGlAccountEntries\": 6," + "\"totalCustomFields\": 7" + "}" + "}," + "\"relationships\": {"
 				+ "\"attachment\": {" + "\"data\": {" + "\"id\": \"" + syncAttachmentId + "\","
 				+ "\"type\": \"attachment\"" + "}" + "}" + "}" + "}}";
 		Response updateResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
 				.header("Content-Type", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
-				.body(updaterequestBody).patch(updateEndpoint);
+				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(updaterequestBody)
+				.patch(updateEndpoint);
 
 		// Print the response
 		// updateResponse.prettyPrint();
@@ -165,41 +166,61 @@ public class Positive_Create_Empty_Sync extends Helper {
 		String retriveTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
 				+ syncBatchID + "/?include=Details";
 
-		Response retriveTasksResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
-				.header("Authorization", "Bearer " + jwtToken).get(retriveTasksEndpoint);
+		Response retriveTasksResponse;
 
-		// Print the response
-		// sendTasksResponse.prettyPrint();
+		// Define the maximum time to wait in seconds
+		int maxWaitTimeInSeconds = 900; // 15 minutes
+		int elapsedTimeInSeconds = 0;
 
-		// Assert the status code
-		retriveTasksResponse.then().statusCode(200);
+		// Keep checking the status until it becomes "Completed" or the maximum wait
+		// time is reached
+		while (elapsedTimeInSeconds < maxWaitTimeInSeconds) {
+			// Send a request to retrieve the tasks
+			retriveTasksResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
+					.header("Authorization", "Bearer " + jwtToken).get(retriveTasksEndpoint);
 
-		// Assert attributes in the response
-		try {
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.status"), "Awaiting",
-					"Status attribute is not as expected");
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.operationType"), "ToNetwork",
-					"Operation type attribute is not as expected");
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.packageType"), "Full",
-					"Package type attribute is not as expected");
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.stepName"), "Ready",
-					"Step name attribute is not as expected");
-			assertTrue(retriveTasksResponse.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
-					"ID is not in expected format");
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.id"), syncBatchID,
-					"Sync Task ID is not as expected");
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.type"), "SyncTask",
-					"Type attribute is not as expected");
+			// Assert the status code
+			retriveTasksResponse.then().statusCode(200);
+			elapsedTimeInSeconds += 10; // Increment by 10 seconds
 
-		} catch (AssertionError e) {
-			// Log the failure
-			System.out.println("Assertion failed: " + e.getMessage());
-			throw e;
+			// Assert attributes in the response
+			try {
+				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.status"), "Completed",
+						"Status attribute is not as expected");
+				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.operationType"), "ToNetwork",
+						"Operation type attribute is not as expected");
+				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.packageType"), "Full",
+						"Package type attribute is not as expected");
+				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.stepName"), "Finalized",
+						"Step name attribute is not as expected");
+				assertTrue(retriveTasksResponse.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
+						"ID is not in expected format");
+				assertEquals(retriveTasksResponse.jsonPath().getString("data.type"), "SyncTask",
+						"Type attribute is not as expected");
+				assertEquals(retriveTasksResponse.jsonPath().getString("data.id"), syncBatchID,
+						"Sync Task ID is not as expected");
+
+				// If all assertions pass, break the loop as the status is "Completed"
+				break;
+			} catch (AssertionError e) {
+				// Log the failure
+				// System.out.println("Assertion failed: " + e.getMessage());
+				// Sleep for a while before checking again
+
+				Thread.sleep(10000); // Sleep for 10 seconds
+				// Increment the elapsed time
+
+			}
+		}
+
+		if (elapsedTimeInSeconds >= maxWaitTimeInSeconds) {
+			// If the maximum wait time is reached and status is not completed
+			throw new RuntimeException("Max wait time exceeded. Status is not completed.");
 		}
 	}
 
 	@Test(priority = 2)
-	public void verify_Create_Sync_Task_Empty_Partial() throws IOException {
+	public void verify_Create_Sync_Task_Empty_Partial() throws IOException, InterruptedException {
 		// Step 1: Create Sync Task
 		String endpointUrl = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks";
 
@@ -209,10 +230,10 @@ public class Positive_Create_Empty_Sync extends Helper {
 		// Send POST request and capture response
 		Response response = RestAssured.given().header("Content-Type", "application/vnd.api+json")
 				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
-				.body(requestBody).post(endpointUrl);
+				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(requestBody).post(endpointUrl);
 
 		// Print the response
-		//response.prettyPrint();
+		// response.prettyPrint();
 
 		syncAttachmentId = response.jsonPath().getString("data.relationships.attachment.data.id");
 		// Extract id from response and store it in the global variable
@@ -245,7 +266,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 			throw e;
 		}
 		blobUploadUrl = response.jsonPath().getString("included[0].attributes.uploadUrl");
-		
+
 		// Step 2: Upload Sync Task Zip File
 		String url = blobUploadUrl;
 		String file = zipFile;
@@ -271,15 +292,16 @@ public class Positive_Create_Empty_Sync extends Helper {
 
 		String updateEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id
 				+ "/sync-tasks?filter=operation_type%20eq%20%27toNetwork%27&take=3&skip=0";
-		String updaterequestBody = "{" + "\"data\": {" + "\"type\": \"synctask\"," + "\"id\": \"" + syncBatchID
-				+ "\"," + "\"attributes\": {" + "\"summary\": {" + "\"totalInvoices\": 1," + "\"totalPayments\": 2,"
+		String updaterequestBody = "{" + "\"data\": {" + "\"type\": \"synctask\"," + "\"id\": \"" + syncBatchID + "\","
+				+ "\"attributes\": {" + "\"summary\": {" + "\"totalInvoices\": 1," + "\"totalPayments\": 2,"
 				+ "\"totalCompanies\": 3," + "\"totalContacts\": 4," + "\"totalGlAccounts\": 5,"
 				+ "\"totalGlAccountEntries\": 6," + "\"totalCustomFields\": 7" + "}" + "}," + "\"relationships\": {"
 				+ "\"attachment\": {" + "\"data\": {" + "\"id\": \"" + syncAttachmentId + "\","
 				+ "\"type\": \"attachment\"" + "}" + "}" + "}" + "}}";
 		Response updateResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
 				.header("Content-Type", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
-				.body(updaterequestBody).patch(updateEndpoint);
+				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(updaterequestBody)
+				.patch(updateEndpoint);
 
 		// Print the response
 		// updateResponse.prettyPrint();
@@ -336,43 +358,65 @@ public class Positive_Create_Empty_Sync extends Helper {
 
 		} catch (AssertionError e) {
 			// Log the failure
-			System.out.println("Assertion failed: " + e.getMessage());
+			// System.out.println("Assertion failed: " + e.getMessage());
 			throw e;
 		}
 
 		String retriveTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
 				+ syncBatchID + "/?include=Details";
 
-		Response retriveTasksResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
-				.header("Authorization", "Bearer " + jwtToken).get(retriveTasksEndpoint);
+		Response retriveTasksResponse;
 
-		// Print the response
-		// retriveResponse.prettyPrint();
+		// Define the maximum time to wait in seconds
+		int maxWaitTimeInSeconds = 900; // 15 minutes
+		int elapsedTimeInSeconds = 0;
 
-		// Assert the status code
-		retriveTasksResponse.then().statusCode(200);
+		// Keep checking the status until it becomes "Completed" or the maximum wait
+		// time is reached
+		while (elapsedTimeInSeconds < maxWaitTimeInSeconds) {
 
-		// Assert attributes in the response
-		try {
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.status"), "Awaiting",
-					"Status attribute is not as expected");
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.operationType"), "ToNetwork",
-					"Operation type attribute is not as expected");
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.packageType"), "Partial",
-					"Package type attribute is not as expected");
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.stepName"), "Ready",
-					"Step name attribute is not as expected");
-			assertTrue(retriveTasksResponse.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
-					"ID is not in expected format");
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.type"), "SyncTask",
-					"Type attribute is not as expected");
-			assertEquals(retriveTasksResponse.jsonPath().getString("data.id"), syncBatchID,
-					"Sync Task ID is not as expected");
+			elapsedTimeInSeconds += 10; // Increment by 10 seconds
+			// Send a request to retrieve the tasks
+			retriveTasksResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
+					.header("Authorization", "Bearer " + jwtToken).get(retriveTasksEndpoint);
 
-		} catch (AssertionError e) {
-			// Log the failure
-			System.out.println("Assertion failed: " + e.getMessage());
-			throw e;
+			// Assert the status code
+			retriveTasksResponse.then().statusCode(200);
+
+			// Assert attributes in the response
+			try {
+				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.status"), "Completed",
+						"Status attribute is not as expected");
+				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.operationType"), "ToNetwork",
+						"Operation type attribute is not as expected");
+				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.packageType"), "Partial",
+						"Package type attribute is not as expected");
+				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.stepName"), "Finalized",
+						"Step name attribute is not as expected");
+				assertTrue(retriveTasksResponse.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
+						"ID is not in expected format");
+				assertEquals(retriveTasksResponse.jsonPath().getString("data.type"), "SyncTask",
+						"Type attribute is not as expected");
+				assertEquals(retriveTasksResponse.jsonPath().getString("data.id"), syncBatchID,
+						"Sync Task ID is not as expected");
+
+				// If all assertions pass, break the loop as the status is "Completed"
+				break;
+			} catch (AssertionError e) {
+				// Log the failure
+				// System.out.println("Assertion failed: " + e.getMessage());
+				// Sleep for a while before checking again
+
+				Thread.sleep(10000); // Sleep for 10 seconds
+				// Increment the elapsed time
+
+				// System.out.println(elapsedTimeInSeconds);
+			}
+		}
+
+		if (elapsedTimeInSeconds >= maxWaitTimeInSeconds) {
+			// If the maximum wait time is reached and status is not completed
+			throw new RuntimeException("Max wait time exceeded. Status is not completed.");
 		}
 	}
 }

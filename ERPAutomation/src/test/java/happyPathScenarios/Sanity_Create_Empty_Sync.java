@@ -1,7 +1,6 @@
 package happyPathScenarios;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,6 +29,7 @@ public class Sanity_Create_Empty_Sync extends Helper {
 		// Send POST request and capture response
 		Response response = RestAssured.given().header("Content-Type", "application/vnd.api+json")
 				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
+				.header("Idempotency-Key","fd45e434-c20d-4837-a076-a427b180a068")
 				.body(requestBody).post(endpointUrl);
 
 		// Print the response
@@ -82,7 +82,7 @@ public class Sanity_Create_Empty_Sync extends Helper {
 				+ "\"attachment\": {" + "\"data\": {" + "\"id\": \"" + syncAttachmentId + "\","
 				+ "\"type\": \"attachment\"" + "}" + "}" + "}" + "}}";
 		Response updateResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
-				.header("Content-Type", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
+				.header("Content-Type", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken).header("Idempotency-Key","fd45e434-c20d-4837-a076-a427b180a068")
 				.body(requestBody).patch(updateEndpoint);
 
 		// Print the response

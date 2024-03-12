@@ -243,11 +243,11 @@ public class Positive_Create_Batch_Sync extends Helper {
 		// Send POST request
 		Response response = RestAssured.given().header("Authorization", "Bearer " + jwtToken)
 				.header("Content-Type", "application/vnd.api+json").header("Accept", "application/vnd.api+json")
-				.body(requestBody).post(endpoint);
+				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(requestBody).post(endpoint);
 		// Extract id from response and store it in the global variable
 		syncBatchID = response.jsonPath().getString("data.id");
 		// Print response
-		//response.prettyPrint();
+		// response.prettyPrint();
 		// Assert the status code...
 		response.then().statusCode(201);
 
@@ -308,8 +308,8 @@ public class Positive_Create_Batch_Sync extends Helper {
 			throw e;
 		}
 
-		String retrieveEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
-				+ syncBatchID + "/?include=Details";
+		String retrieveEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/" + syncBatchID
+				+ "/?include=Details";
 
 		Response retrieveResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
 				.header("Authorization", "Bearer " + jwtToken).header("accept", "application/vnd.api+json")
@@ -335,7 +335,7 @@ public class Positive_Create_Batch_Sync extends Helper {
 			// Assert id and type in the response
 			assertTrue(retrieveResponse.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
 					"ID is not in expected format");
-			assertEquals( retrieveResponse.jsonPath().getString("data.id"),syncBatchID,
+			assertEquals(retrieveResponse.jsonPath().getString("data.id"), syncBatchID,
 					"Sync Batch ID is not matching as expected.");
 			assertEquals(retrieveResponse.jsonPath().getString("data.type"), "SyncTask",
 					"Type attribute is not as expected");
@@ -576,12 +576,12 @@ public class Positive_Create_Batch_Sync extends Helper {
 		// Send POST request
 		Response response = RestAssured.given().header("Authorization", "Bearer " + jwtToken)
 				.header("Content-Type", "application/vnd.api+json").header("Accept", "application/vnd.api+json")
-				.body(requestBody).post(endpoint);
+				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(requestBody).post(endpoint);
 		// Extract id from response and store it in the global variable
 		syncBatchID = response.jsonPath().getString("data.id");
-		
+
 		// Print response
-	   // response.prettyPrint();
+		// response.prettyPrint();
 		// Assert the status code...
 		response.then().statusCode(201);
 
@@ -613,8 +613,8 @@ public class Positive_Create_Batch_Sync extends Helper {
 		Response queryresponse = RestAssured.given().header("Content-Type", "application/vnd.api+json")
 				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
 				.get(queryTasksEndpoint);
-		 // Print the response
-		 //queryresponse.prettyPrint();
+		// Print the response
+		// queryresponse.prettyPrint();
 		// Assert the status code
 		queryresponse.then().statusCode(200);
 
@@ -641,36 +641,36 @@ public class Positive_Create_Batch_Sync extends Helper {
 			throw e;
 		}
 		// Step 3: Retrieve sync API
-		String  retrieveEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
-				+ syncBatchID + "/?include=Details";
+		String retrieveEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/" + syncBatchID
+				+ "/?include=Details";
 
-		Response  retrieveResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
+		Response retrieveResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
 				.header("Authorization", "Bearer " + jwtToken).header("accept", "application/vnd.api+json")
-				.get( retrieveEndpoint);
+				.get(retrieveEndpoint);
 
 		// Print the response
 		// retrieveResponse.prettyPrint();
 
 		// Assert the status code
-		 retrieveResponse.then().statusCode(200);
+		retrieveResponse.then().statusCode(200);
 
 		// Assert attributes in the response
 		try {
-			assertEquals( retrieveResponse.jsonPath().getString("data.attributes.status"), "Awaiting",
+			assertEquals(retrieveResponse.jsonPath().getString("data.attributes.status"), "Awaiting",
 					"Status attribute is not as expected");
-			assertEquals( retrieveResponse.jsonPath().getString("data.attributes.operationType"), "ToNetwork",
+			assertEquals(retrieveResponse.jsonPath().getString("data.attributes.operationType"), "ToNetwork",
 					"Operation type attribute is not as expected");
-			assertEquals( retrieveResponse.jsonPath().getString("data.attributes.packageType"), "Partial",
+			assertEquals(retrieveResponse.jsonPath().getString("data.attributes.packageType"), "Partial",
 					"Package type attribute is not as expected");
-			assertEquals( retrieveResponse.jsonPath().getString("data.attributes.stepName"), "Ready",
+			assertEquals(retrieveResponse.jsonPath().getString("data.attributes.stepName"), "Ready",
 					"Step name attribute is not as expected");
 
 			// Assert id and type in the response
-			assertTrue( retrieveResponse.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
+			assertTrue(retrieveResponse.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
 					"ID is not in expected format");
-			assertEquals( retrieveResponse.jsonPath().getString("data.id"),syncBatchID,
+			assertEquals(retrieveResponse.jsonPath().getString("data.id"), syncBatchID,
 					"Sync Batch ID is not matching as expected.");
-			assertEquals( retrieveResponse.jsonPath().getString("data.type"), "SyncTask",
+			assertEquals(retrieveResponse.jsonPath().getString("data.type"), "SyncTask",
 					"Type attribute is not as expected");
 
 		} catch (AssertionError e) {
