@@ -178,11 +178,15 @@ public class Positive_Create_Empty_Sync extends Helper {
 			// Send a request to retrieve the tasks
 			retriveTasksResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
 					.header("Authorization", "Bearer " + jwtToken).get(retriveTasksEndpoint);
-
+			// Print the response
+			 retriveTasksResponse.prettyPrint();
 			// Assert the status code
 			retriveTasksResponse.then().statusCode(200);
 			elapsedTimeInSeconds += 10; // Increment by 10 seconds
-
+			System.out.println(elapsedTimeInSeconds);
+			
+			String taskStatus=retriveTasksResponse.jsonPath().getString("data.attributes.status");
+			System.out.println(taskStatus);
 			// Assert attributes in the response
 			try {
 				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.status"), "Completed",
@@ -206,13 +210,18 @@ public class Positive_Create_Empty_Sync extends Helper {
 				// Log the failure
 				// System.out.println("Assertion failed: " + e.getMessage());
 				// Sleep for a while before checking again
-
+				if(taskStatus.equalsIgnoreCase("Failed"))
+				 {
+					 throw new RuntimeException("Sync tatus is" + taskStatus);
+				 }
 				Thread.sleep(10000); // Sleep for 10 seconds
 				// Increment the elapsed time
 
 			}
+			
+			 
 		}
-
+       
 		if (elapsedTimeInSeconds >= maxWaitTimeInSeconds) {
 			// If the maximum wait time is reached and status is not completed
 			throw new RuntimeException("Max wait time exceeded. Status is not completed.");
