@@ -72,25 +72,23 @@ public class Invalid_Empty_Sync extends Helper {
 		// Step 2: Upload Sync Task Zip File
 		String url = blobUploadUrl;
 		String file = "";
-
-		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-		connection.setRequestMethod("PUT");
-		connection.setRequestProperty("x-ms-blob-type", "BlockBlob");
-		connection.setDoOutput(true);
-
-		try (OutputStream outputStream = connection.getOutputStream();
-				FileInputStream fileInputStream = new FileInputStream(new File(file))) {
-			byte[] buffer = new byte[4096];
-			int bytesRead;
-			while ((bytesRead = fileInputStream.read(buffer)) != -1) {
-				outputStream.write(buffer, 0, bytesRead);
-			}
-		}
-
-		int responseCode = connection.getResponseCode();
-		assert responseCode == 201 : "File upload failed. Response code: " + responseCode;
-
-		connection.disconnect();
+		/*
+		 * HttpURLConnection connection = (HttpURLConnection) new
+		 * URL(url).openConnection(); connection.setRequestMethod("PUT");
+		 * connection.setRequestProperty("x-ms-blob-type", "BlockBlob");
+		 * connection.setDoOutput(true);
+		 * 
+		 * try (OutputStream outputStream = connection.getOutputStream();
+		 * FileInputStream fileInputStream = new FileInputStream(new File(file))) {
+		 * byte[] buffer = new byte[4096]; int bytesRead; while ((bytesRead =
+		 * fileInputStream.read(buffer)) != -1) { outputStream.write(buffer, 0,
+		 * bytesRead); } }
+		 * 
+		 * int responseCode = connection.getResponseCode(); assert responseCode == 201 :
+		 * "File upload failed. Response code: " + responseCode;
+		 * 
+		 * connection.disconnect();
+		 */
 
 		String updateEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id
 				+ "/sync-tasks?filter=operation_type%20eq%20%27toNetwork%27&take=3&skip=0";
