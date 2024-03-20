@@ -125,7 +125,7 @@ public class Invalid_Empty_Sync extends Helper {
 		String file = "C:\\Users\\Public\\Documents\\ERPAutomation\\123@qwe.zip";
 
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
-		Response response = createEmptySyncObj.with_Uploading_File_create_Empty_Sync(file);
+		Response response = createEmptySyncObj.positive_with_Uploading_File_create_Empty_Sync(file);
 		// Verify that the response is not null
 		assertNotNull(response, "Response object should not be null");
 
