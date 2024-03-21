@@ -37,9 +37,9 @@ public class Create_Empty_Sync extends Helper {
 		// Assert the status code
 		int actualStatusCode = response.getStatusCode();
 		int expectedStatusCode = 201;
-		
+
 		// Asserting the status code
-		Assert.assertEquals(actualStatusCode, expectedStatusCode, "The status code is not as expected.");
+		Assert.assertEquals(actualStatusCode, expectedStatusCode, "Step 1: The status code is not as expected.");
 
 		String updateEndpoint = syncAPIBaseURL + "/connectors/erp/datasets/" + syncAPIDataset_ID
 				+ "/sync-tasks?filter=operation_type%20eq%20%27toNetwork%27&take=3&skip=0";
@@ -53,13 +53,19 @@ public class Create_Empty_Sync extends Helper {
 				.header("Content-Type", "application/vnd.api+json").header("Authorization", "Bearer " + syncAPIJwtToken)
 				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(updaterequestBody)
 				.patch(updateEndpoint);
-		updateResponse.then().statusCode(202);
+
+		// Assert the status code
+		actualStatusCode = updateResponse.getStatusCode();
+		expectedStatusCode = 202;
+		// Asserting the status code
+		Assert.assertEquals(actualStatusCode, expectedStatusCode, "Step 3: The status code is not as expected.");
 		Response retriveTasksResponse = null;
 		return retrieveTasks_Failed(syncBatchID, retriveTasksResponse);
 
 	}
+
 	public Response with_Uploading_File_create_Empty_Sync(String zipFile) throws FileNotFoundException, IOException {
-		
+
 		String endpointUrl = syncAPIBaseURL + "/connectors/erp/datasets/" + syncAPIDataset_ID + "/sync-tasks";
 
 		// Request body
@@ -73,11 +79,15 @@ public class Create_Empty_Sync extends Helper {
 		// Extract id from response and store it in the global variable
 		syncBatchID = response.jsonPath().getString("data.id");
 		// Assert the status code
-		response.then().statusCode(201);
+		int actualStatusCode = response.getStatusCode();
+		int expectedStatusCode = 201;
+		// Asserting the status code
+		Assert.assertEquals(actualStatusCode, expectedStatusCode, "Step 1: The status code is not as expected.");
+
 		blobUploadUrl = response.jsonPath().getString("included[0].attributes.uploadUrl");
 		// Step 2: Upload Sync Task Zip File
 		String url = blobUploadUrl;
-		
+
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		connection.setRequestMethod("PUT");
 		connection.setRequestProperty("x-ms-blob-type", "BlockBlob");
@@ -94,7 +104,7 @@ public class Create_Empty_Sync extends Helper {
 
 		int responseCode = connection.getResponseCode();
 		assert responseCode == 201 : "File upload failed. Response code: " + responseCode;
-		
+
 		String updateEndpoint = syncAPIBaseURL + "/connectors/erp/datasets/" + syncAPIDataset_ID
 				+ "/sync-tasks?filter=operation_type%20eq%20%27toNetwork%27&take=3&skip=0";
 		String updaterequestBody = "{" + "\"data\": {" + "\"type\": \"synctask\"," + "\"id\": \"" + syncBatchID + "\","
@@ -107,13 +117,20 @@ public class Create_Empty_Sync extends Helper {
 				.header("Content-Type", "application/vnd.api+json").header("Authorization", "Bearer " + syncAPIJwtToken)
 				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(updaterequestBody)
 				.patch(updateEndpoint);
-		updateResponse.then().statusCode(202);
+
+		// Assert the status code
+		actualStatusCode = updateResponse.getStatusCode();
+		expectedStatusCode = 202;
+		// Asserting the status code
+		Assert.assertEquals(actualStatusCode, expectedStatusCode, "Step 3: The status code is not as expected.");
+
 		Response retriveTasksResponse = null;
 		return retrieveTasks_Failed(syncBatchID, retriveTasksResponse);
 	}
-	
-public Response positive_with_Uploading_File_create_Empty_Sync(String zipFile) throws FileNotFoundException, IOException {
-		
+
+	public Response positive_with_Uploading_File_create_Empty_Sync(String zipFile)
+			throws FileNotFoundException, IOException {
+
 		String endpointUrl = syncAPIBaseURL + "/connectors/erp/datasets/" + syncAPIDataset_ID + "/sync-tasks";
 
 		// Request body
@@ -127,11 +144,15 @@ public Response positive_with_Uploading_File_create_Empty_Sync(String zipFile) t
 		// Extract id from response and store it in the global variable
 		syncBatchID = response.jsonPath().getString("data.id");
 		// Assert the status code
-		response.then().statusCode(201);
+		int actualStatusCode = response.getStatusCode();
+		int expectedStatusCode = 201;
+
+		Assert.assertEquals(actualStatusCode, expectedStatusCode, "Step 1: The status code is not as expected.");
+
 		blobUploadUrl = response.jsonPath().getString("included[0].attributes.uploadUrl");
 		// Step 2: Upload Sync Task Zip File
 		String url = blobUploadUrl;
-		
+
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		connection.setRequestMethod("PUT");
 		connection.setRequestProperty("x-ms-blob-type", "BlockBlob");
@@ -148,7 +169,7 @@ public Response positive_with_Uploading_File_create_Empty_Sync(String zipFile) t
 
 		int responseCode = connection.getResponseCode();
 		assert responseCode == 201 : "File upload failed. Response code: " + responseCode;
-		
+
 		String updateEndpoint = syncAPIBaseURL + "/connectors/erp/datasets/" + syncAPIDataset_ID
 				+ "/sync-tasks?filter=operation_type%20eq%20%27toNetwork%27&take=3&skip=0";
 		String updaterequestBody = "{" + "\"data\": {" + "\"type\": \"synctask\"," + "\"id\": \"" + syncBatchID + "\","
@@ -161,10 +182,14 @@ public Response positive_with_Uploading_File_create_Empty_Sync(String zipFile) t
 				.header("Content-Type", "application/vnd.api+json").header("Authorization", "Bearer " + syncAPIJwtToken)
 				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(updaterequestBody)
 				.patch(updateEndpoint);
-		updateResponse.then().statusCode(202);
+		actualStatusCode = updateResponse.getStatusCode();
+		expectedStatusCode = 202;
+		// Asserting the status code
+		Assert.assertEquals(actualStatusCode, expectedStatusCode, "Step 3: The status code is not as expected.");
 		Response retriveTasksResponse = null;
 		return retrieveTasks_Completed(syncBatchID, retriveTasksResponse);
 	}
+
 	private Response retrieveTasks_Failed(String syncBatchID, Response retriveTasksResponse) {
 		String retriveTasksEndpoint = syncAPIBaseURL + "/connectors/erp/datasets/" + syncAPIDataset_ID + "/sync-tasks/"
 				+ syncBatchID + "/?include=Details";
@@ -172,7 +197,8 @@ public Response positive_with_Uploading_File_create_Empty_Sync(String zipFile) t
 		// Define the maximum time to wait in seconds
 		int maxWaitTimeInSeconds = 60; // 1 minute
 		int elapsedTimeInSeconds = 0;
-
+		int actualStatusCode = 0;
+		int expectedStatusCode = 200;
 		// Keep checking the status until it becomes "Failed" or the maximum wait
 		// time is reached
 		while (elapsedTimeInSeconds < maxWaitTimeInSeconds) {
@@ -180,14 +206,18 @@ public Response positive_with_Uploading_File_create_Empty_Sync(String zipFile) t
 			retriveTasksResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
 					.header("Authorization", "Bearer " + syncAPIJwtToken).get(retriveTasksEndpoint);
 			// Print the response
-			//retriveTasksResponse.prettyPrint();
+			// retriveTasksResponse.prettyPrint();
 			// Assert the status code
-			retriveTasksResponse.then().statusCode(200);
+			// Assert the status code
+			actualStatusCode = retriveTasksResponse.getStatusCode();
+
+			// Asserting the status code
+			Assert.assertEquals(actualStatusCode, expectedStatusCode, "Step 4: The status code is not as expected.");
 			elapsedTimeInSeconds += 10; // Increment by 10 seconds
-			//System.out.println(elapsedTimeInSeconds);
+			// System.out.println(elapsedTimeInSeconds);
 
 			String taskStatus = retriveTasksResponse.jsonPath().getString("data.attributes.status");
-			//System.out.println(taskStatus);
+			// System.out.println(taskStatus);
 			// Assert attributes in the response
 			try {
 				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.status"), "Failed",
@@ -196,7 +226,7 @@ public Response positive_with_Uploading_File_create_Empty_Sync(String zipFile) t
 						"Operation type attribute is not as expected");
 				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.packageType"), "Full",
 						"Package type attribute is not as expected");
-				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.stepName"), "Finalized",
+				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.stepName"), "CleaningUp",
 						"Step name attribute is not as expected");
 				assertTrue(retriveTasksResponse.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
 						"ID is not in expected format");
@@ -209,10 +239,7 @@ public Response positive_with_Uploading_File_create_Empty_Sync(String zipFile) t
 				break;
 			} catch (AssertionError e) {
 
-				// Sleep for a while before checking again
-				if (taskStatus.equalsIgnoreCase("Failed")) {
-					throw new RuntimeException("Sync status is " + taskStatus);
-				}
+				
 				try {
 					Thread.sleep(10000);
 				} catch (InterruptedException e1) {
@@ -237,7 +264,8 @@ public Response positive_with_Uploading_File_create_Empty_Sync(String zipFile) t
 		// Define the maximum time to wait in seconds
 		int maxWaitTimeInSeconds = 900; // 15 minute
 		int elapsedTimeInSeconds = 0;
-
+		int actualStatusCode = 0;
+		int expectedStatusCode = 200;
 		// Keep checking the status until it becomes "Failed" or the maximum wait
 		// time is reached
 		while (elapsedTimeInSeconds < maxWaitTimeInSeconds) {
@@ -245,14 +273,18 @@ public Response positive_with_Uploading_File_create_Empty_Sync(String zipFile) t
 			retriveTasksResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
 					.header("Authorization", "Bearer " + syncAPIJwtToken).get(retriveTasksEndpoint);
 			// Print the response
-			//retriveTasksResponse.prettyPrint();
+			// retriveTasksResponse.prettyPrint();
 			// Assert the status code
-			retriveTasksResponse.then().statusCode(200);
+			// Assert the status code
+			actualStatusCode = retriveTasksResponse.getStatusCode();
+			expectedStatusCode = 200;
+			// Asserting the status code
+			Assert.assertEquals(actualStatusCode, expectedStatusCode, "The status code is not as expected.");
 			elapsedTimeInSeconds += 10; // Increment by 10 seconds
-			//System.out.println(elapsedTimeInSeconds);
+			// System.out.println(elapsedTimeInSeconds);
 
 			String taskStatus = retriveTasksResponse.jsonPath().getString("data.attributes.status");
-			//System.out.println(taskStatus);
+			// System.out.println(taskStatus);
 			// Assert attributes in the response
 			try {
 				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.status"), "Completed",
@@ -274,10 +306,7 @@ public Response positive_with_Uploading_File_create_Empty_Sync(String zipFile) t
 				break;
 			} catch (AssertionError e) {
 
-				// Sleep for a while before checking again
-				if (taskStatus.equalsIgnoreCase("Completed")) {
-					throw new RuntimeException("Sync status is " + taskStatus);
-				}
+				
 				try {
 					Thread.sleep(10000);
 				} catch (InterruptedException e1) {

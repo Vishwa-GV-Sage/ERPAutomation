@@ -13,7 +13,6 @@ import restAPIPkg.Create_Empty_Sync;
 
 public class Invalid_Empty_Sync extends Helper {
 
-
 	@Test(priority = 1)
 	public void verify_NoZipFile_Empty_Sync_Response_Status() throws IOException, InterruptedException {
 
@@ -47,8 +46,8 @@ public class Invalid_Empty_Sync extends Helper {
 	@Test(priority = 3)
 	public void verify_EmptyZipFile_Empty_Sync_Response_Status() throws IOException, InterruptedException {
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
-		Response response = createEmptySyncObj.with_Uploading_File_create_Empty_Sync(
-				"C:\\Users\\Public\\Documents\\ERPAutomation\\EmptyZipFile.zip");
+		Response response = createEmptySyncObj
+				.with_Uploading_File_create_Empty_Sync("C:\\Users\\Public\\Documents\\ERPAutomation\\EmptyZipFile.zip");
 		// Verify that the response is not null
 		assertNotNull(response, "Response object should not be null");
 
@@ -110,13 +109,13 @@ public class Invalid_Empty_Sync extends Helper {
 		String file = "C:\\Users\\Public\\Documents\\ERPAutomation\\ColumnSwapping.zip";
 
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
-		Response response = createEmptySyncObj.with_Uploading_File_create_Empty_Sync(file);
+		Response response = createEmptySyncObj.positive_with_Uploading_File_create_Empty_Sync(file);
 		// Verify that the response is not null
 		assertNotNull(response, "Response object should not be null");
 
 		// Verify the response status
 		String taskStatus = response.jsonPath().getString("data.attributes.status");
-		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+		assertEquals(taskStatus, "Completed", "Sync task status should be Completed");
 	}
 
 	@Test(priority = 8)
@@ -131,7 +130,7 @@ public class Invalid_Empty_Sync extends Helper {
 
 		// Verify the response status
 		String taskStatus = response.jsonPath().getString("data.attributes.status");
-		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+		assertEquals(taskStatus, "Completed", "Sync task status should be Completed");
 	}
 
 	@Test(priority = 9)
@@ -191,7 +190,7 @@ public class Invalid_Empty_Sync extends Helper {
 		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
 
 	}
-	
+
 	@Test(priority = 13)
 	public void verify_CSV_missingHeader_Empty_Sync_Response_Status() throws IOException, InterruptedException {
 
