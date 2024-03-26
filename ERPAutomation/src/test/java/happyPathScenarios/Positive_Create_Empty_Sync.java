@@ -137,7 +137,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
 				.get(queryTasksEndpoint);
 		// Print the response
-		 queryresponse.prettyPrint();
+		// queryresponse.prettyPrint();
 		// Assert the status code
 		queryresponse.then().statusCode(200);
 		// Assert attributes in the response

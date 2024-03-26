@@ -25,7 +25,7 @@ public class Helper {
 	public static String syncAPIDataset_ID;
 	public static String syncAPIJwtToken;
 	public static String zipFile;
-	
+
 	// Variables for "inbox" object with default values
 	public static String inboxBaseURL;
 	public static String inboxUser;
@@ -86,7 +86,7 @@ public class Helper {
 			syncAPIDataset_ID = jsonReader.getJsonValue("syncAPI.dataset_id");
 			syncAPIJwtToken = jsonReader.getJsonValue("syncAPI.jwtToken");
 			zipFile = jsonReader.getJsonValue("syncAPI.zipFile");
-			
+
 			// Read and set variables for "inbox" object
 			inboxBaseURL = jsonReader.getJsonValue("inbox.baseURL");
 			inboxUser = jsonReader.getJsonValue("inbox.user");
@@ -119,6 +119,34 @@ public class Helper {
 	@BeforeSuite
 	public void beforeSuite() {
 		// Any additional setup for the suite
+		// Get the project directory
+		String projectDirectory = System.getProperty("user.dir");
+
+		// Specify the path to the allure-results folder within the project directory
+		String allureResults = projectDirectory + "/allure-results";
+		// Create a File object representing the directory
+		File directory = new File(allureResults);
+		// Check if the directory exists
+		if (directory.exists() && directory.isDirectory()) {
+			// Get all files in the directory
+			File[] files = directory.listFiles();
+
+			// Iterate over each file and delete it
+			if (files != null) {
+				for (File file : files) {
+					if (file.isFile()) {
+						// Delete the file
+						file.delete();
+						System.out.println("Deleted file: " + file.getName());
+					}
+				}
+				System.out.println("All files in allure-results folder deleted successfully.");
+			} else {
+				System.out.println("No files found in the allure-results folder.");
+			}
+		} else {
+			System.out.println("Specified directory does not exist or is not a directory.");
+		}
 	}
 
 	@BeforeClass
@@ -168,12 +196,12 @@ public class Helper {
 
 	// Method to set default values for variables
 	private void setDefaultValues() {
-		
+
 		syncAPIBaseURL = syncAPIBaseURL != null ? syncAPIBaseURL : "defaultBaseURL";
 		syncAPIDataset_ID = syncAPIDataset_ID != null ? syncAPIDataset_ID : "defaultUser";
 		syncAPIJwtToken = syncAPIJwtToken != null ? syncAPIJwtToken : "defaultPassword";
 		zipFile = zipFile != null ? zipFile : "zipFile";
-		
+
 		inboxBaseURL = inboxBaseURL != null ? inboxBaseURL : "defaultBaseURL";
 		inboxUser = inboxUser != null ? inboxUser : "defaultUser";
 		inboxPassword = inboxPassword != null ? inboxPassword : "defaultPassword";
