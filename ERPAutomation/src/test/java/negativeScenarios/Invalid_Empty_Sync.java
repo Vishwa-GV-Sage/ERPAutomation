@@ -205,4 +205,64 @@ public class Invalid_Empty_Sync extends Helper {
 		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
 
 	}
+
+	@Test(priority = 14)
+	public void verify_NestedFolders_Empty_Sync_Response_Status() throws IOException, InterruptedException {
+
+		String file = "C:\\Users\\Public\\Documents\\ERPAutomation\\NestedFolders.zip";
+		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
+		Response response = createEmptySyncObj.with_Uploading_File_create_Empty_Sync(file);
+		// Verify that the response is not null
+		assertNotNull(response, "Response object should not be null");
+
+		// Verify the response status
+		String taskStatus = response.jsonPath().getString("data.attributes.status");
+		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+
+	}
+
+	@Test(priority = 15)
+	public void verify_EmptyNestedFolders_Empty_Sync_Response_Status() throws IOException, InterruptedException {
+
+		String file = "C:\\Users\\Public\\Documents\\ERPAutomation\\EmptyNestedFolders.zip";
+		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
+		Response response = createEmptySyncObj.with_Uploading_File_create_Empty_Sync(file);
+		// Verify that the response is not null
+		assertNotNull(response, "Response object should not be null");
+
+		// Verify the response status
+		String taskStatus = response.jsonPath().getString("data.attributes.status");
+		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+
+	}
+	
+	@Test(priority = 16)
+	public void verify_ExecutableWithCsv_Empty_Sync_Response_Status() throws IOException, InterruptedException {
+
+		String file = "C:\\Users\\Public\\Documents\\ERPAutomation\\executableWithCsv.zip";
+		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
+		Response response = createEmptySyncObj.with_Uploading_File_create_Empty_Sync(file);
+		// Verify that the response is not null
+		assertNotNull(response, "Response object should not be null");
+
+		// Verify the response status
+		String taskStatus = response.jsonPath().getString("data.attributes.status");
+		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+
+	}
+	
+	@Test(priority = 17)
+	public void verify_Executable_Empty_Sync_Response_Status() throws IOException, InterruptedException {
+
+		String file = "C:\\Users\\Public\\Documents\\ERPAutomation\\executable.zip";
+		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
+		Response response = createEmptySyncObj.with_Uploading_File_create_Empty_Sync(file);
+		// Verify that the response is not null
+		assertNotNull(response, "Response object should not be null");
+
+		// Verify the response status
+		String taskStatus = response.jsonPath().getString("data.attributes.status");
+		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+
+	}
 }

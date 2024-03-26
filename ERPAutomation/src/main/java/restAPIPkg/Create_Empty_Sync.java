@@ -199,6 +199,7 @@ public class Create_Empty_Sync extends Helper {
 		int elapsedTimeInSeconds = 0;
 		int actualStatusCode = 0;
 		int expectedStatusCode = 200;
+		String taskStatus = null, stepName = null;
 		// Keep checking the status until it becomes "Failed" or the maximum wait
 		// time is reached
 		while (elapsedTimeInSeconds < maxWaitTimeInSeconds) {
@@ -216,7 +217,8 @@ public class Create_Empty_Sync extends Helper {
 			elapsedTimeInSeconds += 10; // Increment by 10 seconds
 			// System.out.println(elapsedTimeInSeconds);
 
-			String taskStatus = retriveTasksResponse.jsonPath().getString("data.attributes.status");
+			taskStatus = retriveTasksResponse.jsonPath().getString("data.attributes.status");
+			stepName = retriveTasksResponse.jsonPath().getString("data.attributes.stepName");
 			// System.out.println(taskStatus);
 			// Assert attributes in the response
 			try {
@@ -239,7 +241,6 @@ public class Create_Empty_Sync extends Helper {
 				break;
 			} catch (AssertionError e) {
 
-				
 				try {
 					Thread.sleep(10000);
 				} catch (InterruptedException e1) {
@@ -251,7 +252,10 @@ public class Create_Empty_Sync extends Helper {
 
 		if (elapsedTimeInSeconds >= maxWaitTimeInSeconds) {
 			// If the maximum wait time is reached and status is not Failed
-			throw new RuntimeException("Max wait time exceeded. Status is not Failed.");
+			// throw new RuntimeException("Max wait time exceeded. Status is not Failed.
+			// Actual status is: " + taskStatus + " StepName: " + stepName);
+
+			assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
 		}
 
 		return retriveTasksResponse;
@@ -266,6 +270,7 @@ public class Create_Empty_Sync extends Helper {
 		int elapsedTimeInSeconds = 0;
 		int actualStatusCode = 0;
 		int expectedStatusCode = 200;
+		String taskStatus = null;
 		// Keep checking the status until it becomes "Failed" or the maximum wait
 		// time is reached
 		while (elapsedTimeInSeconds < maxWaitTimeInSeconds) {
@@ -283,7 +288,7 @@ public class Create_Empty_Sync extends Helper {
 			elapsedTimeInSeconds += 10; // Increment by 10 seconds
 			// System.out.println(elapsedTimeInSeconds);
 
-			String taskStatus = retriveTasksResponse.jsonPath().getString("data.attributes.status");
+			taskStatus = retriveTasksResponse.jsonPath().getString("data.attributes.status");
 			// System.out.println(taskStatus);
 			// Assert attributes in the response
 			try {
@@ -306,7 +311,6 @@ public class Create_Empty_Sync extends Helper {
 				break;
 			} catch (AssertionError e) {
 
-				
 				try {
 					Thread.sleep(10000);
 				} catch (InterruptedException e1) {
@@ -318,7 +322,8 @@ public class Create_Empty_Sync extends Helper {
 
 		if (elapsedTimeInSeconds >= maxWaitTimeInSeconds) {
 			// If the maximum wait time is reached and status is not Failed
-			throw new RuntimeException("Max wait time exceeded. Status is not Completed.");
+			//throw new RuntimeException("Max wait time exceeded. Status is not Completed.");
+			assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
 		}
 
 		return retriveTasksResponse;

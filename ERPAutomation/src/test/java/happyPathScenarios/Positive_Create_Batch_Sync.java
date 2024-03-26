@@ -287,19 +287,19 @@ public class Positive_Create_Batch_Sync extends Helper {
 
 		// Assert attributes in the response
 		try {
-			assertEquals(queryresponse.jsonPath().getString("data[0].data.attributes.status"), "Awaiting",
+			assertEquals(queryresponse.jsonPath().getString("data[0].attributes.status"), "Awaiting",
 					"Status attribute is not as expected");
-			assertEquals(queryresponse.jsonPath().getString("data[0].data.attributes.operationType"), "ToNetwork",
+			assertEquals(queryresponse.jsonPath().getString("data[0].attributes.operationType"), "ToNetwork",
 					"Operation type attribute is not as expected");
-			assertEquals(queryresponse.jsonPath().getString("data[0].data.attributes.packageType"), "Full",
+			assertEquals(queryresponse.jsonPath().getString("data[0].attributes.packageType"), "Full",
 					"Package type attribute is not as expected");
-			assertEquals(queryresponse.jsonPath().getString("data[0].data.attributes.stepName"), "Ready",
+			assertEquals(queryresponse.jsonPath().getString("data[0].attributes.stepName"), "Ready",
 					"Step name attribute is not as expected");
 
 			// Assert id and type in the response
-			assertTrue(queryresponse.jsonPath().getString("data[0].data.id").matches("[a-f0-9-]{36}"),
+			assertTrue(queryresponse.jsonPath().getString("data[0].id").matches("[a-f0-9-]{36}"),
 					"ID is not in expected format");
-			assertEquals(queryresponse.jsonPath().getString("data[0].data.type"), "SyncTask",
+			assertEquals(queryresponse.jsonPath().getString("data[0].type"), "SyncTask",
 					"Type attribute is not as expected");
 
 		} catch (AssertionError e) {
@@ -620,19 +620,19 @@ public class Positive_Create_Batch_Sync extends Helper {
 
 		// Assert attributes in the response
 		try {
-			assertEquals(queryresponse.jsonPath().getString("data[0].data.attributes.status"), "Awaiting",
+			assertEquals(queryresponse.jsonPath().getString("data[0].attributes.status"), "Awaiting",
 					"Status attribute is not as expected");
-			assertEquals(queryresponse.jsonPath().getString("data[0].data.attributes.operationType"), "ToNetwork",
+			assertEquals(queryresponse.jsonPath().getString("data[0].attributes.operationType"), "ToNetwork",
 					"Operation type attribute is not as expected");
-			assertEquals(queryresponse.jsonPath().getString("data[0].data.attributes.packageType"), "Partial",
+			assertEquals(queryresponse.jsonPath().getString("data[0].attributes.packageType"), "Partial",
 					"Package type attribute is not as expected");
-			assertEquals(queryresponse.jsonPath().getString("data[0].data.attributes.stepName"), "Ready",
+			assertEquals(queryresponse.jsonPath().getString("data[0].attributes.stepName"), "Ready",
 					"Step name attribute is not as expected");
 
 			// Assert id and type in the response
-			assertTrue(queryresponse.jsonPath().getString("data[0].data.id").matches("[a-f0-9-]{36}"),
+			assertTrue(queryresponse.jsonPath().getString("data[0].id").matches("[a-f0-9-]{36}"),
 					"ID is not in expected format");
-			assertEquals(queryresponse.jsonPath().getString("data[0].data.type"), "SyncTask",
+			assertEquals(queryresponse.jsonPath().getString("data[0].type"), "SyncTask",
 					"Type attribute is not as expected");
 
 		} catch (AssertionError e) {
