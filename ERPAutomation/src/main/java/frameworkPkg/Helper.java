@@ -23,7 +23,7 @@ import org.testng.annotations.BeforeSuite;
 public class Helper {
 
 	private static final Logger LOGGER = Logger.getLogger(Helper.class.getName());
-	String projectDirectory = System.getProperty("user.dir");
+	static String projectDirectory = System.getProperty("user.dir");
 	public static WebDriver driver;
 	BrowserFactory obj1;
 
@@ -205,14 +205,14 @@ public class Helper {
 
 		// Determine the value for the Environment property
 		String environmentValue;
-		 if (environmentVariable.toLowerCase().contains("dev")) {
-	            environmentValue = "DEV";
-	        } else if (environmentVariable.toLowerCase().contains("qa")) {
-	            environmentValue = "QA";
-	        } else {
-	            // Handle other cases if necessary
-	            environmentValue = "Unknown";
-	        }
+		if (environmentVariable.toLowerCase().contains("dev")) {
+			environmentValue = "DEV";
+		} else if (environmentVariable.toLowerCase().contains("qa")) {
+			environmentValue = "QA";
+		} else {
+			// Handle other cases if necessary
+			environmentValue = "Unknown";
+		}
 
 		// Create Properties object
 		Properties properties = new Properties();
@@ -229,37 +229,61 @@ public class Helper {
 			System.err.println("Error occurred while creating environment.properties file: " + e.getMessage());
 			e.printStackTrace();
 		}
-		
-        SimpleDateFormat formatter = new SimpleDateFormat("yyMMdd_hhmm");
-        String timestamp = formatter.format(new Date());
+		allureReport();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyMMdd_hhmm");
+		String timestamp = formatter.format(new Date());
 
-        // Destination file path
-        String destinationPath = projectDirectory +"/Report/" + environmentValue + "_Env_" + timestamp + ".html";
+		// Destination file path
+		String destinationPath = projectDirectory + "/Report/" + environmentValue + "_Env_" + timestamp + ".html";
 
-        // Source and destination file objects
-        File sourceFile = new File("allure-report/index.html");
-        File destinationFile = new File(destinationPath);
-        
-        
+		// Source and destination file objects
+		File sourceFile = new File("allure-report/index.html");
+		File destinationFile = new File(destinationPath);
 
-        // Check if index.html file exists
-        if (!sourceFile.exists()) {
-            System.err.println("index.html file does not exist in allure-report folder.");
-            return; // Exit the program if file doesn't exist
-        }
+		// Check if index.html file exists
+		if (!sourceFile.exists()) {
+			System.err.println("index.html file does not exist in allure-report folder.");
+			return; // Exit the program if file doesn't exist
+		}
 
-        // Move the file
-        try {
-            Files.move(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("index.html file moved successfully to: " + destinationPath);
-            // Execute Allure command
-            
-        } catch (IOException e) {
-            System.err.println("Error occurred while moving index.html file: " + e.getMessage());
-            e.printStackTrace();
-        }
-        
-       
+		// Move the file
+		try {
+			Files.move(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			System.out.println("index.html file moved successfully to: " + destinationPath);
+			// Execute Allure command
+
+		} catch (IOException e) {
+			System.err.println("Error occurred while moving index.html file: " + e.getMessage());
+			e.printStackTrace();
+		}
+
+	}
+
+	private static void allureReport() {
+
+		try {
+			// Path to the batch file
+			String batchFilePath = projectDirectory + "/generateAllureReport.bat";
+
+			// Create ProcessBuilder instance
+			ProcessBuilder processBuilder = new ProcessBuilder(batchFilePath);
+
+			// Set the directory where the batch file should be executed
+			File directory = new File(projectDirectory);
+			processBuilder.directory(directory);
+
+			// Start the process
+			Process process = processBuilder.start();
+
+			// Wait for the process to finish
+			int exitCode = process.waitFor();
+
+			// Print the exit code
+			System.out.println("Batch file execution completed with exit code: " + exitCode);
+
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// Method to set default values for variables
@@ -298,6 +322,5 @@ public class Helper {
 		LOGGER.log(Level.SEVERE, message, e);
 		setDefaultValues(); // Set default values in case of an exception
 	}
-	
-	
+
 }
