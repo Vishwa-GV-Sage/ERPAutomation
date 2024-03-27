@@ -2,8 +2,15 @@ package frameworkPkg;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
+import java.nio.file.Files;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Date;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
@@ -16,7 +23,7 @@ import org.testng.annotations.BeforeSuite;
 public class Helper {
 
 	private static final Logger LOGGER = Logger.getLogger(Helper.class.getName());
-
+	String projectDirectory = System.getProperty("user.dir");
 	public static WebDriver driver;
 	BrowserFactory obj1;
 
@@ -120,7 +127,8 @@ public class Helper {
 	public void beforeSuite() {
 		// Any additional setup for the suite
 		// Get the project directory
-		String projectDirectory = System.getProperty("user.dir");
+
+		// Set environment details as attributes
 
 		// Specify the path to the allure-results folder within the project directory
 		String allureResults = projectDirectory + "/allure-results";
@@ -192,6 +200,66 @@ public class Helper {
 		 * try { // Perform cleanup after the entire test suite driver.quit(); } catch
 		 * (Exception e) { handleException("Error during suite cleanup.", e); }
 		 */
+
+		String environmentVariable = syncAPIBaseURL; // Or retrieve it from somewhere else
+
+		// Determine the value for the Environment property
+		String environmentValue;
+		 if (environmentVariable.toLowerCase().contains("dev")) {
+	            environmentValue = "DEV";
+	        } else if (environmentVariable.toLowerCase().contains("qa")) {
+	            environmentValue = "QA";
+	        } else {
+	            // Handle other cases if necessary
+	            environmentValue = "Unknown";
+	        }
+
+		// Create Properties object
+		Properties properties = new Properties();
+		properties.setProperty("Environment", environmentValue);
+
+		// Write properties to file
+		try {
+			String filePath = projectDirectory + "/allure-results/environment.properties";
+			FileOutputStream fileOut = new FileOutputStream(filePath);
+			properties.store(fileOut, "Environment Properties");
+			fileOut.close();
+			System.out.println("environment.properties file created successfully.");
+		} catch (IOException e) {
+			System.err.println("Error occurred while creating environment.properties file: " + e.getMessage());
+			e.printStackTrace();
+		}
+		
+        SimpleDateFormat formatter = new SimpleDateFormat("yyMMdd_hhmm");
+        String timestamp = formatter.format(new Date());
+
+        // Destination file path
+        String destinationPath = projectDirectory +"/Report/" + environmentValue + "_Env_" + timestamp + ".html";
+
+        // Source and destination file objects
+        File sourceFile = new File("allure-report/index.html");
+        File destinationFile = new File(destinationPath);
+        
+        
+
+        // Check if index.html file exists
+        if (!sourceFile.exists()) {
+            System.err.println("index.html file does not exist in allure-report folder.");
+            return; // Exit the program if file doesn't exist
+        }
+
+        // Move the file
+        try {
+            Files.move(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("index.html file moved successfully to: " + destinationPath);
+            // Execute Allure command
+            
+        } catch (IOException e) {
+            System.err.println("Error occurred while moving index.html file: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+       
 	}
 
 	// Method to set default values for variables
@@ -230,4 +298,6 @@ public class Helper {
 		LOGGER.log(Level.SEVERE, message, e);
 		setDefaultValues(); // Set default values in case of an exception
 	}
+	
+	
 }
