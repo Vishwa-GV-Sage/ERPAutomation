@@ -5,6 +5,7 @@ import static org.testng.Assert.assertNotNull;
 
 import java.io.IOException;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import frameworkPkg.Helper;
@@ -235,7 +236,7 @@ public class Invalid_Empty_Sync extends Helper {
 		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
 
 	}
-	
+
 	@Test(priority = 16)
 	public void verify_ExecutableWithCsv_Empty_Sync_Response_Status() throws IOException, InterruptedException {
 
@@ -250,7 +251,7 @@ public class Invalid_Empty_Sync extends Helper {
 		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
 
 	}
-	
+
 	@Test(priority = 17)
 	public void verify_Executable_Empty_Sync_Response_Status() throws IOException, InterruptedException {
 
@@ -264,5 +265,79 @@ public class Invalid_Empty_Sync extends Helper {
 		String taskStatus = response.jsonPath().getString("data.attributes.status");
 		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
 
+	}
+
+	@Test(priority = 18)
+	public void verify_Csv_Only_Header_Empty_Sync_Response_Status() throws IOException, InterruptedException {
+
+		String file = "C:\\Users\\Public\\Documents\\ERPAutomation\\Csv_Only_Header.zip";
+		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
+		Response response = createEmptySyncObj.positive_with_Uploading_File_create_Empty_Sync(file);
+		// Verify that the response is not null
+		assertNotNull(response, "Response object should not be null");
+
+		// Verify the response status
+		String taskStatus = response.jsonPath().getString("data.attributes.status");
+		assertEquals(taskStatus, "Completed", "Sync task status should be Completed");
+
+	}
+
+	@Test(priority = 19)
+	public void verify_CSV_withoutERPKey_Empty_Sync_Response_Status() throws IOException, InterruptedException {
+
+		String file = "C:\\Users\\Public\\Documents\\ERPAutomation\\CSV_withoutERPKey.zip";
+		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
+		Response response = createEmptySyncObj.with_Uploading_File_create_Empty_Sync(file);
+		// Verify that the response is not null
+		assertNotNull(response, "Response object should not be null");
+
+		// Verify the response status
+		String taskStatus = response.jsonPath().getString("data.attributes.status");
+		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+
+	}
+
+	@Test(priority = 20)
+	public void verify_Empty_DatasetID_Create_Empty_Sync_Response_Status() throws IOException, InterruptedException {
+
+		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
+		int actualStatusCode = createEmptySyncObj.emptyDataSetID(null);
+		int expectedStatusCode = 400;
+
+		Assert.assertEquals(actualStatusCode, expectedStatusCode, "The status code is not as expected.");
+
+	}
+
+	@Test(priority = 21)
+	public void verify_Invalid_DatasetID_Create_Empty_Sync_Response_Status() throws IOException, InterruptedException {
+
+		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
+		int actualStatusCode = createEmptySyncObj.emptyDataSetID("asdf-asdf");
+		int expectedStatusCode = 400;
+
+		Assert.assertEquals(actualStatusCode, expectedStatusCode, "The status code is not as expected.");
+
+	}
+
+	@Test(priority = 22)
+	public void verify_Invalid_SyncID_Empty_Sync_Response_Status() throws IOException, InterruptedException {
+
+		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
+		int actualStatusCode = createEmptySyncObj.InvalidSyncID();
+		int expectedStatusCode = 400;
+
+		Assert.assertEquals(actualStatusCode, expectedStatusCode, "The status code is not as expected.");
+
+	}
+
+	@Test(priority = 23)
+	public void verify_Query_SyncID_which_does_not_exist_Request_Empty_Sync_Response_Status()
+			throws IOException, InterruptedException {
+
+		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
+		int actualStatusCode = createEmptySyncObj.query_SyncID_which_does_not_exist();
+		int expectedStatusCode = 404;
+
+		Assert.assertEquals(actualStatusCode, expectedStatusCode, "The status code is not as expected.");
 	}
 }

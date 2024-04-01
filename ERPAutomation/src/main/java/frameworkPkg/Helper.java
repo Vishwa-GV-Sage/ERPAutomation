@@ -31,6 +31,7 @@ public class Helper {
 	public static String syncAPIBaseURL;
 	public static String syncAPIDataset_ID;
 	public static String syncAPIJwtToken;
+	public static String syncAPIversion;
 	public static String zipFile;
 
 	// Variables for "inbox" object with default values
@@ -92,6 +93,7 @@ public class Helper {
 			syncAPIBaseURL = jsonReader.getJsonValue("syncAPI.baseURL");
 			syncAPIDataset_ID = jsonReader.getJsonValue("syncAPI.dataset_id");
 			syncAPIJwtToken = jsonReader.getJsonValue("syncAPI.jwtToken");
+			syncAPIversion = jsonReader.getJsonValue("syncAPI.version");
 			zipFile = jsonReader.getJsonValue("syncAPI.zipFile");
 
 			// Read and set variables for "inbox" object
@@ -217,7 +219,7 @@ public class Helper {
 		// Create Properties object
 		Properties properties = new Properties();
 		properties.setProperty("Environment", environmentValue);
-
+		properties.setProperty("Version", syncAPIversion);
 		// Write properties to file
 		try {
 			String filePath = projectDirectory + "/allure-results/environment.properties";
@@ -230,8 +232,9 @@ public class Helper {
 			e.printStackTrace();
 		}
 		allureReport();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyMMdd_hhmm");
+		SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy_hhmm");
 		String timestamp = formatter.format(new Date());
+		
 
 		// Destination file path
 		String destinationPath = projectDirectory + "/Report/" + environmentValue + "_Env_" + timestamp + ".html";
@@ -291,7 +294,8 @@ public class Helper {
 
 		syncAPIBaseURL = syncAPIBaseURL != null ? syncAPIBaseURL : "defaultBaseURL";
 		syncAPIDataset_ID = syncAPIDataset_ID != null ? syncAPIDataset_ID : "defaultUser";
-		syncAPIJwtToken = syncAPIJwtToken != null ? syncAPIJwtToken : "defaultPassword";
+		syncAPIJwtToken = syncAPIJwtToken != null ? syncAPIJwtToken : "syncAPIJwtToken";
+		syncAPIversion = syncAPIversion != null ? syncAPIversion : "syncAPIversion";
 		zipFile = zipFile != null ? zipFile : "zipFile";
 
 		inboxBaseURL = inboxBaseURL != null ? inboxBaseURL : "defaultBaseURL";

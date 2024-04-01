@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.testng.Assert;
@@ -184,6 +185,7 @@ public class Create_Empty_Sync extends Helper {
 				.patch(updateEndpoint);
 		actualStatusCode = updateResponse.getStatusCode();
 		expectedStatusCode = 202;
+
 		// Asserting the status code
 		Assert.assertEquals(actualStatusCode, expectedStatusCode, "Step 3: The status code is not as expected.");
 		Response retriveTasksResponse = null;
@@ -242,7 +244,7 @@ public class Create_Empty_Sync extends Helper {
 			} catch (AssertionError e) {
 
 				try {
-					Thread.sleep(10000);
+					Thread.sleep(5000);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				} // Sleep for 10 seconds
@@ -312,7 +314,7 @@ public class Create_Empty_Sync extends Helper {
 			} catch (AssertionError e) {
 
 				try {
-					Thread.sleep(10000);
+					Thread.sleep(5000);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				} // Sleep for 10 seconds
@@ -322,10 +324,79 @@ public class Create_Empty_Sync extends Helper {
 
 		if (elapsedTimeInSeconds >= maxWaitTimeInSeconds) {
 			// If the maximum wait time is reached and status is not Failed
-			//throw new RuntimeException("Max wait time exceeded. Status is not Completed.");
+			// throw new RuntimeException("Max wait time exceeded. Status is not
+			// Completed.");
 			assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
 		}
 
 		return retriveTasksResponse;
+	}
+
+	public int emptyDataSetID(String DatasetID) {
+
+		String endpointUrl = syncAPIBaseURL + "/connectors/erp/datasets/" + DatasetID + "/sync-tasks";
+
+		// Request body
+		String requestBody = "{\"data\":{\"type\":\"SyncTask\",\"attributes\":{\"packageType\":\"Full\"}}}";
+
+		// Send POST request and capture response
+		Response response = RestAssured.given().header("Content-Type", "application/vnd.api+json")
+				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + syncAPIJwtToken)
+				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(requestBody).post(endpointUrl);
+		syncAttachmentId = response.jsonPath().getString("data.relationships.attachment.data.id");
+		// Extract id from response and store it in the global variable
+		syncBatchID = response.jsonPath().getString("data.id");
+		// Assert the status code
+		int actualStatusCode = response.getStatusCode();
+		response.prettyPrint();
+		return actualStatusCode;
+	}
+
+	public int InvalidSyncID() {
+		String endpointUrl = syncAPIBaseURL + "/connectors/erp/datasets/" + syncAPIDataset_ID + "/sync-tasks";
+
+		// Request body
+		String requestBody = "{\"data\":{\"type\":\"SyncTask\",\"attributes\":{\"packageType\":\"Full\"}}}";
+
+		// Send POST request and capture response
+		Response response = RestAssured.given().header("Content-Type", "application/vnd.api+json")
+				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + syncAPIJwtToken)
+				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(requestBody).post(endpointUrl);
+		syncAttachmentId = response.jsonPath().getString("data.relationships.attachment.data.id");
+		// Extract id from response and store it in the global variable
+		syncBatchID = null;
+
+		String updateEndpoint = syncAPIBaseURL + "/connectors/erp/datasets/" + syncAPIDataset_ID
+				+ "/sync-tasks?filter=operation_type%20eq%20%27toNetwork%27&take=3&skip=0";
+		String updaterequestBody = "{" + "\"data\": {" + "\"type\": \"synctask\"," + "\"id\": \"" + syncBatchID + "\","
+				+ "\"attributes\": {" + "\"summary\": {" + "\"totalInvoices\": 1," + "\"totalPayments\": 2,"
+				+ "\"totalCompanies\": 3," + "\"totalContacts\": 4," + "\"totalGlAccounts\": 5,"
+				+ "\"totalGlAccountEntries\": 6," + "\"totalCustomFields\": 7" + "}" + "}," + "\"relationships\": {"
+				+ "\"attachment\": {" + "\"data\": {" + "\"id\": \"" + syncAttachmentId + "\","
+				+ "\"type\": \"attachment\"" + "}" + "}" + "}" + "}}";
+		Response updateResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
+				.header("Content-Type", "application/vnd.api+json").header("Authorization", "Bearer " + syncAPIJwtToken)
+				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(updaterequestBody)
+				.patch(updateEndpoint);
+
+		// Assert the status code
+		int actualStatusCode = updateResponse.getStatusCode();
+		return actualStatusCode;
+	}
+
+	public int query_SyncID_which_does_not_exist() throws MalformedURLException, IOException {
+
+		int actualStatusCode = 0;
+
+		String queryTasksEndpoint = syncAPIBaseURL + "/connectors/erp/datasets/"
+				+ "f8d358f8-377a-0940-5617-36295fc904d8"
+				+ "/sync-tasks?filter=operationtype eq 'toNetwork'&take=3&skip=0";
+		Response queryresponse = RestAssured.given().header("Content-Type", "application/vnd.api+json")
+				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + syncAPIJwtToken)
+				.get(queryTasksEndpoint);
+	
+		actualStatusCode = queryresponse.getStatusCode();
+
+		return actualStatusCode;
 	}
 }
