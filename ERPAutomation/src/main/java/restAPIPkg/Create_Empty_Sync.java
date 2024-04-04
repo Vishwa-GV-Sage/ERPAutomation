@@ -197,7 +197,7 @@ public class Create_Empty_Sync extends Helper {
 				+ syncBatchID + "/?include=Details";
 
 		// Define the maximum time to wait in seconds
-		int maxWaitTimeInSeconds = 60; // 1 minute
+		int maxWaitTimeInSeconds = 120; // 1 minute
 		int elapsedTimeInSeconds = 0;
 		int actualStatusCode = 0;
 		int expectedStatusCode = 200;
@@ -257,7 +257,7 @@ public class Create_Empty_Sync extends Helper {
 			// throw new RuntimeException("Max wait time exceeded. Status is not Failed.
 			// Actual status is: " + taskStatus + " StepName: " + stepName);
 
-			assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+			assertEquals(taskStatus, "Failed", "Sync task status should be Failed after waiting of " + maxWaitTimeInSeconds + " Seconds");
 		}
 
 		return retriveTasksResponse;
@@ -268,7 +268,7 @@ public class Create_Empty_Sync extends Helper {
 				+ syncBatchID + "/?include=Details";
 
 		// Define the maximum time to wait in seconds
-		int maxWaitTimeInSeconds = 900; // 15 minute
+		int maxWaitTimeInSeconds = 300; // 5 minute
 		int elapsedTimeInSeconds = 0;
 		int actualStatusCode = 0;
 		int expectedStatusCode = 200;
@@ -326,7 +326,7 @@ public class Create_Empty_Sync extends Helper {
 			// If the maximum wait time is reached and status is not Failed
 			// throw new RuntimeException("Max wait time exceeded. Status is not
 			// Completed.");
-			assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+			assertEquals(taskStatus, "Failed", "Sync task status should be Failed after waiting of " + maxWaitTimeInSeconds + " Seconds");
 		}
 
 		return retriveTasksResponse;

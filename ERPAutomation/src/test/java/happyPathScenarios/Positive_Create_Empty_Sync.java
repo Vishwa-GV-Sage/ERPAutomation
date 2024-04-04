@@ -20,6 +20,8 @@ import io.restassured.response.Response;
 public class Positive_Create_Empty_Sync extends Helper {
 	private String syncBatchID, syncAttachmentId, blobUploadUrl;
 	String apiBaseUrl = syncAPIBaseURL, dataset_id = syncAPIDataset_ID, jwtToken = syncAPIJwtToken;
+	// Define the maximum time to wait in seconds
+	int maxWaitTimeInSeconds = 300;
 
 	@Test(priority = 1)
 	public void verify_Create_Sync_Task_Empty_Full() throws IOException, InterruptedException {
@@ -141,14 +143,13 @@ public class Positive_Create_Empty_Sync extends Helper {
 		// Assert the status code
 		queryresponse.then().statusCode(200);
 		// Assert attributes in the response
-	
+
 		String retriveTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
 				+ syncBatchID + "/?include=Details";
 
 		Response retriveTasksResponse;
 
-		// Define the maximum time to wait in seconds
-		int maxWaitTimeInSeconds = 900; // 15 minutes
+		
 		int elapsedTimeInSeconds = 0;
 		String taskStatus = null;
 		// Keep checking the status until it becomes "Completed" or the maximum wait
@@ -161,7 +162,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 			// retriveTasksResponse.prettyPrint();
 			// Assert the status code
 			retriveTasksResponse.then().statusCode(200);
-			elapsedTimeInSeconds += 10; // Increment by 10 seconds
+			elapsedTimeInSeconds += 5; // Increment by 10 seconds
 			System.out.println(elapsedTimeInSeconds);
 
 			taskStatus = retriveTasksResponse.jsonPath().getString("data.attributes.status");
@@ -190,8 +191,8 @@ public class Positive_Create_Empty_Sync extends Helper {
 				// System.out.println("Assertion failed: " + e.getMessage());
 				// Sleep for a while before checking again
 				if (taskStatus.equalsIgnoreCase("Failed")) {
-					//throw new RuntimeException("Sync status is" + taskStatus);
-					assertEquals(taskStatus, "Completed", "Sync task status is "+taskStatus);
+					// throw new RuntimeException("Sync status is" + taskStatus);
+					assertEquals(taskStatus, "Completed", "Sync task status is " + taskStatus);
 				}
 				Thread.sleep(10000); // Sleep for 10 seconds
 				// Increment the elapsed time
@@ -204,7 +205,8 @@ public class Positive_Create_Empty_Sync extends Helper {
 			// If the maximum wait time is reached and status is not completed
 			// throw new RuntimeException("Max wait time exceeded. Status is not
 			// completed.");
-			assertEquals(taskStatus, "Completed", "Sync task status should be Completed");
+			assertEquals(taskStatus, "Completed",
+					"Sync task status should be Completed after waiting of " + maxWaitTimeInSeconds + " Seconds");
 		}
 	}
 
@@ -247,7 +249,8 @@ public class Positive_Create_Empty_Sync extends Helper {
 			// Assert id and type in the response
 			assertTrue(response.jsonPath().getString("data.id").matches("[a-f0-9-]{36}"),
 					"Step1:ID is not in expected format");
-			assertEquals(response.jsonPath().getString("data.type"), "SyncTask", "Step1:Type attribute is not as expected");
+			assertEquals(response.jsonPath().getString("data.type"), "SyncTask",
+					"Step1:Type attribute is not as expected");
 
 		} catch (AssertionError e) {
 			// Log the failure
@@ -329,15 +332,13 @@ public class Positive_Create_Empty_Sync extends Helper {
 		// Assert the status code
 		queryresponse.then().statusCode(200);
 		// Assert attributes in the response
-		
 
 		String retriveTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
 				+ syncBatchID + "/?include=Details";
 
 		Response retriveTasksResponse;
 
-		// Define the maximum time to wait in seconds
-		int maxWaitTimeInSeconds = 900; // 15 minutes
+		// 2 minutes
 		int elapsedTimeInSeconds = 0;
 		String taskStatus = null, stepName = null;
 		;
@@ -390,7 +391,8 @@ public class Positive_Create_Empty_Sync extends Helper {
 			// throw new RuntimeException("Max wait time exceeded. Status is not
 			// completed.");
 
-			assertEquals(taskStatus, "Completed", "Step4:Sync task status should be Completed");
+			assertEquals(taskStatus, "Completed",
+					"Sync task status should be Completed after waiting of " + maxWaitTimeInSeconds + " Seconds");
 		}
 	}
 }

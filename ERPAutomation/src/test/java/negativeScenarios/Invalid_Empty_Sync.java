@@ -25,7 +25,7 @@ public class Invalid_Empty_Sync extends Helper {
 
 		// Verify the response status
 		String taskStatus = response.jsonPath().getString("data.attributes.status");
-		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+		assertEquals(taskStatus, "Failed", "Sync task status should be Failed:");
 
 	}
 
