@@ -232,7 +232,7 @@ public class Helper {
 			e.printStackTrace();
 		}
 		allureReport();
-		SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy_hhmm");
+		SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy_HHmm");
 		String timestamp = formatter.format(new Date());
 		
 
