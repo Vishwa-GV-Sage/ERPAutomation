@@ -2,8 +2,10 @@ package restAPIPkg;
 
 public class Create_Batch_Sync {
 	
-	public static String requestBody = "{\n" + "    \"Data\": {\n" + "        \"Attributes\": {\n"
-			+ "            \"PackageType\": \"Full\"\n" + "        },\n" + "        \"Relationships\": {\n"
+	public static String getBatchSyncBody(String packageType) {
+	
+	return "{\n" + "    \"Data\": {\n" + "        \"Attributes\": {\n"
+			+ "            \"PackageType\": \""+packageType+"\"\n" + "        },\n" + "        \"Relationships\": {\n"
 			+ "            \"Companies\": {\n" + "                \"data\": [\n" + "                    {\n"
 			+ "                        \"Id\": \"1041\",\n" + "                        \"Type\": \"Company\"\n"
 			+ "                    }\n" + "                ]\n" + "            },\n" + "            \"Contacts\": {\n"
@@ -209,5 +211,6 @@ public class Create_Batch_Sync {
 			+ "                \"city\": null,\n" + "                \"state\": null,\n"
 			+ "                \"postalCode\": null,\n" + "                \"country\": null\n" + "            }\n"
 			+ "        }\n" + "    ]\n" + "}";
+	}
 
 }
