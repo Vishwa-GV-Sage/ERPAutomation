@@ -150,4 +150,100 @@ public class Invalid_Create_Batch_Sync extends Helper {
 
 	}
 
+	@Test(priority = 8)
+	public void verify_Retrieve_Batch_invalidToken_Sync_Response_Status() {
+		// apiKeyAPI endpoint
+		String endpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks";
+		// Send POST request
+		Response response = RestAssured.given().header("Authorization", "Bearer " + jwtToken)
+				.header("Content-Type", "application/vnd.api+json").header("Accept", "application/vnd.api+json")
+				.body(requestBody).post(endpoint);
+		// Extract id from response and store it in the global variable
+		syncTaskIdBatch = response.jsonPath().getString("data.id");
+		String retrieveEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
+				+ syncTaskIdBatch + "/?include=Details";
+
+		Response retrieveResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
+				.header("Authorization", "Bearer abcd123").header("accept", "application/vnd.api+json")
+				.get(retrieveEndpoint);
+
+		// Print the response
+		// sendTasksResponse.prettyPrint();
+
+		// Assert the status code
+		int expectedStatusCode = 401;
+		int actualStatusCode = retrieveResponse.getStatusCode();
+		assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
+
+	}
+
+	@Test(priority = 9)
+	public void verify_Retrieve_Batch_expiredToken_Sync_Response_Status() {
+		// apiKeyAPI endpoint
+		String endpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks";
+		// Send POST request
+		Response response = RestAssured.given().header("Authorization", "Bearer " + jwtToken)
+				.header("Content-Type", "application/vnd.api+json").header("Accept", "application/vnd.api+json")
+				.body(requestBody).post(endpoint);
+		// Extract id from response and store it in the global variable
+		syncTaskIdBatch = response.jsonPath().getString("data.id");
+		String retrieveEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
+				+ syncTaskIdBatch + "/?include=Details";
+
+		Response retrieveResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
+				.header("Authorization", "Bearer " + expiredToken).header("accept", "application/vnd.api+json")
+				.get(retrieveEndpoint);
+
+		// Print the response
+		// sendTasksResponse.prettyPrint();
+
+		// Assert the status code
+		int expectedStatusCode = 401;
+		int actualStatusCode = retrieveResponse.getStatusCode();
+		assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
+
+	}
+	
+	@Test(priority = 10)
+	public void verify_Create_Sync_Batch_withoutDatasetID_Full_Response_Status() {
+
+		// apiKeyAPI endpoint
+		String endpoint = apiBaseUrl + "/connectors/erp/datasets/sync-tasks";
+
+		// Send POST request
+		Response response = RestAssured.given().header("Content-Type", "application/vnd.api+json")
+				.header("Authorization", "Bearer " + jwtToken).header("Accept", "application/vnd.api+json")
+				.body(requestBody).post(endpoint);
+
+		// Print response
+		// response.prettyPrint();
+		// Assert the status code...
+
+		int expectedStatusCode = 404;
+		int actualStatusCode = response.getStatusCode();
+		assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
+
+	}
+	
+	@Test(priority = 11)
+	public void verify_Create_Sync_Batch_invalidDatasetID_Full_Response_Status() {
+
+		// apiKeyAPI endpoint
+		String endpoint = apiBaseUrl + "/connectors/erp/datasets a11111d5-e9d6-4f1b-a6da-9bb8c329b188/sync-tasks";
+
+		// Send POST request
+		Response response = RestAssured.given().header("Content-Type", "application/vnd.api+json")
+				.header("Authorization", "Bearer " + jwtToken).header("Accept", "application/vnd.api+json")
+				.body(requestBody).post(endpoint);
+
+		// Print response
+		// response.prettyPrint();
+		
+		// Assert the status code...
+		int expectedStatusCode = 404;
+		int actualStatusCode = response.getStatusCode();
+		assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
+
+	}
+
 }
