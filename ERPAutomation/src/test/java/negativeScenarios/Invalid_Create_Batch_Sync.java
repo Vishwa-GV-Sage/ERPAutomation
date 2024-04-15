@@ -219,7 +219,7 @@ public class Invalid_Create_Batch_Sync extends Helper {
 		// response.prettyPrint();
 		// Assert the status code...
 
-		int expectedStatusCode = 404;
+		int expectedStatusCode = 400;
 		int actualStatusCode = response.getStatusCode();
 		assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
 
@@ -240,7 +240,7 @@ public class Invalid_Create_Batch_Sync extends Helper {
 		// response.prettyPrint();
 		
 		// Assert the status code...
-		int expectedStatusCode = 404;
+		int expectedStatusCode = 400;
 		int actualStatusCode = response.getStatusCode();
 		assertEquals(actualStatusCode, expectedStatusCode, "Status code is not as expected");
 
