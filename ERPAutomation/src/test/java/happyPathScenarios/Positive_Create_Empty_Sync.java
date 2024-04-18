@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import frameworkPkg.Helper;
@@ -43,7 +44,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 		// Extract id from response and store it in the global variable
 		syncBatchID = response.jsonPath().getString("data.id");
 		// Assert the status code
-		response.then().statusCode(201);
+		Assert.assertEquals(response.getStatusCode(), 201, "Actual Response is :" + response.prettyPrint());
 
 		// Assert attributes in the response
 		try {
@@ -110,8 +111,8 @@ public class Positive_Create_Empty_Sync extends Helper {
 		// updateResponse.prettyPrint();
 
 		// Assert the status code
-		updateResponse.then().statusCode(202);
-
+		
+		Assert.assertEquals(updateResponse.getStatusCode(), 202, "Actual Response is :" + updateResponse.prettyPrint());
 		// Assert attributes in the response
 		try {
 			assertEquals(updateResponse.jsonPath().getString("data.attributes.status"), "Awaiting",
@@ -141,15 +142,14 @@ public class Positive_Create_Empty_Sync extends Helper {
 		// Print the response
 		// queryresponse.prettyPrint();
 		// Assert the status code
-		queryresponse.then().statusCode(200);
+		
 		// Assert attributes in the response
-
+		Assert.assertEquals(queryresponse.getStatusCode(), 200, "Actual Response is :" + queryresponse.prettyPrint());
 		String retriveTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
 				+ syncBatchID + "/?include=Details";
 
 		Response retriveTasksResponse;
 
-		
 		int elapsedTimeInSeconds = 0;
 		String taskStatus = null;
 		// Keep checking the status until it becomes "Completed" or the maximum wait
@@ -161,7 +161,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 			// Print the response
 			// retriveTasksResponse.prettyPrint();
 			// Assert the status code
-			retriveTasksResponse.then().statusCode(200);
+			Assert.assertEquals(retriveTasksResponse.getStatusCode(), 200, "Actual Response is :" + retriveTasksResponse.prettyPrint());
 			elapsedTimeInSeconds += 5; // Increment by 10 seconds
 			System.out.println(elapsedTimeInSeconds);
 
@@ -223,14 +223,11 @@ public class Positive_Create_Empty_Sync extends Helper {
 				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
 				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(requestBody).post(endpointUrl);
 
-		// Print the response
-		// response.prettyPrint();
-
 		syncAttachmentId = response.jsonPath().getString("data.relationships.attachment.data.id");
 		// Extract id from response and store it in the global variable
 		syncBatchID = response.jsonPath().getString("data.id");
-		// Assert the status code
-		response.then().statusCode(201);
+
+		Assert.assertEquals(response.getStatusCode(), 201, "Actual Response is :" + response.prettyPrint());
 
 		// Assert attributes in the response
 		try {
@@ -294,13 +291,8 @@ public class Positive_Create_Empty_Sync extends Helper {
 				.header("Content-Type", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
 				.header("Idempotency-Key", "fd45e434-c20d-4837-a076-a427b180a068").body(updaterequestBody)
 				.patch(updateEndpoint);
-
-		// Print the response
-		// updateResponse.prettyPrint();
-
-		// Assert the status code
-		updateResponse.then().statusCode(202);
-
+		Assert.assertEquals(updateResponse.getStatusCode(), 202,
+				"Actual Update Response is :" + updateResponse.prettyPrint());
 		// Assert attributes in the response
 		try {
 			assertEquals(updateResponse.jsonPath().getString("data.attributes.status"), "Awaiting",
@@ -327,21 +319,16 @@ public class Positive_Create_Empty_Sync extends Helper {
 		Response queryresponse = RestAssured.given().header("Content-Type", "application/vnd.api+json")
 				.header("Accept", "application/vnd.api+json").header("Authorization", "Bearer " + jwtToken)
 				.get(queryTasksEndpoint);
-		// Print the response
-		// queryresponse.prettyPrint();
-		// Assert the status code
-		queryresponse.then().statusCode(200);
-		// Assert attributes in the response
-
+		Assert.assertEquals(queryresponse.getStatusCode(), 200,
+				"Actual Query Response is :" + queryresponse.prettyPrint());
 		String retriveTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
 				+ syncBatchID + "/?include=Details";
 
 		Response retriveTasksResponse;
-
-		// 2 minutes
+		
 		int elapsedTimeInSeconds = 0;
 		String taskStatus = null, stepName = null;
-		;
+
 		// Keep checking the status until it becomes "Completed" or the maximum wait
 		// time is reached
 		while (elapsedTimeInSeconds < maxWaitTimeInSeconds) {
@@ -352,7 +339,8 @@ public class Positive_Create_Empty_Sync extends Helper {
 					.header("Authorization", "Bearer " + jwtToken).get(retriveTasksEndpoint);
 
 			// Assert the status code
-			retriveTasksResponse.then().statusCode(200);
+			Assert.assertEquals(retriveTasksResponse.getStatusCode(), 200,
+					"Actual Query Response is :" + retriveTasksResponse.prettyPrint());
 			taskStatus = retriveTasksResponse.jsonPath().getString("data.attributes.status");
 			stepName = retriveTasksResponse.jsonPath().getString("data.attributes.stepName");
 			// Assert attributes in the response
