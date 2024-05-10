@@ -26,13 +26,14 @@ public class Helper {
 	static String projectDirectory = System.getProperty("user.dir");
 	public static WebDriver driver;
 	BrowserFactory obj1;
-
+	public static String environmentValue;
 	// Variables for "syncAPI" object with default values
 	public static String syncAPIBaseURL;
 	public static String syncAPIDataset_ID;
 	public static String syncAPIJwtToken;
 	public static String syncAPIversion;
 	public static String zipFile;
+	public static String TempFileLocation;
 
 	// Variables for "inbox" object with default values
 	public static String inboxBaseURL;
@@ -95,6 +96,7 @@ public class Helper {
 			syncAPIJwtToken = jsonReader.getJsonValue("syncAPI.jwtToken");
 			syncAPIversion = jsonReader.getJsonValue("syncAPI.version");
 			zipFile = jsonReader.getJsonValue("syncAPI.zipFile");
+			TempFileLocation = jsonReader.getJsonValue("syncAPI.TempFileLocation");
 
 			// Read and set variables for "inbox" object
 			inboxBaseURL = jsonReader.getJsonValue("inbox.baseURL");
@@ -206,11 +208,13 @@ public class Helper {
 		String environmentVariable = syncAPIBaseURL; // Or retrieve it from somewhere else
 
 		// Determine the value for the Environment property
-		String environmentValue;
+
 		if (environmentVariable.toLowerCase().contains("dev")) {
 			environmentValue = "DEV";
 		} else if (environmentVariable.toLowerCase().contains("qa")) {
 			environmentValue = "QA";
+		} else if (environmentVariable.toLowerCase().contains("int")) {
+			environmentValue = "INT";
 		} else {
 			// Handle other cases if necessary
 			environmentValue = "Unknown";
@@ -234,10 +238,10 @@ public class Helper {
 		allureReport();
 		SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy_HHmm");
 		String timestamp = formatter.format(new Date());
-		
 
 		// Destination file path
-		String destinationPath = projectDirectory + "/Report/" + environmentValue + "_Env_" + timestamp + ".html";
+		String destinationPath = "C:\\Users\\rushabh.patel\\OneDrive - Sage Software, Inc\\Documents\\ErpReport\\"
+				+ environmentValue + "_Env_" + timestamp + ".html";
 
 		// Source and destination file objects
 		File sourceFile = new File("allure-report/index.html");
@@ -297,6 +301,7 @@ public class Helper {
 		syncAPIJwtToken = syncAPIJwtToken != null ? syncAPIJwtToken : "syncAPIJwtToken";
 		syncAPIversion = syncAPIversion != null ? syncAPIversion : "syncAPIversion";
 		zipFile = zipFile != null ? zipFile : "zipFile";
+		TempFileLocation = TempFileLocation != null ? TempFileLocation : TempFileLocation;
 
 		inboxBaseURL = inboxBaseURL != null ? inboxBaseURL : "defaultBaseURL";
 		inboxUser = inboxUser != null ? inboxUser : "defaultUser";
