@@ -111,7 +111,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 		// updateResponse.prettyPrint();
 
 		// Assert the status code
-		
+
 		Assert.assertEquals(updateResponse.getStatusCode(), 202, "Actual Response is :" + updateResponse.prettyPrint());
 		// Assert attributes in the response
 		try {
@@ -142,7 +142,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 		// Print the response
 		// queryresponse.prettyPrint();
 		// Assert the status code
-		
+
 		// Assert attributes in the response
 		Assert.assertEquals(queryresponse.getStatusCode(), 200, "Actual Response is :" + queryresponse.prettyPrint());
 		String retriveTasksEndpoint = apiBaseUrl + "/connectors/erp/datasets/" + dataset_id + "/sync-tasks/"
@@ -161,7 +161,8 @@ public class Positive_Create_Empty_Sync extends Helper {
 			// Print the response
 			// retriveTasksResponse.prettyPrint();
 			// Assert the status code
-			Assert.assertEquals(retriveTasksResponse.getStatusCode(), 200, "Actual Response is :" + retriveTasksResponse.prettyPrint());
+			Assert.assertEquals(retriveTasksResponse.getStatusCode(), 200,
+					"Actual Response is :" + retriveTasksResponse.prettyPrint());
 			elapsedTimeInSeconds += 5; // Increment by 10 seconds
 			System.out.println(elapsedTimeInSeconds);
 
@@ -259,7 +260,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 		// Step 2: Upload Sync Task Zip File
 		String url = blobUploadUrl;
 		String file = zipFile;
-
+		// String file = "C:\\Users\\Public\\Documents\\Temp\\company.zip";
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		connection.setRequestMethod("PUT");
 		connection.setRequestProperty("x-ms-blob-type", "BlockBlob");
@@ -325,7 +326,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 				+ syncBatchID + "/?include=Details";
 
 		Response retriveTasksResponse;
-		
+
 		int elapsedTimeInSeconds = 0;
 		String taskStatus = null, stepName = null;
 

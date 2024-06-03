@@ -1,5 +1,8 @@
 package dataGenerator;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
@@ -7,24 +10,89 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import frameworkPkg.Helper;
 
-public class CsvDataGenerator {
+public class CsvDataGenerator extends Helper {
 
 	private static List<String> companyErpKeys = new LinkedList<>();
 	private static List<String> customerErpKeys = new LinkedList<>();
+	static String TempFileLocation = "C:\\Users\\Public\\Documents\\Temp\\";
 
 	public static void generateCsvData(int rows) {
-		String companyCsvFile = Helper.TempFileLocation + "company.csv"; // Path for company CSV file
-		String contactCsvFile = Helper.TempFileLocation + "contact.csv"; // Path for contact CSV file
-		String invoiceCsvFile = Helper.TempFileLocation + "invoice.csv"; // Path for invoice CSV file
-		String paymentCsvFile = Helper.TempFileLocation + "payment.csv"; // Path for invoice CSV file
-		
-		generateCompanyData(companyCsvFile, rows); // Generate company data 													
-		generateContactData(contactCsvFile, rows); // Generate contact data 		
-		generateInvoiceData(invoiceCsvFile, rows);		
-		generatePaymentData(paymentCsvFile,rows);
+
+		// Clear the temp directory before generating new CSV files
+		clearTempDirectory(TempFileLocation);
+		String companyCsvFile = TempFileLocation + "company.csv"; // Path for company CSV file
+		String contactCsvFile = TempFileLocation + "contact.csv"; // Path for contact CSV file
+		String invoiceCsvFile = TempFileLocation + "invoice.csv"; // Path for invoice CSV file
+		String paymentCsvFile = TempFileLocation + "payment.csv"; // Path for invoice CSV file
+
+		generateCompanyData(companyCsvFile, rows); // Generate company data
+		generateContactData(contactCsvFile, rows); // Generate contact data
+		generateInvoiceData(invoiceCsvFile, rows);
+		generatePaymentData(paymentCsvFile, rows);
+
+		String zipFile = TempFileLocation + rows + "_csv.zip"; // Path for the zip file
+
+		System.out.println("Creating zip file: " + zipFile);
+		zipFiles(new String[] { companyCsvFile, contactCsvFile, invoiceCsvFile, paymentCsvFile }, zipFile);
+
+	}
+
+	private static void clearTempDirectory(String directoryPath) {
+		File directory = new File(directoryPath);
+		if (!directory.exists() || !directory.isDirectory()) {
+			System.err.println("Directory not found: " + directoryPath);
+			return;
+		}
+
+		File[] files = directory.listFiles();
+		if (files != null) {
+			for (File file : files) {
+				if (file.isFile()) {
+					if (file.delete()) {
+						System.out.println("Deleted file: " + file.getName());
+					} else {
+						System.err.println("Failed to delete file: " + file.getName());
+					}
+				}
+			}
+		}
+	}
+
+	private static void zipFiles(String[] srcFiles, String zipFile) {
+		try {
+			FileOutputStream fos = new FileOutputStream(zipFile);
+			ZipOutputStream zos = new ZipOutputStream(fos);
+
+			for (String srcFile : srcFiles) {
+				File fileToZip = new File(srcFile);
+				if (!fileToZip.exists()) {
+					System.err.println("File not found: " + srcFile);
+					continue;
+				}
+				FileInputStream fis = new FileInputStream(fileToZip);
+				ZipEntry zipEntry = new ZipEntry(fileToZip.getName());
+				zos.putNextEntry(zipEntry);
+
+				byte[] bytes = new byte[1024];
+				int length;
+				while ((length = fis.read(bytes)) >= 0) {
+					zos.write(bytes, 0, length);
+				}
+
+				fis.close();
+			}
+
+			zos.close();
+			fos.close();
+			System.out.println("Zip file created successfully.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static void generateCompanyData(String companyCsvFile, int numberOfRows) {
@@ -215,56 +283,55 @@ public class CsvDataGenerator {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static void generatePaymentData(String paymentCsvFile, int numberOfRows) {
-		
+
 		numberOfRows = numberOfRows / 2;
 		Queue<String> companyErpKeysQueue = new LinkedList<>(companyErpKeys);
-		
-	    try (FileWriter writer = new FileWriter(paymentCsvFile)) {
-	        // Write header
-	        writer.append("erpKey,companyErpKey,paymentType,isOpen,paymentDate,postDate,paymentAmount,unappliedAmount," +
-	                "tenderType,memoText,currencyCode,created,modified,referenceCode,isVoided,inDispute\n");
 
-	        // Generate specified number of records
-	        Random random = new Random();
-	        for (int i = 0; i < numberOfRows; i++) {
-	            // Generate random data for payment
-	            String erpKey = generateRandomUUID();
-	            String companyErpKey = companyErpKeysQueue.poll(); // Get the next companyErpKey from the queue
+		try (FileWriter writer = new FileWriter(paymentCsvFile)) {
+			// Write header
+			writer.append("erpKey,companyErpKey,paymentType,isOpen,paymentDate,postDate,paymentAmount,unappliedAmount,"
+					+ "tenderType,memoText,currencyCode,created,modified,referenceCode,isVoided,inDispute\n");
+
+			// Generate specified number of records
+			Random random = new Random();
+			for (int i = 0; i < numberOfRows; i++) {
+				// Generate random data for payment
+				String erpKey = generateRandomUUID();
+				String companyErpKey = companyErpKeysQueue.poll(); // Get the next companyErpKey from the queue
 				if (companyErpKey == null) {
 					// If queue is empty, refill it with the companyErpKeys list
 					companyErpKeysQueue.addAll(companyErpKeys);
 					companyErpKey = companyErpKeysQueue.poll(); // Get the next companyErpKey from the queue
 				}
-	            String paymentType = "AR Payment";
-	            boolean isOpen = false;
-	            String paymentDate = "10-02-2023";
-	            String postDate = "10-02-2023";
-	            int paymentAmount = -240; // Negative value for payment
-	            int unappliedAmount = 0;
-	            String tenderType = "Check";
-	            String memoText = "";
-	            String currencyCode = "GBP";
-	            String created = "02-10-2023 11:45";
-	            String modified = "02-10-2023 11:48";
-	            String referenceCode = "";
-	            boolean isVoided = false;
-	            boolean inDispute = false;
+				String paymentType = "AR Payment";
+				boolean isOpen = false;
+				String paymentDate = "10-02-2023";
+				String postDate = "10-02-2023";
+				int paymentAmount = -240; // Negative value for payment
+				int unappliedAmount = 0;
+				String tenderType = "Check";
+				String memoText = "";
+				String currencyCode = "GBP";
+				String created = "02-10-2023 11:45";
+				String modified = "02-10-2023 11:48";
+				String referenceCode = "";
+				boolean isVoided = false;
+				boolean inDispute = false;
 
-	            // Write data to file
-	            writer.append(String.join(",", erpKey, companyErpKey, paymentType, String.valueOf(isOpen),
-	                    paymentDate, postDate, String.valueOf(paymentAmount), String.valueOf(unappliedAmount),
-	                    tenderType, memoText, currencyCode, created, modified, referenceCode,
-	                    String.valueOf(isVoided), String.valueOf(inDispute))).append("\n");
-	        }
+				// Write data to file
+				writer.append(String.join(",", erpKey, companyErpKey, paymentType, String.valueOf(isOpen), paymentDate,
+						postDate, String.valueOf(paymentAmount), String.valueOf(unappliedAmount), tenderType, memoText,
+						currencyCode, created, modified, referenceCode, String.valueOf(isVoided),
+						String.valueOf(inDispute))).append("\n");
+			}
 
-	        System.out.println("Payment CSV file generated successfully at: " + paymentCsvFile);
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
+			System.out.println("Payment CSV file generated successfully at: " + paymentCsvFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-
 
 	// Method to generate a random UUID (for erpKey)
 	private static String generateRandomUUID() {

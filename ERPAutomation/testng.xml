@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
 <suite name="Regression">
+	<listeners>
+		<listener class-name="frameworkPkg.CustomTestNGReporter" />
+	</listeners>
 	<test thread-count="5" name="Regression">
 		<classes>
 			<class name="happyPathScenarios.Sanity_Create_Batch_Sync" />
@@ -9,6 +13,8 @@
 			<class name="happyPathScenarios.Positive_Create_Empty_Sync" />
 			<class name="negativeScenarios.Invalid_Empty_Sync" />
 			<class name="negativeScenarios.Invalid_Create_Batch_Sync" />
+			<class name="happyPathScenarios.Count_record_inserstion" />
+
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

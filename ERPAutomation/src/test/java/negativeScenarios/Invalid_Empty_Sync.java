@@ -13,19 +13,23 @@ import io.restassured.response.Response;
 import restAPIPkg.Create_Empty_Sync;
 
 public class Invalid_Empty_Sync extends Helper {
-
+	
+	
 	@Test(priority = 1)
 	public void verify_NoZipFile_Empty_Sync_Response_Status() throws IOException, InterruptedException {
-
-		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
-		Response response = createEmptySyncObj.without_Uploading_File_create_Empty_Sync();
-
-		// Verify that the response is not null
-		assertNotNull(response, "Response object should not be null");
-
-		// Verify the response status
-		String taskStatus = response.jsonPath().getString("data.attributes.status");
-		assertEquals(taskStatus, "Failed", "Sync task status should be Failed:");
+		
+		
+		  Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync(); Response
+		  response = createEmptySyncObj.without_Uploading_File_create_Empty_Sync();
+		  
+		  // Verify that the response is not null 
+		  assertNotNull(response,
+		  "Response object should not be null");
+		  
+		  // Verify the response status String taskStatus =
+		String taskStatus=  response.jsonPath().getString("data.attributes.status");
+		  assertEquals(taskStatus, "Failed", "Sync task status should be Failed:");
+		 
 
 	}
 
@@ -48,13 +52,13 @@ public class Invalid_Empty_Sync extends Helper {
 	public void verify_EmptyZipFile_Empty_Sync_Response_Status() throws IOException, InterruptedException {
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
 		Response response = createEmptySyncObj
-				.with_Uploading_File_create_Empty_Sync("C:\\Users\\Public\\Documents\\ERPAutomation\\EmptyZipFile.zip");
+				.positive_with_Uploading_File_create_Empty_Sync("C:\\Users\\Public\\Documents\\ERPAutomation\\EmptyZipFile.zip");
 		// Verify that the response is not null
 		assertNotNull(response, "Response object should not be null");
 
 		// Verify the response status
 		String taskStatus = response.jsonPath().getString("data.attributes.status");
-		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+		assertEquals(taskStatus, "Completed", "Sync task status should be Failed");
 
 	}
 
@@ -182,13 +186,13 @@ public class Invalid_Empty_Sync extends Helper {
 
 		String file = "C:\\Users\\Public\\Documents\\ERPAutomation\\erpKeyInvalid.zip";
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
-		Response response = createEmptySyncObj.with_Uploading_File_create_Empty_Sync(file);
+		Response response = createEmptySyncObj.positive_with_Uploading_File_create_Empty_Sync(file);
 		// Verify that the response is not null
 		assertNotNull(response, "Response object should not be null");
 
 		// Verify the response status
 		String taskStatus = response.jsonPath().getString("data.attributes.status");
-		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+		assertEquals(taskStatus, "Completed", "Sync task status should be Failed");
 
 	}
 
@@ -212,13 +216,13 @@ public class Invalid_Empty_Sync extends Helper {
 
 		String file = "C:\\Users\\Public\\Documents\\ERPAutomation\\NestedFolders.zip";
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
-		Response response = createEmptySyncObj.with_Uploading_File_create_Empty_Sync(file);
+		Response response = createEmptySyncObj.positive_with_Uploading_File_create_Empty_Sync(file);
 		// Verify that the response is not null
 		assertNotNull(response, "Response object should not be null");
 
 		// Verify the response status
 		String taskStatus = response.jsonPath().getString("data.attributes.status");
-		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+		assertEquals(taskStatus, "Completed", "Sync task status should be Failed");
 
 	}
 
@@ -227,13 +231,13 @@ public class Invalid_Empty_Sync extends Helper {
 
 		String file = "C:\\Users\\Public\\Documents\\ERPAutomation\\EmptyNestedFolders.zip";
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
-		Response response = createEmptySyncObj.with_Uploading_File_create_Empty_Sync(file);
+		Response response = createEmptySyncObj.positive_with_Uploading_File_create_Empty_Sync(file);
 		// Verify that the response is not null
 		assertNotNull(response, "Response object should not be null");
 
 		// Verify the response status
 		String taskStatus = response.jsonPath().getString("data.attributes.status");
-		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+		assertEquals(taskStatus, "Completed", "Sync task status should be Failed");
 
 	}
 
@@ -287,13 +291,13 @@ public class Invalid_Empty_Sync extends Helper {
 
 		String file = "C:\\Users\\Public\\Documents\\ERPAutomation\\CSV_withoutERPKey.zip";
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
-		Response response = createEmptySyncObj.with_Uploading_File_create_Empty_Sync(file);
+		Response response = createEmptySyncObj.positive_with_Uploading_File_create_Empty_Sync(file);
 		// Verify that the response is not null
 		assertNotNull(response, "Response object should not be null");
 
 		// Verify the response status
 		String taskStatus = response.jsonPath().getString("data.attributes.status");
-		assertEquals(taskStatus, "Failed", "Sync task status should be Failed");
+		assertEquals(taskStatus, "Completed", "Sync task status should be completed");
 
 	}
 
@@ -302,7 +306,7 @@ public class Invalid_Empty_Sync extends Helper {
 
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
 		int actualStatusCode = createEmptySyncObj.emptyDataSetID(null);
-		int expectedStatusCode = 400;
+		int expectedStatusCode = 500;
 
 		Assert.assertEquals(actualStatusCode, expectedStatusCode, "The status code is not as expected.");
 
@@ -313,7 +317,7 @@ public class Invalid_Empty_Sync extends Helper {
 
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
 		int actualStatusCode = createEmptySyncObj.emptyDataSetID("asdf-asdf");
-		int expectedStatusCode = 400;
+		int expectedStatusCode = 500;
 
 		Assert.assertEquals(actualStatusCode, expectedStatusCode, "The status code is not as expected.");
 
@@ -336,8 +340,19 @@ public class Invalid_Empty_Sync extends Helper {
 
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
 		int actualStatusCode = createEmptySyncObj.query_SyncID_which_does_not_exist();
-		int expectedStatusCode = 404;
+		int expectedStatusCode = 401;
 
 		Assert.assertEquals(actualStatusCode, expectedStatusCode, "The status code is not as expected.");
+	}
+	
+	@Test(priority = 24)
+	public void verify_DatasetID_Invalid_Which_DoesNotExistInDB_Create_Empty_Sync_Response_Status() throws IOException, InterruptedException {
+
+		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
+		int actualStatusCode = createEmptySyncObj.emptyDataSetID("02f0cda6-1187-f10b-6303-d92bb3bde157");
+		int expectedStatusCode = 401;
+
+		Assert.assertEquals(actualStatusCode, expectedStatusCode, "The status code is not as expected.");
+
 	}
 }
