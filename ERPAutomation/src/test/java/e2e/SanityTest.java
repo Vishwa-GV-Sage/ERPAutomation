@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
 import frameworkPkg.*;
-import inboxUiPkg.LoginPage;
 
 public class SanityTest extends Helper {
 

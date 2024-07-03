@@ -4,6 +4,7 @@
 <suite name="Regression">
 	<listeners>
 		<listener class-name="frameworkPkg.CustomTestNGReporter" />
+		<listener class-name="frameworkPkg.TestListener" />
 	</listeners>
 	<test thread-count="5" name="Regression">
 		<classes>

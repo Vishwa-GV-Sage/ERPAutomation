@@ -158,13 +158,18 @@ public class Positive_Create_Empty_Sync extends Helper {
 			// Send a request to retrieve the tasks
 			retriveTasksResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
 					.header("Authorization", "Bearer " + jwtToken).get(retriveTasksEndpoint);
+			if (elapsedTimeInSeconds == 0) {
+				retriveTasksResponse.prettyPrint();
+			} else {
+				System.out.println(elapsedTimeInSeconds + "...");
+			}
 			// Print the response
 			// retriveTasksResponse.prettyPrint();
 			// Assert the status code
-			Assert.assertEquals(retriveTasksResponse.getStatusCode(), 200,
-					"Actual Response is :" + retriveTasksResponse.prettyPrint());
+			Assert.assertEquals(retriveTasksResponse.getStatusCode(), 200);
 			elapsedTimeInSeconds += 5; // Increment by 10 seconds
-			System.out.println(elapsedTimeInSeconds);
+			// Print the response
+						
 
 			taskStatus = retriveTasksResponse.jsonPath().getString("data.attributes.status");
 			System.out.println(taskStatus);
@@ -338,11 +343,16 @@ public class Positive_Create_Empty_Sync extends Helper {
 			// Send a request to retrieve the tasks
 			retriveTasksResponse = RestAssured.given().header("Accept", "application/vnd.api+json")
 					.header("Authorization", "Bearer " + jwtToken).get(retriveTasksEndpoint);
-
+			// Print the response
+						if (elapsedTimeInSeconds == 0) {
+							retriveTasksResponse.prettyPrint();
+						} else {
+							System.out.println(elapsedTimeInSeconds + "...");
+						}
 			// Assert the status code
-			Assert.assertEquals(retriveTasksResponse.getStatusCode(), 200,
-					"Actual Query Response is :" + retriveTasksResponse.prettyPrint());
+			Assert.assertEquals(retriveTasksResponse.getStatusCode(), 200);
 			taskStatus = retriveTasksResponse.jsonPath().getString("data.attributes.status");
+			System.out.println(taskStatus);
 			stepName = retriveTasksResponse.jsonPath().getString("data.attributes.stepName");
 			// Assert attributes in the response
 			try {
