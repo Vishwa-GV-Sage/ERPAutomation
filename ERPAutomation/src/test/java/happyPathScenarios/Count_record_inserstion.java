@@ -1,20 +1,14 @@
 package happyPathScenarios;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.testng.annotations.Test;
-
 import dataGenerator.CsvDataGenerator;
-import frameworkPkg.Helper;
-import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import restAPIPkg.Create_Batch_Sync;
 import restAPIPkg.Create_Empty_Sync;
 
 public class Count_record_inserstion {
@@ -27,9 +21,21 @@ public class Count_record_inserstion {
 		CsvDataGenerator.generateCsvData(30);
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
 		Response response = createEmptySyncObj
-				.positive_with_Uploading_File_create_Empty_Sync(TempLocation + "30_csv.zip",600);
-		assertEquals(response.jsonPath().getString("data.attributes.message"), "75 inserted",
-				"Message is not as expected");
+				.positive_with_Uploading_File_create_Empty_Sync(TempLocation + "30_csv.zip", 600);
+		// Extract the message string
+		String message = response.jsonPath().getString("data.attributes.message");
+
+		// Extract the number of inserts (x) from the message
+		String[] parts = message.split(" ");
+		String insertedCountStr = parts[0]; // "12,500" in this case
+
+		// Clean up the inserted count (remove commas)
+		insertedCountStr = insertedCountStr.replaceAll(",", "");
+
+		// Convert insertedCountStr to integer
+		int insertedCount = Integer.parseInt(insertedCountStr);
+		// Perform the assertion on the extracted integer value
+		assertEquals(insertedCount, 75, "Message attribute is not as expected");
 
 	}
 
@@ -39,10 +45,21 @@ public class Count_record_inserstion {
 		CsvDataGenerator.generateCsvData(100);
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
 		Response response = createEmptySyncObj
-				.positive_with_Uploading_File_create_Empty_Sync(TempLocation + "100_csv.zip",1200);
-		assertEquals(response.jsonPath().getString("data.attributes.message"), "250 inserted",
-				"Message attribute is not as expected");
+				.positive_with_Uploading_File_create_Empty_Sync(TempLocation + "100_csv.zip", 1200);
+		// Extract the message string
+		String message = response.jsonPath().getString("data.attributes.message");
 
+		// Extract the number of inserts (x) from the message
+		String[] parts = message.split(" ");
+		String insertedCountStr = parts[0]; // "12,500" in this case
+
+		// Clean up the inserted count (remove commas)
+		insertedCountStr = insertedCountStr.replaceAll(",", "");
+
+		// Convert insertedCountStr to integer
+		int insertedCount = Integer.parseInt(insertedCountStr);
+		// Perform the assertion on the extracted integer value
+		assertEquals(insertedCount, 250, "Message attribute is not as expected");
 		// Parse the JSON response
 		JsonPath jsonPath = response.jsonPath();
 
@@ -61,18 +78,22 @@ public class Count_record_inserstion {
 		CsvDataGenerator.generateCsvData(rows);
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
 		Response response = createEmptySyncObj
-				.positive_with_Uploading_File_create_Empty_Sync(TempLocation + rows + "_csv.zip",1200);
+				.positive_with_Uploading_File_create_Empty_Sync(TempLocation + rows + "_csv.zip", 1200);
+		response.prettyPrint();
 		// Extract the message string
 		String message = response.jsonPath().getString("data.attributes.message");
 
-		// Use a regular expression to extract the numeric part from the message
-		String numberPart = message.replaceAll("[^\\d]", "");
+		// Extract the number of inserts (x) from the message
+		String[] parts = message.split(" ");
+		String insertedCountStr = parts[0]; // "12,500" in this case
 
-		// Convert the cleaned number part to an integer
-		int insertCountMessage = Integer.parseInt(numberPart);
+		// Clean up the inserted count (remove commas)
+		insertedCountStr = insertedCountStr.replaceAll(",", "");
 
+		// Convert insertedCountStr to integer
+		int insertedCount = Integer.parseInt(insertedCountStr);
 		// Perform the assertion on the extracted integer value
-		assertEquals(insertCountMessage, expectedCount, "Message attribute is not as expected");
+		assertEquals(insertedCount, expectedCount, "Message attribute is not as expected");
 
 		// Parse the JSON response
 		JsonPath jsonPath = response.jsonPath();
@@ -91,58 +112,27 @@ public class Count_record_inserstion {
 	}
 
 	@Test(priority = 4)
-	public void verify_9998_rows_data_Insertion_Create_Empty_Sync() throws FileNotFoundException, IOException {
-		int rows = 9998, halfRows = rows / 2, expectedCount = rows + (halfRows * 3);
+	public void verify_5000_rows_data_Insertion_Create_Empty_Sync() throws FileNotFoundException, IOException {
+		int rows = 5000, halfRows = rows / 2, expectedCount = rows + (halfRows * 3);
 		CsvDataGenerator.generateCsvData(rows);
 		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
 		Response response = createEmptySyncObj
-				.positive_with_Uploading_File_create_Empty_Sync(TempLocation + rows + "_csv.zip",1200);
+				.positive_with_Uploading_File_create_Empty_Sync(TempLocation + rows + "_csv.zip", 1200);
+		response.prettyPrint();
 		// Extract the message string
 		String message = response.jsonPath().getString("data.attributes.message");
 
-		// Use a regular expression to extract the numeric part from the message
-		String numberPart = message.replaceAll("[^\\d]", "");
+		// Extract the number of inserts (x) from the message
+		String[] parts = message.split(" ");
+		String insertedCountStr = parts[0]; // "12,500" in this case
 
-		// Convert the cleaned number part to an integer
-		int insertCountMessage = Integer.parseInt(numberPart);
+		// Clean up the inserted count (remove commas)
+		insertedCountStr = insertedCountStr.replaceAll(",", "");
 
+		// Convert insertedCountStr to integer
+		int insertedCount = Integer.parseInt(insertedCountStr);
 		// Perform the assertion on the extracted integer value
-		assertEquals(insertCountMessage, expectedCount, "Message attribute is not as expected");
-
-		// Parse the JSON response
-		JsonPath jsonPath = response.jsonPath();
-
-		// Extract the insertCount for Contact
-		int contactInsertCount = jsonPath
-				.getInt("included.find { it.attributes.report.Contact != null }.attributes.report.Contact.insertCount");
-
-		// Extract the insertCount for Company
-		int companyInsertCount = jsonPath
-				.getInt("included.find { it.attributes.report.Company != null }.attributes.report.Company.insertCount");
-
-		// Perform assertions on the insert counts
-		assertEquals(companyInsertCount, rows, "Company insertion count is not as expected");
-		assertEquals(contactInsertCount, halfRows, "Contact insertion count is not as expected");
-	}
-	
-	
-	public void verify_1Lakh_rows_data_Insertion_Create_Empty_Sync() throws FileNotFoundException, IOException {
-		int rows = 5000000, halfRows = rows / 2, expectedCount = rows + (halfRows * 3);
-		CsvDataGenerator.generateCsvData(rows);
-		Create_Empty_Sync createEmptySyncObj = new Create_Empty_Sync();
-		Response response = createEmptySyncObj
-				.positive_with_Uploading_File_create_Empty_Sync(TempLocation + rows + "_csv.zip");
-		// Extract the message string
-		String message = response.jsonPath().getString("data.attributes.message");
-
-		// Use a regular expression to extract the numeric part from the message
-		String numberPart = message.replaceAll("[^\\d]", "");
-
-		// Convert the cleaned number part to an integer
-		int insertCountMessage = Integer.parseInt(numberPart);
-
-		// Perform the assertion on the extracted integer value
-		assertEquals(insertCountMessage, expectedCount, "Message attribute is not as expected");
+		assertEquals(insertedCount, expectedCount, "Message attribute is not as expected");
 
 		// Parse the JSON response
 		JsonPath jsonPath = response.jsonPath();

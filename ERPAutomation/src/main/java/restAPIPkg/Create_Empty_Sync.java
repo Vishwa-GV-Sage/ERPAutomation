@@ -432,7 +432,7 @@ public class Create_Empty_Sync extends Helper {
 			elapsedTimeInSeconds += 10; 
 
 			taskStatus = retriveTasksResponse.jsonPath().getString("data.attributes.status");
-			// System.out.println(taskStatus);
+			 System.out.println(taskStatus);
 			// Assert attributes in the response
 			try {
 				assertEquals(retriveTasksResponse.jsonPath().getString("data.attributes.status"), "Completed",
