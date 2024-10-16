@@ -31,6 +31,7 @@ public class Helper {
 	public static String syncAPIBaseURL;
 	public static String syncAPIDataset_ID;
 	public static String syncAPIJwtToken;
+	public static String syncAPIJwtToken_SageUser;
 	public static String syncAPIversion;
 	public static String zipFile;
 	public static String TempFileLocation;
@@ -94,6 +95,7 @@ public class Helper {
 			syncAPIBaseURL = jsonReader.getJsonValue("syncAPI.baseURL");
 			syncAPIDataset_ID = jsonReader.getJsonValue("syncAPI.dataset_id");
 			syncAPIJwtToken = jsonReader.getJsonValue("syncAPI.jwtToken");
+			syncAPIJwtToken_SageUser = jsonReader.getJsonValue("syncAPI.jwtToken_SageUser");
 			syncAPIversion = jsonReader.getJsonValue("syncAPI.version");
 			zipFile = jsonReader.getJsonValue("syncAPI.zipFile");
 			TempFileLocation = jsonReader.getJsonValue("syncAPI.TempFileLocation");
@@ -215,6 +217,10 @@ public class Helper {
 			environmentValue = "QA";
 		} else if (environmentVariable.toLowerCase().contains("int")) {
 			environmentValue = "INT";
+		} else if (environmentVariable.toLowerCase().contains("int")) {
+			environmentValue = "INT";
+		} else if (environmentVariable.toLowerCase().contains("preprod")) {
+			environmentValue = "PreProd";
 		} else {
 			// Handle other cases if necessary
 			environmentValue = "Unknown";
@@ -299,6 +305,8 @@ public class Helper {
 		syncAPIBaseURL = syncAPIBaseURL != null ? syncAPIBaseURL : "defaultBaseURL";
 		syncAPIDataset_ID = syncAPIDataset_ID != null ? syncAPIDataset_ID : "defaultUser";
 		syncAPIJwtToken = syncAPIJwtToken != null ? syncAPIJwtToken : "syncAPIJwtToken";
+		syncAPIJwtToken_SageUser = syncAPIJwtToken_SageUser != null ? syncAPIJwtToken_SageUser : "syncAPIJwtToken_SageUser";
+		
 		syncAPIversion = syncAPIversion != null ? syncAPIversion : "syncAPIversion";
 		zipFile = zipFile != null ? zipFile : "zipFile";
 		TempFileLocation = TempFileLocation != null ? TempFileLocation : TempFileLocation;
