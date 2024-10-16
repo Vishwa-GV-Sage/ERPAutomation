@@ -503,7 +503,7 @@ public class Positive_Create_Empty_Sync extends Helper {
 		
 		String companiesQueryEndpoint = apiBaseUrl + "/api/v1/Companies/query";
 		
-		Response companiesQueryResponse=RestAssured.given().header("X-Group-Key", "d274f846-3b38-a8f7-4999-900631d6bc65").header("Authorization", "Bearer " + syncAPIJwtToken_SageUser)
+		Response companiesQueryResponse=RestAssured.given().header("X-Group-Key", dataset_id).header("Authorization", "Bearer " + syncAPIJwtToken_SageUser)
 				.get(companiesQueryEndpoint);
 		companiesQueryResponse.prettyPrint();
 	}
