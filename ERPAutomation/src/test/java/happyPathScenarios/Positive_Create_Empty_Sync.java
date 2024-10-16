@@ -506,5 +506,25 @@ public class Positive_Create_Empty_Sync extends Helper {
 		Response companiesQueryResponse=RestAssured.given().header("X-Group-Key", dataset_id).header("Authorization", "Bearer " + syncAPIJwtToken_SageUser)
 				.get(companiesQueryEndpoint);
 		companiesQueryResponse.prettyPrint();
+		
+		assertEquals(companiesQueryResponse.jsonPath().getString("records[1].companyIdentifiers[0].type"), "SIRENSIRET",
+				"Company Identified attribute type is not as expected");
+		assertEquals(companiesQueryResponse.jsonPath().getString("records[1].companyIdentifiers[0].value"), "632012",
+				"Company Identified attribute type is not as expected");
+		assertEquals(companiesQueryResponse.jsonPath().getString("records[1].companyIdentifiers[0].jurisdiction"), "FR",
+				"Company Identified attribute type is not as expected");
+		assertEquals(companiesQueryResponse.jsonPath().getString("records[1].companyIdentifiers[0].subjurisdiction"), "FR",
+				"Company Identified attribute type is not as expected");
+
+		
+		assertEquals(companiesQueryResponse.jsonPath().getString("records[1].companyIdentifiers[1].type"), "EIN_NUMBER",
+				"Company Identified attribute type is not as expected");
+		assertEquals(companiesQueryResponse.jsonPath().getString("records[1].companyIdentifiers[1].value"), "6320567",
+				"Company Identified attribute type is not as expected");
+		assertEquals(companiesQueryResponse.jsonPath().getString("records[1].companyIdentifiers[1].jurisdiction"), "FR",
+				"Company Identified attribute type is not as expected");
+		assertEquals(companiesQueryResponse.jsonPath().getString("records[1].companyIdentifiers[1].subjurisdiction"), "FR",
+				"Company Identified attribute type is not as expected");
+		
 	}
 }
